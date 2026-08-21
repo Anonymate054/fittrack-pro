@@ -1,56 +1,344 @@
 [
   {
-    "file": "Plan_Demo_2000Kcal.pdf",
-    "kcal": 2000,
-    "date": "01/01/2026",
-    "sort_key": "20260101",
+    "file": "Plan_Nutricional_Recomposicion_2400Kcal.pdf",
+    "kcal": 2400,
+    "date": "15/01/2026",
+    "sort_key": "20260115",
     "ration_matrix": [
-      ["Lácteo", "Descremada", "1", "", "1", "", "", "", ""],
-      ["Cereales", "Sin grasa", "6", "1", "2", "1", "2", "", ""],
-      ["AOA (Proteína)", "Moderado aporte", "8", "", "2", "3", "3", "", ""],
-      ["Verduras", "", "4", "", "1", "1", "2", "", ""],
-      ["Frutas", "", "3", "1", "", "1", "", "1", ""],
-      ["Aceites y Grasas", "Sin proteína", "4", "", "1", "1", "2", "", ""]
+      [
+        "Lácteo",
+        "Descremada",
+        "1",
+        "",
+        "1",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "",
+        "Entera",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Cereales",
+        "Sin grasa",
+        "6",
+        "1",
+        "2",
+        "1",
+        "2",
+        "",
+        ""
+      ],
+      [
+        "",
+        "Con grasa",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AOA (Proteína)",
+        "Moderado aporte",
+        "8",
+        "",
+        "2",
+        "3",
+        "3",
+        "",
+        ""
+      ],
+      [
+        "Verduras",
+        "",
+        "4",
+        "",
+        "1",
+        "1",
+        "2",
+        "",
+        ""
+      ],
+      [
+        "Frutas",
+        "",
+        "3",
+        "1",
+        "",
+        "1",
+        "",
+        "1",
+        ""
+      ],
+      [
+        "Aceites y Grasas",
+        "Sin proteína",
+        "4",
+        "",
+        "1",
+        "1",
+        "2",
+        "",
+        ""
+      ],
+      [
+        "",
+        "Con proteína",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
     ],
     "menu_meals": [
       {
         "meal_name": "DESAYUNO (8:00 AM)",
+        "target_time": "8:00 AM",
+        "eq_summary": [
+          "1 Lácteo",
+          "2 Cereales",
+          "2 AOA",
+          "1 Verdura",
+          "1 Aceite c/Proteína"
+        ],
         "options": [
           {
             "option_number": 1,
-            "description": "Omelette de 2 huevos con espinacas y 2 rebanadas de pan integral con 1 taza de leche descremada.",
-            "equivalents_summary": "2 AOA, 1 Verdura, 2 Cereales, 1 Lácteo"
+            "title": "Omelette Proteico con Espinacas y Pan Integral",
+            "description": "Omelette preparado con 2 huevos enteros + 2 claras de huevo, espinacas desinfectadas y sal marina al gusto. Acompañar con 2 rebanadas de pan integral tostado y 1 taza (250ml) de leche descremada con 15g de nuez picada."
+          },
+          {
+            "option_number": 2,
+            "title": "Batido Proteico de Avena, Plátano y Frutos Rojos",
+            "description": "Licuar 1 scoop (30g) de Proteína Whey Isolate con 1 taza de leche descremada, 1/2 taza de avena en hojuelas, 1/2 plátano domínico y 15g de almendras tostadas."
+          }
+        ]
+      },
+      {
+        "meal_name": "COLACIÓN MAÑANA (11:30 AM)",
+        "target_time": "11:30 AM",
+        "eq_summary": [
+          "1 Fruta",
+          "1 Cereal"
+        ],
+        "options": [
+          {
+            "option_number": 1,
+            "title": "Manzana Gala con Galletas de Avena",
+            "description": "1 manzana gala mediana fresca acompañada de 3 galletas horneadas de avena sin azúcar."
+          }
+        ]
+      },
+      {
+        "meal_name": "COMIDA (2:30 PM)",
+        "target_time": "2:30 PM",
+        "eq_summary": [
+          "3 AOA",
+          "2 Cereales",
+          "1 Verdura",
+          "1 Aceite s/Proteína"
+        ],
+        "options": [
+          {
+            "option_number": 1,
+            "title": "Pechuga a las Finas Hierbas con Arroz y Ensalada",
+            "description": "150g de pechuga de pollo asada a la plancha condimentada con orégano y ajo. Servir con 1 taza de arroz blanco al vapor y ensalada de lechuga, jitomate y pepino aliñada con 1 cdta de aceite de oliva virgen extra."
+          },
+          {
+            "option_number": 2,
+            "title": "Filete de Salmón con Quinoa y Espárragos",
+            "description": "140g de filete de salmón fresco salteado al sartén servido sobre 1 taza de quinoa cocida y espárragos verdes al vapor."
+          }
+        ]
+      },
+      {
+        "meal_name": "COLACIÓN TARDE / PRE-ENTRENO (5:30 PM)",
+        "target_time": "5:30 PM",
+        "eq_summary": [
+          "1 Fruta",
+          "1 Cereal"
+        ],
+        "options": [
+          {
+            "option_number": 1,
+            "title": "Plátano con Tostada de Arroz y Miel",
+            "description": "1 plátano dominico sobre 1 tostada de arroz inflado (Rice Cake) con 1 cdta de miel de abeja natural."
+          }
+        ]
+      },
+      {
+        "meal_name": "CENA (8:30 PM)",
+        "target_time": "8:30 PM",
+        "eq_summary": [
+          "3 AOA",
+          "2 Cereales",
+          "2 Verduras",
+          "2 Aceites s/Proteína"
+        ],
+        "options": [
+          {
+            "option_number": 1,
+            "title": "Tacos de Pescado con Aguacate y Ensalada",
+            "description": "150g de filete de tilapia o merluza asado a la plancha servido en 2 tortillas de maíz calientes con 1/3 pza de aguacate hass y pico de gallo abundante."
+          }
+        ]
+      }
+    ],
+    "supplements": [
+      "Multivitamínico: 1 cápsula junto con el desayuno",
+      "Omega 3 Ultra: 2 cápsulas (2000mg) con la comida principal",
+      "Creatina Monohidratada: 5g diarios disueltos en agua posterior al entrenamiento",
+      "Citrato de Magnesio: 400mg antes de dormir para optimizar descanso"
+    ],
+    "rest_day_notes": [
+      "Mantener hidratación adecuada (mínimo 2.5L a 3L de agua natural al día).",
+      "En días de descanso sin actividad física, reemplazar el desayuno por el Batido Verde recomendado."
+    ]
+  },
+  {
+    "file": "Plan_Nutricional_Definicion_2100Kcal.pdf",
+    "kcal": 2100,
+    "date": "01/11/2025",
+    "sort_key": "20251101",
+    "ration_matrix": [
+      [
+        "Lácteo",
+        "Descremada",
+        "1",
+        "",
+        "1",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Cereales",
+        "Sin grasa",
+        "5",
+        "1",
+        "1",
+        "1",
+        "2",
+        "",
+        ""
+      ],
+      [
+        "AOA (Proteína)",
+        "Moderado aporte",
+        "7",
+        "",
+        "2",
+        "2",
+        "3",
+        "",
+        ""
+      ],
+      [
+        "Verduras",
+        "",
+        "4",
+        "",
+        "1",
+        "1",
+        "2",
+        "",
+        ""
+      ],
+      [
+        "Frutas",
+        "",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "1",
+        ""
+      ],
+      [
+        "Aceites y Grasas",
+        "Sin proteína",
+        "3",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        ""
+      ]
+    ],
+    "menu_meals": [
+      {
+        "meal_name": "DESAYUNO (8:00 AM)",
+        "target_time": "8:00 AM",
+        "eq_summary": [
+          "1 Lácteo",
+          "1 Cereal",
+          "2 AOA",
+          "1 Verdura"
+        ],
+        "options": [
+          {
+            "option_number": 1,
+            "title": "Huevos Revueltos con Verduras y Tostada",
+            "description": "2 huevos enteros revueltos con jitomate y cebolla picada. Acompañar con 1 rebanada de pan de grano entero y 1 taza de leche descremada."
           }
         ]
       },
       {
         "meal_name": "COMIDA (2:00 PM)",
+        "target_time": "2:00 PM",
+        "eq_summary": [
+          "3 AOA",
+          "2 Cereales",
+          "1 Verdura",
+          "1 Aceite"
+        ],
         "options": [
           {
             "option_number": 1,
-            "description": "150g de pechuga de pollo a la plancha con 1 taza de arroz cocido, ensalada mixta y 1 cucharadita de aceite de oliva.",
-            "equivalents_summary": "3 AOA, 2 Cereales, 2 Verduras, 1 Aceite"
+            "title": "Pechuga Asada con Arroz al Vapor",
+            "description": "140g de pechuga de pollo asada con 1 taza de arroz blanco y verdura al vapor."
           }
         ]
       },
       {
         "meal_name": "CENA (8:00 PM)",
+        "target_time": "8:00 PM",
+        "eq_summary": [
+          "2 AOA",
+          "2 Cereales",
+          "2 Verduras",
+          "1 Aceite"
+        ],
         "options": [
           {
             "option_number": 1,
-            "description": "150g de filete de pescado con 1 taza de quinoa y ensalada de verduras al vapor.",
-            "equivalents_summary": "3 AOA, 2 Cereales, 1 Verdura, 1 Aceite"
+            "title": "Ensalada Proteica de Atún con Galletas Saníssimo",
+            "description": "1 lata de atún en agua (120g drenado) mezclado con verdura picada y 3 tostadas de maíz horneadas."
           }
         ]
       }
     ],
-    "rest_day_notes": [
-      "Mantener hidratación adecuada (2.5L de agua al día).",
-      "Consumir verduras en cada comida principal."
-    ],
     "supplements": [
       "Multivitamínico: 1 cápsula en el desayuno",
-      "Omega 3: 1 cápsula con la comida"
+      "Omega 3: 1 cápsula en la comida"
     ]
   }
 ]
