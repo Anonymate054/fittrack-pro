@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness & Nutrición Tracker</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#00e676">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="./src/styles/app.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Header & Navegación -->
+  <header>
+    <div class="brand">
+      <span>💪</span> FitTrack Pro
+    </div>
+    
+    <nav class="nav-tabs">
+      <button class="nav-btn active" data-tab="tab-nutrition">🥗 Nutrición</button>
+      <button class="nav-btn" data-tab="tab-workout">🏋️ Gimnasio</button>
+      <button class="nav-btn" data-tab="tab-equivalents">🧮 Equivalentes</button>
+      <button class="nav-btn" data-tab="tab-progress">📊 Progresión</button>
+      <button class="nav-btn" data-tab="tab-add-data">➕ Agregar Datos</button>
+      <button class="nav-btn" data-tab="tab-settings">⚙️ Ajustes</button>
+    </nav>
+
+    <button id="themeToggleBtn" class="theme-toggle-btn">
+      ☀️ Modo Claro
+    </button>
+  </header>
+
+  <!-- Contenedor Principal -->
+  <main>
+
+    <!-- TAB 1: NUTRICIÓN -->
+    <section id="tab-nutrition" class="tab-panel active">
+      <div class="card">
+        <div class="card-title">
+          <span>Plan de Alimentación</span>
+          <div class="toggle-switch" id="workoutDayToggle">
+            <div class="toggle-option active" data-workout="true">💪 Día de Entreno</div>
+            <div class="toggle-option" data-workout="false">☕ Día de Descanso</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Seleccionar Histórico de Plan:</label>
+          <select id="planHistorySelector" style="width: auto;">
+            <!-- Se llena dinámicamente -->
+          </select>
+        </div>
+
+        <div id="kcalSummary" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Cargando plan calórico...
+        </div>
+
+        <!-- Tabla Resumen de Raciones / Equivalentes (Página 1 del PDF) -->
+        <div class="card" style="background: var(--input-bg); border: 1px solid var(--card-border); margin-bottom: 20px;">
+          <div class="card-title" style="font-size: 0.95rem; color: var(--accent-color);">
+            📋 Distribución Oficial de Raciones por Tiempo de Comida
+          </div>
+          <div class="table-responsive">
+            <table id="rationMatrixTable">
+              <thead>
+                <tr>
+                  <th colspan="2">Grupo de alimento</th>
+                  <th>No. Eq.</th>
+                  <th>Desayuno</th>
+                  <th>Almuerzo</th>
+                  <th>Colación</th>
+                  <th>Comida</th>
+                  <th>Colación</th>
+                  <th>Cena</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Se llena dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div id="mealsContainer">
+          <!-- Las comidas se cargan dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Suplementación (Desplegable) -->
+      <details class="card" style="margin-bottom: 16px; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden;" open>
+        <summary style="font-weight: 700; font-size: 0.95rem; color: var(--accent-color); padding: 14px 16px; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between;">
+          <span>💊 Suplementación Diaria</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">▼</span>
+        </summary>
+        <div id="supplementsContainer" style="padding: 0 16px 14px 16px; border-top: 1px solid var(--card-border);">
+          <!-- Carga dinámicamente -->
+        </div>
+      </details>
+
+      <!-- Recomendaciones Generales, Notas, Actividad y Hidratación (Desplegables) -->
+      <div id="recommendationsContainer">
+        <!-- Carga dinámicamente -->
+      </div>
+    </section>
+
+    <!-- TAB 2: GIMNASIO / RUTINAS -->
+    <section id="tab-workout" class="tab-panel">
+      <!-- Auto-Detección del Día -->
+      <div id="todayBanner" class="today-banner">
+        📅 Sugerencia para hoy: <strong id="todayDayText">Cargando...</strong>
+      </div>
+
+      <!-- Matriz Superior Semanal & Calentamiento (Foto de Referencia) -->
+      <div class="card" style="background: var(--input-bg); border: 1px solid var(--card-border); margin-bottom: 20px;">
+        <div class="card-title" style="font-size: 0.95rem; color: #3b82f6;">
+          🗓 Programación Semanal & Calentamiento
+        </div>
+        <div class="table-responsive" style="margin-bottom: 14px;">
+          <table>
+            <thead>
+              <tr>
+                <th>LUNES</th>
+                <th>MARTES</th>
+                <th>MIÉRCOLES</th>
+                <th>JUEVES</th>
+                <th>VIERNES</th>
+                <th>SÁBADO</th>
+                <th>DOMINGO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Fuerza Día 1 + Cardio</td>
+                <td>Fuerza Día 2 + Cardio</td>
+                <td>Fuerza Día 3 + Cardio</td>
+                <td>Fuerza Día 1 + Cardio</td>
+                <td>Fuerza Día 2 + Cardio</td>
+                <td>Fuerza Día 3 + Cardio</td>
+                <td>Descanso</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="font-size: 0.85rem; color: var(--text-muted); background: var(--card-bg); padding: 10px; border-radius: 6px;">
+          🔥 <strong>CALENTAMIENTO:</strong> 10 min en Remadora o Elíptica &bull; % Intensidad: 50 a 60% FC (95 a 120 ppm)
+        </div>
+        
+        <!-- Bloque Cardio Superior -->
+        <div id="cardioContainer">
+          <!-- Carga dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Tabla Estructurada de Abdomen Superior -->
+      <div id="abdomenContainer" style="margin-bottom: 20px;">
+        <!-- Carga dinámicamente -->
+      </div>
+
+      <div class="card">
+        <!-- Selector de Plan de Entrenamiento -->
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Tipo de Entrenamiento / Técnica:</label>
+          <select id="routinePlanSelector">
+            <!-- Carga dinámicamente -->
+          </select>
+        </div>
+
+        <!-- Explicación de la Técnica -->
+        <div id="techniqueBox" class="technique-card">
+          <!-- Explicación de Rest Pause / Drop Set / Contraste -->
+        </div>
+
+        <div class="card-title" style="margin-top: 16px;">
+          <span>Ejercicios Programados</span>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Semana:</label>
+            <select id="weekSelector" style="width: auto; padding: 4px 8px;">
+              <option value="1">Semana 1</option>
+              <option value="2">Semana 2</option>
+              <option value="3">Semana 3</option>
+              <option value="4">Semana 4</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Día & Grupo Muscular:</label>
+          <select id="routineDaySelector">
+            <!-- Días cargados dinámicamente -->
+          </select>
+        </div>
+
+        <div id="exercisesContainer">
+          <!-- Ejercicios cargados dinámicamente en Biseries -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: EQUIVALENTES -->
+    <section id="tab-equivalents" class="tab-panel">
+      <!-- Selector de Sub-pantalla -->
+      <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+        <button id="subtabTableBtn" class="btn">📋 Tabla Referencial por Grupos</button>
+        <button id="subtabCalcBtn" class="btn btn-secondary">🧮 Calculadora de Sustitución</button>
+      </div>
+
+      <!-- Vista 1: Tabla Referencial Completa por Categorías -->
+      <div id="tableView" class="card">
+        <!-- Bloque de Referencia Superior: Equivalencias y Abreviaturas -->
+        <details open class="card" style="background: var(--input-bg); border-left: 4px solid var(--accent-color); margin-bottom: 20px;">
+          <summary class="card-title" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.95rem; color: var(--accent-color); font-weight: 700;">💡 GUÍA DE EQUIVALENCIAS Y ABREVIATURAS</span>
+            <span style="font-size: 0.8rem; background: var(--card-border); padding: 2px 8px; border-radius: 12px; color: var(--text-color);">Notas oficiales</span>
+          </summary>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px;">
+            <!-- Reglas de Equivalencias -->
+            <div style="background: var(--card-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border);">
+              <div style="font-weight: 700; color: #f59e0b; margin-bottom: 8px; font-size: 0.9rem;">⚖️ EQUIVALENCIAS:</div>
+              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px;">
+                <li>🔹 <strong>1 Cereal con grasa</strong> = 1 Cereal sin grasa + 1 Grasa</li>
+                <li>🔹 <strong>1 Leguminosa</strong> = 1 AOA + 1 Cereal sin grasa</li>
+                <li>🔹 <strong>1 Lácteo con azúcar</strong> = 1 Lácteo + 1 Azúcar</li>
+                <li>🔹 <strong>1 Azúcar con Grasa</strong> = 1 Azúcar + 1 Grasa</li>
+              </ul>
+            </div>
+
+            <!-- Glosario de Abreviaturas -->
+            <div style="background: var(--card-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border);">
+              <div style="font-weight: 700; color: #3b82f6; margin-bottom: 8px; font-size: 0.9rem;">📌 ABREVIATURAS:</div>
+              <div style="font-size: 0.83rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px;">
+                <div><strong>cda</strong> = cucharada sopera</div>
+                <div><strong>cdita</strong> = cucharadita cafetera</div>
+                <div><strong>g</strong> = gramos</div>
+                <div><strong>pza</strong> = pieza</div>
+                <div><strong>reb</strong> = rebanada</div>
+                <div><strong>sob</strong> = sobre</div>
+              </div>
+              <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--card-border); padding-top: 6px;">
+                <div>*AOA con moderado aporte de grasa</div>
+                <div>**AOA con alto aporte de grasa</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <div class="card-title">Tabla Referencial de Equivalentes (Por Grupos de Origen)</div>
+        <div id="categoryTablesContainer">
+          <!-- Se cargan las tablas desglosadas por categoría y colores de origen -->
+        </div>
+      </div>
+
+      <!-- Vista 2: Calculadora de Sustitución -->
+      <div id="calcView" class="card" style="display: none;">
+        <div class="card-title">Calculadora de Intercambio de Alimentos</div>
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Selecciona el alimento que deseas sustituir:</label>
+          <input type="text" id="foodSearchInput" placeholder="Ej. Pechuga de pollo, Manzana, Avena..." class="search-box">
+        </div>
+        <div id="calcResults">
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Escribe o selecciona un alimento para ver las porciones equivalentes exactas.</p>
+        </div>
+      </div>
+
+      <!-- Vista 3: Agregar Insumo Personalizado -->
+      <details class="card" style="background: var(--input-bg); border: 1px solid var(--card-border); margin-top: 16px; border-radius: 8px; overflow: hidden;">
+        <summary style="font-weight: 700; font-size: 0.95rem; color: var(--accent-color); padding: 14px 16px; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between;">
+          <span>➕ Agregar Nuevo Insumo / Alimento Personalizado</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">▼</span>
+        </summary>
+        <div style="padding: 16px; border-top: 1px solid var(--card-border); display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Nombre del Insumo / Alimento:</label>
+            <input type="text" id="customFoodName" placeholder="Ej. Proteína aislada sabor Vainilla" style="margin-top: 4px;">
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Grupo / Categoría:</label>
+              <select id="customFoodCategory" style="margin-top: 4px;">
+                <option value="FRUTAS">🍎 FRUTAS</option>
+                <option value="VERDURAS">🥦 VERDURAS</option>
+                <option value="CEREALES SIN GRASA">🌾 CEREALES SIN GRASA</option>
+                <option value="CEREALES CON GRASA">🥐 CEREALES CON GRASA</option>
+                <option value="ALIMENTOS DE ORIGEN ANIMAL (AOA)">🥩 ALIMENTOS ANIMAL (AOA)</option>
+                <option value="LÁCTEOS">🥛 LÁCTEOS</option>
+                <option value="ACEITES Y GRASAS">🥑 ACEITES Y GRASAS</option>
+                <option value="AZÚCAR SIN GRASA">🍬 AZÚCAR</option>
+                <option value="LIBRES DE ENERGÍA">💧 LIBRES DE ENERGÍA</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Porción Sugerida / Gramos:</label>
+              <input type="text" id="customFoodPortion" placeholder="Ej. 1 scoop (30g) / 100g" style="margin-top: 4px;">
+            </div>
+          </div>
+          <button id="addCustomFoodBtn" class="btn" style="width: fit-content; font-weight: 700;">💾 Guardar Insumo en mi Lista</button>
+        </div>
+      </details>
+    </section>
+
+    <!-- TAB 4: PROGRESIÓN FÍSICA Y FUERZA -->
+    <section id="tab-progress" class="tab-panel">
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+          <div class="card-title" style="margin-bottom: 0;">Historial de Composición Corporal</div>
+          <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Filtrar por Año:</span>
+            <button class="btn btn-secondary btn-sm filter-year-btn active" data-year="ALL">Todos</button>
+            <button class="btn btn-secondary btn-sm filter-year-btn" data-year="2026">2026</button>
+            <button class="btn btn-secondary btn-sm filter-year-btn" data-year="2025">2025</button>
+          </div>
+        </div>
+        <div id="progressSummary">
+          <!-- Carga historial de evaluaciones -->
+        </div>
+      </div>
+
+      <!-- PANEL DE SELECCIÓN DINÁMICA DE SESIONES PARA GRÁFICAS -->
+      <div class="card">
+        <div class="card-title">📐 Comparador Dinámico de Evaluaciones Antropométricas</div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+          Selecciona las evaluaciones que deseas superponer y comparar en la Somatocarta y diagramas Phantom:
+        </p>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;">
+          <button id="presetCompareLatestVsFirst" class="btn btn-secondary btn-sm">⭐ Primera vs Última</button>
+          <button id="presetCompareLatest2" class="btn btn-secondary btn-sm">📊 Últimas 2 Sesiones</button>
+          <button id="presetCompare2026" class="btn btn-secondary btn-sm">📅 Año 2026</button>
+          <button id="presetSelectAll" class="btn btn-secondary btn-sm">✓ Seleccionar Todas</button>
+          <button id="presetClearAll" class="btn btn-secondary btn-sm">✕ Limpiar</button>
+        </div>
+        <div id="phantomSessionSelectorContainer" style="display: flex; gap: 8px; flex-wrap: wrap; padding: 10px; background: var(--input-bg); border-radius: 8px; border: 1px solid var(--card-border);">
+          <!-- Carga checkboxes de sesiones -->
+        </div>
+      </div>
+
+      <!-- GRÁFICA DE SOMATOTIPO (DIAGRAMA TRIANGULADO 3 EJES) -->
+      <div class="card">
+        <div class="card-title">🔺 Diagrama de Somatotipo (Mesomorfia, Endomorfia, Ectomorfia)</div>
+        <div id="somatocartaChartContainer">
+          <!-- Carga SVG Somatocarta -->
+        </div>
+      </div>
+
+      <!-- GRÁFICA PHANTOM: CIRCUNFERENCIAS -->
+      <div class="card">
+        <div class="card-title">📏 Diagrama Phantom: Circunferencias Corporal (Z-Scores)</div>
+        <div id="phantomGirthsChartContainer">
+          <!-- Carga SVG Phantom Circunferencias -->
+        </div>
+      </div>
+
+      <!-- GRÁFICA PHANTOM: PLIEGUES CUTÁNEOS -->
+      <div class="card">
+        <div class="card-title">📉 Diagrama Phantom: Pliegues Cutáneos (Z-Scores)</div>
+        <div id="phantomSkinfoldsChartContainer">
+          <!-- Carga SVG Phantom Pliegues -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Seguimiento de Progresión de Fuerza (Cargas por Ejercicio)</div>
+        <div style="margin-bottom: 14px;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Seleccionar Ejercicio:</label>
+          <select id="strengthExerciseSelector">
+            <!-- Carga ejercicios registrados -->
+          </select>
+        </div>
+        <div id="strengthProgressContainer">
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Selecciona un ejercicio para ver el historial de cargas registradas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: AGREGAR DATOS (EJERCICIOS E INSUMOS) -->
+    <section id="tab-add-data" class="tab-panel">
+      <!-- TARJETA 1: REGISTRAR NUEVO EJERCICIO -->
+      <div class="card">
+        <div class="card-title">🏋️ Registrar Nuevo Ejercicio / Rutina Personalizada</div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
+          Agrega nuevos ejercicios a tu catálogo de gimnasio. Estarán disponibles de inmediato para registrar cargas en tus rutinas y ver su progresión.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Nombre del Ejercicio:</label>
+            <input type="text" id="addExName" placeholder="Ej. Press militar con mancuernas" style="margin-top: 4px;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Grupo Muscular Principal:</label>
+              <select id="addExMuscle" style="margin-top: 4px;">
+                <option value="Hombro">Hombro</option>
+                <option value="Pecho">Pecho</option>
+                <option value="Espalda">Espalda</option>
+                <option value="Bíceps">Bíceps</option>
+                <option value="Tríceps">Tríceps</option>
+                <option value="Pierna">Pierna</option>
+                <option value="Cuádriceps">Cuádriceps</option>
+                <option value="Isquios">Isquios</option>
+                <option value="Pantorrilla">Pantorrilla</option>
+                <option value="Abdomen">Abdomen</option>
+                <option value="Glúteo">Glúteo</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Técnica / Sub-bloque:</label>
+              <select id="addExTechnique" style="margin-top: 4px;">
+                <option value="Rest Pause">⚡ REST PAUSE</option>
+                <option value="Biserie">🔥 BISERIE</option>
+                <option value="Tradicional">🏋️ TRADICIONAL</option>
+                <option value="Drop Set">💥 DROP SET</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Series:</label>
+              <input type="number" id="addExSets" min="1" value="4" style="margin-top: 4px;">
+            </div>
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Reps Objetivo:</label>
+              <input type="text" id="addExReps" placeholder="Ej. 10 - 12" value="10 - 12" style="margin-top: 4px;">
+            </div>
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Tempo (excéntrico,pausa,concéntrico):</label>
+              <input type="text" id="addExTempo" placeholder="2,1,2" value="2,1,2" style="margin-top: 4px;">
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Link de Video Demostrativo (YouTube / URL):</label>
+            <input type="url" id="addExVideo" placeholder="https://www.youtube.com/watch?v=..." style="margin-top: 4px;">
+          </div>
+
+          <button id="saveCustomExerciseBtn" class="btn" style="width: fit-content; font-weight: 700;">💾 Guardar Ejercicio en Gimnasio</button>
+        </div>
+      </div>
+
+      <!-- TARJETA 2: REGISTRAR NUEVO INSUMO / ALIMENTO -->
+      <div class="card">
+        <div class="card-title">🥗 Registrar Nuevo Insumo / Alimento Equivalente</div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
+          Agrega nuevos insumos y alimentos a la tabla de equivalentes y al buscador de sustitución rápida.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Nombre del Insumo / Alimento:</label>
+            <input type="text" id="addDataFoodName" placeholder="Ej. Proteína aislada sabor Vainilla" style="margin-top: 4px;">
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Grupo / Categoría:</label>
+              <select id="addDataFoodCategory" style="margin-top: 4px;">
+                <option value="FRUTAS">🍎 FRUTAS</option>
+                <option value="VERDURAS">🥦 VERDURAS</option>
+                <option value="CEREALES SIN GRASA">🌾 CEREALES SIN GRASA</option>
+                <option value="CEREALES CON GRASA">🥐 CEREALES CON GRASA</option>
+                <option value="ALIMENTOS DE ORIGEN ANIMAL (AOA)">🥩 ALIMENTOS ANIMAL (AOA)</option>
+                <option value="LÁCTEOS">🥛 LÁCTEOS</option>
+                <option value="ACEITES Y GRASAS">🥑 ACEITES Y GRASAS</option>
+                <option value="AZÚCAR SIN GRASA">🍬 AZÚCAR</option>
+                <option value="LIBRES DE ENERGÍA">💧 LIBRES DE ENERGÍA</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 0.85rem; color: var(--text-muted);">Porción Sugerida / Gramos:</label>
+              <input type="text" id="addDataFoodPortion" placeholder="Ej. 1 scoop (30g) / 100g" style="margin-top: 4px;">
+            </div>
+          </div>
+          <button id="saveDataFoodBtn" class="btn" style="width: fit-content; font-weight: 700;">💾 Guardar Insumo en Tabla de Equivalentes</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: AJUSTES & NOTION / BACKUP -->
+    <section id="tab-settings" class="tab-panel">
+      <!-- TARJETA 1: ACTUALIZACIÓN DE REPORTES EN VIVO -->
+      <div class="card">
+        <div class="card-title">🔄 Sincronización Local de Reportes</div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
+          Presiona este botón para recargar en vivo los reportes de nutrición (planes de alimentos, equivalentes) y de seguimiento (progresión física y composición corporal) desde la ruta local del dispositivo.
+        </p>
+        <button id="reloadAppReportsBtn" class="btn" style="background: var(--accent-color); font-weight: 700; color: #ffffff;">
+          🔄 Actualizar Reportes de Datos (Alimentos & Seguimiento)
+        </button>
+      </div>
+
+      <!-- TARJETA 2: GESTIÓN DE RESPALDOS Y DATOS -->
+      <div class="card">
+        <div class="card-title">💾 Respaldos y Seguridad de Datos Local</div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
+          Todos tus datos de entrenamientos, pesos cargados y preferencias se guardan exclusivamente en tu dispositivo de forma privada (Modo Offline / Privacy First).
+        </p>
+
+        <div id="backupStatusInfo" style="background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border); margin-bottom: 16px; font-size: 0.85rem;">
+          <!-- Resumen de registros de usuario -->
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button id="exportBackupBtn" class="btn btn-secondary">📤 Exportar Respaldo Completo (JSON)</button>
+          <label class="btn btn-secondary" style="cursor: pointer; margin-bottom: 0;">
+            📥 Importar Respaldo (JSON)
+            <input type="file" id="importBackupInput" accept=".json" style="display: none;">
+          </label>
+          <button id="resetUserLogsBtn" class="btn btn-secondary" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
+            🗑️ Limpiar Cargas de Gimnasio
+          </button>
+        </div>
+      </div>
+
+      <!-- TARJETA 3: INTEGRACIÓN OPCIONAL NOTION -->
+      <div class="card">
+        <div class="card-title">🔗 Sincronización con Notion (Opcional)</div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Notion Integration Token:</label>
+            <input type="password" id="notionTokenInput" placeholder="secret_..." style="margin-top: 4px;">
+          </div>
+          <div>
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Workout Database ID:</label>
+            <input type="text" id="notionDbInput" placeholder="32 caracteres hex" style="margin-top: 4px;">
+          </div>
+          <button id="saveNotionSettingsBtn" class="btn btn-secondary" style="width: fit-content;">Guardar Configuración Notion</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL NOTION PARA DETALLE DE EJERCICIOS -->
+  <div id="exerciseModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalExerciseTitle">Detalle del Ejercicio</h3>
+        <button id="closeModalBtn" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" id="modalExerciseBody">
+        <!-- Detalle cargado dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie de página -->
+  <footer>
+    FitTrack Pro &bull; Modo Offline Activo &bull; Datos Privados en Dispositivo
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="./src/app.js?v=1787331081954"></script>
+
+  <!-- Service Worker Registration & Cache Invalidation -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        for (let name of names) caches.delete(name);
+      });
+    }
+  </script>
+</body>
+</html>
