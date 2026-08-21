@@ -280,36 +280,63 @@ function renderNutritionView() {
     let rowsHtml = '';
     const matrix = activePlan.ration_matrix;
 
-    for (let r = 0; r < matrix.length; r++) {
+    let r = 0;
+    while (r < matrix.length) {
       const row = matrix[r];
       const mainGroup = row[0];
       const subGroup = row[1];
 
-      if (mainGroup === 'Lácteo' || mainGroup === 'Aceites y Grasas') {
+      // Contar cuántas subfilas secundarias sin mainGroup pertenecen a este bloque
+      let subRowCount = 1;
+      let checkIdx = r + 1;
+      while (checkIdx < matrix.length && (!matrix[checkIdx][0] || matrix[checkIdx][0] === mainGroup)) {
+        subRowCount++;
+        checkIdx++;
+      }
+
+      if (subRowCount > 1) {
+        // Primera subfila con rowspan dinámico exacto
         const rowCells = row.slice(2).map(c => `<td>${c || ''}</td>`).join('');
         rowsHtml += `
           <tr>
-            <td rowspan="2" style="font-weight: 700;">${mainGroup}</td>
+            <td rowspan="${subRowCount}" style="font-weight: 700; vertical-align: middle;">${mainGroup}</td>
             <td style="font-style: italic; color: var(--text-muted);">${subGroup || ''}</td>
             ${rowCells}
           </tr>
         `;
-      } else if (!mainGroup && (subGroup === 'Entera' || subGroup === 'Sin proteína')) {
-        const rowCells = row.slice(2).map(c => `<td>${c || ''}</td>`).join('');
-        rowsHtml += `
-          <tr>
-            <td style="font-style: italic; color: var(--text-muted);">${subGroup || ''}</td>
-            ${rowCells}
-          </tr>
-        `;
+        r++;
+        // Subfilas secundarias
+        for (let s = 1; s < subRowCount; s++) {
+          const subRow = matrix[r];
+          const subRowCells = subRow.slice(2).map(c => `<td>${c || ''}</td>`).join('');
+          rowsHtml += `
+            <tr>
+              <td style="font-style: italic; color: var(--text-muted);">${subRow[1] || ''}</td>
+              ${subRowCells}
+            </tr>
+          `;
+          r++;
+        }
       } else {
+        // Grupo único de 1 fila
         const rowCells = row.slice(2).map(c => `<td>${c || ''}</td>`).join('');
-        rowsHtml += `
-          <tr>
-            <td colspan="2" style="font-weight: 700;">${mainGroup}</td>
-            ${rowCells}
-          </tr>
-        `;
+        if (subGroup) {
+          rowsHtml += `
+            <tr>
+              <td style="font-weight: 700;">${mainGroup}</td>
+              <td style="font-style: italic; color: var(--text-muted);">${subGroup}</td>
+              ${rowCells}
+            </tr>
+          `;
+        } else {
+          rowsHtml += `
+            <tr>
+              <td colspan="2" style="font-weight: 700;">${mainGroup}</td>
+              ${rowCells}
+            </tr>
+          `;
+        }
+        r++;
       }
     }
     matrixTableBody.innerHTML = rowsHtml;
