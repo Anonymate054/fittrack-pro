@@ -372,11 +372,11 @@ function renderNutritionView() {
       const optionsHtml = meal.options.map((opt, idx) => `
         <div class="meal-option-row">
           <div class="meal-option-badge">
-            Opción ${opt.option_num || idx + 1}
+            Opción ${opt.option_num || opt.option_number || idx + 1}
           </div>
           <div class="meal-option-body">
-            <div class="meal-option-title">${opt.title}</div>
-            <div class="meal-option-desc">${opt.description}</div>
+            ${opt.title ? `<div class="meal-option-title">${opt.title}</div>` : ''}
+            <div class="meal-option-desc">${opt.description || ''}</div>
           </div>
         </div>
       `).join('');

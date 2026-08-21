@@ -1,80 +1,220 @@
 export const trainingPlansData = [
   {
-    "file": "Rutina_Demo_Gimnasio.pdf",
-    "technique_title": "RUTINA DEMO GENERAL (4 DÍAS)",
-    "technique_description": "Ejecutar repeticiones con tempo controlado (2 segundos de bajada, 1 segundo de pausa, 2 segundos de subida) respetando pausas de descanso de 90 segundos.",
+    "plan_id": "fuerza_hipertrofia_4d",
+    "plan_name": "Rutina de Fuerza & Hipertrofia (4 Días - Rest-Pause / Biseries)",
+    "technique_name": "Biseries Antagonistas & Rest-Pause",
+    "technique_desc": "Ejecuta los ejercicios A1 y A2 de forma consecutiva con mínimo descanso. En la última serie del ejercicio principal, realiza un descanso breve de 15 segundos y completa reps adicionales al fallo técnico (Rest-Pause).",
     "days": [
       {
-        "day_name": "DÍA 1: PECHO Y TRÍCEPS",
+        "day_number": 1,
+        "day_title": "Día 1: Pecho & Espalda (Empuje - Jalón)",
+        "focus": "Pecho & Espalda (Torso Completo)",
         "biseries": [
           {
-            "biserie_id": 1,
+            "biserie_id": "B1",
+            "biserie_label": "Biserie A (Fuerza Torso)",
             "exercises": [
               {
                 "name": "Press de Banca Plano con Barra",
-                "muscle_group": "Pecho",
-                "video_url": "https://www.youtube.com/watch?v=rT7DgCr-3pg",
-                "weeks": [
-                  { "week": 1, "tempo": "2,1,2", "sets": 4, "reps": "10-12" },
-                  { "week": 2, "tempo": "2,1,2", "sets": 4, "reps": "10-12" },
-                  { "week": 3, "tempo": "2,1,2", "sets": 4, "reps": "8-10" },
-                  { "week": 4, "tempo": "2,1,2", "sets": 4, "reps": "8-10" }
-                ]
+                "sets": 4,
+                "reps": "8 - 10",
+                "rest": "90s",
+                "rpe": "RPE 8.5",
+                "target_muscle": "Pecho",
+                "notes": "Mantener retracción escapular y apoyar pies firmes en el piso.",
+                "svg_type": "chest"
               },
               {
-                "name": "Aperturas con Mancuernas en Banco Inclinado",
-                "muscle_group": "Pecho",
-                "video_url": "https://www.youtube.com/watch?v=eozdVDA78K0",
-                "weeks": [
-                  { "week": 1, "tempo": "2,1,2", "sets": 4, "reps": "12-15" },
-                  { "week": 2, "tempo": "2,1,2", "sets": 4, "reps": "12-15" },
-                  { "week": 3, "tempo": "2,1,2", "sets": 4, "reps": "10-12" },
-                  { "week": 4, "tempo": "2,1,2", "sets": 4, "reps": "10-12" }
-                ]
+                "name": "Remo con Barra Agarre Prono",
+                "sets": 4,
+                "reps": "8 - 10",
+                "rest": "90s",
+                "rpe": "RPE 8.5",
+                "target_muscle": "Espalda",
+                "notes": "Tirar con los codos hacia la cadera manteniendo la columna neutra.",
+                "svg_type": "back"
+              }
+            ]
+          },
+          {
+            "biserie_id": "B2",
+            "biserie_label": "Biserie B (Hipertrofia & Rest-Pause)",
+            "exercises": [
+              {
+                "name": "Press Inclinado con Mancuernas",
+                "sets": 3,
+                "reps": "10 - 12 (Última Rest-Pause)",
+                "rest": "60s",
+                "rpe": "RPE 9",
+                "target_muscle": "Pecho Superior",
+                "notes": "Inclinación de banco a 30°. En la serie 3 realizar Rest-Pause (+3-4 reps).",
+                "svg_type": "chest"
+              },
+              {
+                "name": "Jalón al Pecho Agarre Neutro en Polea",
+                "sets": 3,
+                "reps": "10 - 12",
+                "rest": "60s",
+                "rpe": "RPE 8.5",
+                "target_muscle": "Dorsal Ancho",
+                "notes": "Llevar el agarre al esternón apretando escápulas al final.",
+                "svg_type": "back"
               }
             ]
           }
         ]
       },
       {
-        "day_name": "DÍA 2: ESPALDA Y BÍCEPS",
+        "day_number": 2,
+        "day_title": "Día 2: Pierna Completa & Femorales",
+        "focus": "Cuádriceps, Isquios & Glúteos",
         "biseries": [
           {
-            "biserie_id": 1,
+            "biserie_id": "B1",
+            "biserie_label": "Biserie A (Dominante de Cadera / Rodilla)",
             "exercises": [
               {
-                "name": "Jalón al Pecho en Polea Alta",
-                "muscle_group": "Espalda",
-                "video_url": "https://www.youtube.com/watch?v=CAwf7n6Luuc",
-                "weeks": [
-                  { "week": 1, "tempo": "2,1,2", "sets": 4, "reps": "10-12" },
-                  { "week": 2, "tempo": "2,1,2", "sets": 4, "reps": "10-12" },
-                  { "week": 3, "tempo": "2,1,2", "sets": 4, "reps": "8-10" },
-                  { "week": 4, "tempo": "2,1,2", "sets": 4, "reps": "8-10" }
-                ]
+                "name": "Sentadilla Trasera con Barra (Back Squat)",
+                "sets": 4,
+                "reps": "6 - 8",
+                "rest": "120s",
+                "rpe": "RPE 8.5",
+                "target_muscle": "Cuádriceps & Glúteos",
+                "notes": "Bajar romper el paralelo a 90° manteniendo rodillas alineadas con la punta del pie.",
+                "svg_type": "legs"
               },
               {
-                "name": "Remo Horizontal con Mancuerna",
-                "muscle_group": "Espalda",
-                "video_url": "https://www.youtube.com/watch?v=pYcpY20QaE8",
-                "weeks": [
-                  { "week": 1, "tempo": "2,1,2", "sets": 4, "reps": "10-12" },
-                  { "week": 2, "tempo": "2,1,2", "sets": 4, "reps": "10-12" },
-                  { "week": 3, "tempo": "2,1,2", "sets": 4, "reps": "8-10" },
-                  { "week": 4, "tempo": "2,1,2", "sets": 4, "reps": "8-10" }
-                ]
+                "name": "Peso Muerto Rumano con Mancuernas",
+                "sets": 4,
+                "reps": "8 - 10",
+                "rest": "90s",
+                "rpe": "RPE 8",
+                "target_muscle": "Femorales / Isquios",
+                "notes": "Empujar la cadera hacia atrás sintiendo el estiramiento en la parte posterior.",
+                "svg_type": "legs"
+              }
+            ]
+          },
+          {
+            "biserie_id": "B2",
+            "biserie_label": "Biserie B (Aislamiento de Pierna)",
+            "exercises": [
+              {
+                "name": "Prensa de Pierna 45°",
+                "sets": 3,
+                "reps": "10 - 12",
+                "rest": "75s",
+                "rpe": "RPE 9",
+                "target_muscle": "Cuádriceps",
+                "notes": "Pies a la anchura de hombros en el centro de la plataforma.",
+                "svg_type": "legs"
+              },
+              {
+                "name": "Curl Femoral Tumbado en Máquina",
+                "sets": 3,
+                "reps": "12 - 15 (Última Rest-Pause)",
+                "rest": "60s",
+                "rpe": "RPE 9",
+                "target_muscle": "Femorales",
+                "notes": "Controlar la bajada excéntrica en 2 segundos.",
+                "svg_type": "legs"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day_number": 3,
+        "day_title": "Día 3: Hombro & Abdomen Core",
+        "focus": "Deltoides & Estabilidad Abdominal",
+        "biseries": [
+          {
+            "biserie_id": "B1",
+            "biserie_label": "Biserie A (Deltoides Lateral & Anterior)",
+            "exercises": [
+              {
+                "name": "Press Militar con Mancuernas",
+                "sets": 4,
+                "reps": "8 - 10",
+                "rest": "90s",
+                "rpe": "RPE 8.5",
+                "target_muscle": "Hombro Anterior",
+                "notes": "Mantener torso erguido sin hiperextender la zona lumbar.",
+                "svg_type": "shoulders"
+              },
+              {
+                "name": "Elevaciones Laterales con Polea",
+                "sets": 4,
+                "reps": "12 - 15",
+                "rest": "60s",
+                "rpe": "RPE 9",
+                "target_muscle": "Deltoides Lateral",
+                "notes": "Elevar a la altura del hombro sosteniendo 1 segundo arriba.",
+                "svg_type": "shoulders"
+              }
+            ]
+          },
+          {
+            "biserie_id": "B2",
+            "biserie_label": "Biserie B (Deltoides Posterior & Core)",
+            "exercises": [
+              {
+                "name": "Pájaro / Pájaros en Polea Posterior",
+                "sets": 3,
+                "reps": "15",
+                "rest": "60s",
+                "rpe": "RPE 8.5",
+                "target_muscle": "Deltoides Posterior",
+                "notes": "Enfocar la tracción en la parte trasera del hombro.",
+                "svg_type": "shoulders"
+              },
+              {
+                "name": "(A) Plancha Core / Abdominal",
+                "sets": 4,
+                "reps": "45 segundos",
+                "rest": "45s",
+                "rpe": "RPE 8",
+                "target_muscle": "Abdomen / Core",
+                "notes": "Apretar glúteos y abdomen manteniendo alineación neutra de columna.",
+                "svg_type": "core"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day_number": 4,
+        "day_title": "Día 4: Brazo Completo (Bíceps & Tríceps)",
+        "focus": "Bíceps, Tríceps & Antebrazo",
+        "biseries": [
+          {
+            "biserie_id": "B1",
+            "biserie_label": "Biserie A (Bíceps & Tríceps Masa)",
+            "exercises": [
+              {
+                "name": "Curl de Bíceps con Barra Z",
+                "sets": 4,
+                "reps": "10 - 12",
+                "rest": "60s",
+                "rpe": "RPE 8.5",
+                "target_muscle": "Bíceps",
+                "notes": "Evitar balancear la cadera durante el movimiento.",
+                "svg_type": "biceps"
+              },
+              {
+                "name": "Press Francés con Barra Z en Banco Plano",
+                "sets": 4,
+                "reps": "10 - 12",
+                "rest": "60s",
+                "rpe": "RPE 8.5",
+                "target_muscle": "Tríceps",
+                "notes": "Flexionar codos llevando la barra hacia la frente.",
+                "svg_type": "triceps"
               }
             ]
           }
         ]
       }
-    ],
-    "general_recommendations": [
-      "Realizar 10 minutos de calentamiento articular antes de cada sesión.",
-      "Mantener la espalda recta en todos los ejercicios de tracción y empuje."
-    ],
-    "additional_notes": [
-      "Registrar los pesos utilizados en cada serie para asegurar sobrecarga progresiva."
     ]
   }
 ];
