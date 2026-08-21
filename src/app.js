@@ -185,6 +185,17 @@ async function loadAppData() {
     console.warn('Usando respaldo estático de datos importados:', err);
   }
 
+  // Cargar datos privados personalizados de localStorage si existen
+  try {
+    const savedNut = localStorage.getItem('fitapp_custom_nutrition');
+    const savedWork = localStorage.getItem('fitapp_custom_workout');
+    const savedProg = localStorage.getItem('fitapp_custom_progress');
+
+    if (savedNut) state.nutritionData = JSON.parse(savedNut);
+    if (savedWork) state.workoutData = JSON.parse(savedWork);
+    if (savedProg) state.resultsData = JSON.parse(savedProg);
+  } catch(e) {}
+
   // Fallbacks incondicionales
   if (!state.nutritionData || state.nutritionData.length === 0) state.nutritionData = mealPlansData;
   if (!state.workoutData || state.workoutData.length === 0) state.workoutData = trainingPlansData;
@@ -1515,6 +1526,75 @@ function initAddDataView() {
       renderAllViews();
     };
   }
+
+  // Cargar Documentos PDF y Datos Privados directamente desde el Teléfono/Dispositivo
+  const nutPdfInput = document.getElementById('importNutritionPdfInput');
+  const workPdfInput = document.getElementById('importWorkoutPdfInput');
+  const progPdfInput = document.getElementById('importProgressPdfInput');
+  const pdfStatus = document.getElementById('pdfUploadStatus');
+
+  const handleDocumentImport = (inputEl, typeLabel, stateKey, storageKey) => {
+    if (!inputEl) return;
+    inputEl.onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (pdfStatus) {
+        pdfStatus.style.display = 'block';
+        pdfStatus.style.color = 'var(--accent-color)';
+        pdfStatus.innerHTML = `⏳ Cargando ${file.name}...`;
+      }
+
+      const reader = new FileReader();
+
+      if (file.name.endsWith('.json')) {
+        reader.onload = (event) => {
+          try {
+            const parsed = JSON.parse(event.target.result);
+            state[stateKey] = Array.isArray(parsed) ? parsed : [parsed];
+            localStorage.setItem(storageKey, JSON.stringify(state[stateKey]));
+
+            if (pdfStatus) {
+              pdfStatus.innerHTML = `✅ ${typeLabel} "${file.name}" cargado de forma privada en tu dispositivo.`;
+            }
+            alert(`✅ ${typeLabel} cargado correctamente.`);
+            renderAllViews();
+          } catch(err) {
+            alert('Error al procesar el archivo JSON: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        // Archivo PDF
+        reader.onload = (event) => {
+          try {
+            const pdfDoc = {
+              name: file.name,
+              size: file.size,
+              date: new Date().toLocaleDateString(),
+              dataUrl: event.target.result
+            };
+            const storedPdfs = JSON.parse(localStorage.getItem('fitapp_user_pdfs') || '[]');
+            storedPdfs.unshift(pdfDoc);
+            localStorage.setItem('fitapp_user_pdfs', JSON.stringify(storedPdfs));
+
+            if (pdfStatus) {
+              pdfStatus.innerHTML = `✅ Documento PDF "${file.name}" almacenado de forma 100% privada en la memoria de tu teléfono.`;
+            }
+            alert(`✅ Documento PDF "${file.name}" vinculado de forma privada en tu dispositivo.`);
+            renderAllViews();
+          } catch(err) {
+            alert('Error al guardar el archivo PDF localmente.');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  };
+
+  handleDocumentImport(nutPdfInput, 'Plan Nutricional', 'nutritionData', 'fitapp_custom_nutrition');
+  handleDocumentImport(workPdfInput, 'Rutina de Entrenamientos', 'workoutData', 'fitapp_custom_workout');
+  handleDocumentImport(progPdfInput, 'Reporte de Progresión', 'resultsData', 'fitapp_custom_progress');
 }
 
 // F. GESTIÓN Y BACKUP
