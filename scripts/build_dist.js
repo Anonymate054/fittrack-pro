@@ -47,12 +47,20 @@ if (fs.existsSync(distHtmlPath)) {
   fs.writeFileSync(distHtmlPath, htmlContent, 'utf8');
 }
 
-// Inyectar versión dinámica en dist/src/app.js
-const distAppJsPath = path.join(distDir, 'src', 'app.js');
-if (fs.existsSync(distAppJsPath)) {
-  let appJsContent = fs.readFileSync(distAppJsPath, 'utf8');
-  appJsContent = appJsContent.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
-  fs.writeFileSync(distAppJsPath, appJsContent, 'utf8');
+// Inyectar versión en root y dist
+const rootHtmlPath = path.join(srcDir, 'index.html');
+if (fs.existsSync(rootHtmlPath)) {
+  let rHtml = fs.readFileSync(rootHtmlPath, 'utf8');
+  rHtml = rHtml.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
+  rHtml = rHtml.replace(/app\.js\?v=\d+/g, `app.js?v=${Date.now()}`);
+  fs.writeFileSync(rootHtmlPath, rHtml, 'utf8');
+}
+
+const rootAppJsPath = path.join(srcDir, 'src', 'app.js');
+if (fs.existsSync(rootAppJsPath)) {
+  let rAppJs = fs.readFileSync(rootAppJsPath, 'utf8');
+  rAppJs = rAppJs.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
+  fs.writeFileSync(rootAppJsPath, rAppJs, 'utf8');
 }
 
 console.log(`✓ Build a dist/ (${pkgVersion}) completado.`);
