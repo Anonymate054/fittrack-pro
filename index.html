@@ -479,6 +479,36 @@
           <button id="saveDataFoodBtn" class="btn" style="width: fit-content; font-weight: 700;">💾 Guardar Insumo en Tabla de Equivalentes</button>
         </div>
       </div>
+
+      <!-- TARJETA 3: CARGAR ARCHIVOS PDF Y DATOS PRIVADOS (PIPELINE DESDE TELÉFONO) -->
+      <div class="card" style="border: 1px solid var(--accent-color);">
+        <div class="card-title">📂 Cargar Documentos y Datos Privados (PDF / JSON)</div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
+          Selecciona tus archivos PDF o JSON personales directamente desde el almacenamiento de tu teléfono. Los datos se procesarán localmente y se guardarán únicamente de forma privada en tu dispositivo (100% Offline, sin subir a ningún servidor).
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+          <!-- Botón 1: Nutrición -->
+          <label class="btn btn-secondary" style="cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;">
+            <span>🥗 Cargar PDF / Plan Nutricional</span>
+            <input type="file" id="importNutritionPdfInput" accept=".pdf,.json" style="display: none;">
+          </label>
+
+          <!-- Botón 2: Entrenamientos -->
+          <label class="btn btn-secondary" style="cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;">
+            <span>🏋️ Cargar PDF / Rutina Gimnasio</span>
+            <input type="file" id="importWorkoutPdfInput" accept=".pdf,.json" style="display: none;">
+          </label>
+
+          <!-- Botón 3: Evaluaciones -->
+          <label class="btn btn-secondary" style="cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;">
+            <span>📊 Cargar PDF / Evaluación Antropométrica</span>
+            <input type="file" id="importProgressPdfInput" accept=".pdf,.json" style="display: none;">
+          </label>
+        </div>
+
+        <div id="pdfUploadStatus" style="margin-top: 14px; font-size: 0.88rem; font-weight: 600; color: var(--accent-color); display: none;"></div>
+      </div>
     </section>
 
     <!-- TAB 6: AJUSTES & NOTION / BACKUP -->
