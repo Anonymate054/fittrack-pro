@@ -491,7 +491,7 @@ function renderWorkoutView() {
 
   if (planSelector.children.length === 0) {
     planSelector.innerHTML = state.workoutData.map((plan, idx) => `
-      <option value="${idx}">${idx === 0 ? '⭐ [MÁS RECIENTE] ' : ''}${plan.technique_title || 'Plan ' + (idx + 1)}</option>
+      <option value="${idx}">${idx === 0 ? '⭐ [RECIENTE] ' : ''}${plan.technique_title || plan.plan_name || plan.technique_name || 'Rutina ' + (idx + 1)}</option>
     `).join('');
 
     planSelector.value = state.selectedPlanIndex;
@@ -506,10 +506,10 @@ function renderWorkoutView() {
 
   techniqueBox.innerHTML = `
     <div style="font-weight: 700; color: var(--accent-color); margin-bottom: 4px;">
-      💡 Técnica Activa: ${activePlan.technique_title || 'BISERIES'}
+      💡 Técnica Activa: ${activePlan.technique_title || activePlan.technique_name || 'BISERIES'}
     </div>
     <div style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">
-      ${activePlan.technique_description || 'Ejecutar repeticiones con tempo controlado respetando pausas de descanso.'}
+      ${activePlan.technique_description || activePlan.technique_desc || 'Ejecutar repeticiones con tempo controlado respetando pausas de descanso.'}
     </div>
   `;
 
@@ -523,7 +523,7 @@ function renderWorkoutView() {
 
   const daysList = activePlan.days || [];
   daySelector.innerHTML = daysList.map((d, idx) => `
-    <option value="${idx}">${d.day_name}</option>
+    <option value="${idx}">${d.day_name || d.day_title || 'Día ' + (idx + 1)}</option>
   `).join('');
 
   daySelector.value = state.selectedRoutineIndex;
@@ -617,8 +617,11 @@ function renderSubblocks(biseriesList, techniqueTitle) {
     const blockBorder = isEven ? 'rgba(0, 230, 118, 0.3)' : 'rgba(147, 51, 234, 0.3)';
 
     const exCardsHtml = block.exercises.map(ex => {
-      const weekData = ex.weeks.find(w => w.week === state.currentWeek) || ex.weeks[0] || { sets: 3, reps: 12, tempo: '2,1,2' };
-      const svgHtml = renderMuscleSVG(ex.muscle_group || ex.name);
+      const defaultWeek = { sets: ex.sets || 3, reps: ex.reps || '10-12', tempo: ex.tempo || '2,1,2' };
+      const weekData = (ex.weeks && Array.isArray(ex.weeks))
+        ? (ex.weeks.find(w => w.week === state.currentWeek) || ex.weeks[0] || defaultWeek)
+        : defaultWeek;
+      const svgHtml = renderMuscleSVG(ex.muscle_group || ex.svg_type || ex.target_muscle || ex.name);
       const ytId = getYouTubeVideoId(ex.video_url);
 
       const logKey = `${ex.name}_w${state.currentWeek}`;
