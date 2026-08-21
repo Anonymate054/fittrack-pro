@@ -185,8 +185,16 @@ async function loadAppData() {
     console.warn('Usando respaldo estático de datos importados:', err);
   }
 
-  // Cargar datos privados personalizados de localStorage si existen
+  // Cargar datos privados personalizados de localStorage o respaldo local ignórado en git
   try {
+    const backupRes = await fetch('./user_private_backup.json').catch(() => null);
+    if (backupRes && backupRes.ok) {
+      const privateBackup = await backupRes.json();
+      if (privateBackup.nutritionData) state.nutritionData = privateBackup.nutritionData;
+      if (privateBackup.workoutData) state.workoutData = privateBackup.workoutData;
+      if (privateBackup.resultsData) state.resultsData = privateBackup.resultsData;
+    }
+
     const savedNut = localStorage.getItem('fitapp_custom_nutrition');
     const savedWork = localStorage.getItem('fitapp_custom_workout');
     const savedProg = localStorage.getItem('fitapp_custom_progress');
