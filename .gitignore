@@ -1,0 +1,25 @@
+# Dependencias y Entornos Virtuales
+node_modules/
+.venv/
+.jdk/
+.env
+*.log
+
+# Datos Privados y Confidenciales de Salud/Usuario (Protegidos)
+src/data/progress_history.json
+src/data/user_logs.json
+src/data/private_*
+*.private.json
+
+# Builds, APKs y Archivos Compilados
+dist/
+FitTrackPro.apk
+android/app/build/
+android/.gradle/
+android/app/src/main/assets/public/
+
+# Archivos del Sistema e IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
