@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const srcDir = '/home/lenovo/Documents/projects/fitness';
+const srcDir = path.resolve(__dirname, '..');
 const distDir = path.join(srcDir, 'dist');
 
 // Limpiar y crear dist
