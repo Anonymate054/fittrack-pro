@@ -6,6 +6,7 @@ node_modules/
 *.log
 
 # Datos Privados, Confidenciales y Reportes PDF del Usuario
+user_private_backup.json
 files/results/
 src/data/progress_history.json
 src/data/user_logs.json
