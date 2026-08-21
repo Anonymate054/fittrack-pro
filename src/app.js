@@ -1660,7 +1660,7 @@ function initSettings() {
     const evalCount = (state.resultsData || []).length;
     statusInfo.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-        <span>🏷️ Versión Instalada: <strong>v1.3.2</strong></span>
+        <span>🏷️ Versión Instalada: <strong>v2.0.3</strong></span>
         <span>🏋️ Cargas Registradas: <strong>${logsCount} ejercicios</strong></span>
         <span>📊 Evaluaciones: <strong>${evalCount} reportes</strong></span>
       </div>

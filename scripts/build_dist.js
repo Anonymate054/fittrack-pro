@@ -34,12 +34,25 @@ filesToCopy.forEach(item => {
   }
 });
 
-// Inyectar versión dinámica de timestamp en dist/index.html
+// Leer versión desde package.json
+const pkgPath = path.join(srcDir, 'package.json');
+const pkgVersion = fs.existsSync(pkgPath) ? `v${JSON.parse(fs.readFileSync(pkgPath, 'utf8')).version}` : 'v2.0.3';
+
+// Inyectar versión dinámica y cache-busting timestamp en dist/index.html
 const distHtmlPath = path.join(distDir, 'index.html');
 if (fs.existsSync(distHtmlPath)) {
   let htmlContent = fs.readFileSync(distHtmlPath, 'utf8');
   htmlContent = htmlContent.replace(/app\.js\?v=\d+/g, `app.js?v=${Date.now()}`);
+  htmlContent = htmlContent.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
   fs.writeFileSync(distHtmlPath, htmlContent, 'utf8');
 }
 
-console.log('✓ Build a dist/ completado.');
+// Inyectar versión dinámica en dist/src/app.js
+const distAppJsPath = path.join(distDir, 'src', 'app.js');
+if (fs.existsSync(distAppJsPath)) {
+  let appJsContent = fs.readFileSync(distAppJsPath, 'utf8');
+  appJsContent = appJsContent.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
+  fs.writeFileSync(distAppJsPath, appJsContent, 'utf8');
+}
+
+console.log(`✓ Build a dist/ (${pkgVersion}) completado.`);
