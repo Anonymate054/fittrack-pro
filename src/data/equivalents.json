@@ -1,0 +1,1852 @@
+{
+  "FRUTAS": [
+    {
+      "name": "Agua de coco",
+      "portion": "1 1/2 tza"
+    },
+    {
+      "name": "Arándano fresco",
+      "portion": "125 g"
+    },
+    {
+      "name": "Arándano deshidratado",
+      "portion": "20 g"
+    },
+    {
+      "name": "Blueberries",
+      "portion": "3/4 tza"
+    },
+    {
+      "name": "Capulín",
+      "portion": "3 tzas"
+    },
+    {
+      "name": "Cerezas",
+      "portion": "20 pzas"
+    },
+    {
+      "name": "Ciruela criolla",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Ciruela pasa deshuesada",
+      "portion": "7 pzas"
+    },
+    {
+      "name": "Chabacano",
+      "portion": "4 pzas"
+    },
+    {
+      "name": "Chicozapote",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Chirimoya",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Dátil seco",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Durazno chico",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Durazno en almíbar",
+      "portion": "120 g"
+    },
+    {
+      "name": "Frambuesa",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Fresa rebanada",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Fruta picada",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Gajos de mandarina",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Gajos de naranja o toronja",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Granada china",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Granada roja",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Grosellas",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Guanábana chica",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Guayabas chicas",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Higos chicos",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Higo deshidratado",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Jugo de arándano natural sin azúcar",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Jugo de mandarina natural",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Jugo de mango natural",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Jugo de naranja natural",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Jugo de toronja natural",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Kiwi",
+      "portion": "1 1/2 pzas"
+    },
+    {
+      "name": "Lichis",
+      "portion": "12 pzas"
+    },
+    {
+      "name": "Lima",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Mamey",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Mandarinas chicas",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Mango ataúlfo",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Mango deshidratado",
+      "portion": "20 g"
+    },
+    {
+      "name": "Mango enchilado",
+      "portion": "15 g"
+    },
+    {
+      "name": "Mango manila",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Mango petacón",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Manzana Fuji / Gala",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Manzana cocida",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Manzana Granny / Verde",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Maracuyá",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Melón picado",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Membrillo",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Moras",
+      "portion": "3/4 tza"
+    },
+    {
+      "name": "Naranjas chicas",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Níspero del Japón",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Papaya picada",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Pasitas",
+      "portion": "10 pzas"
+    },
+    {
+      "name": "Pera",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Perón",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Piña en almíbar",
+      "portion": "1 reb"
+    },
+    {
+      "name": "Piña picada",
+      "portion": "3/4 tza"
+    },
+    {
+      "name": "Plátano tabasco",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Plátano deshidratado",
+      "portion": "20 g"
+    },
+    {
+      "name": "Plátano dominico",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Plátano macho",
+      "portion": "1/4 pza"
+    },
+    {
+      "name": "Plátano morado",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Puré de manzana sin azúcar",
+      "portion": "6 cdas"
+    },
+    {
+      "name": "Sandía picada",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Tamarindo",
+      "portion": "50 g"
+    },
+    {
+      "name": "Tejocote",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Toronja",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Tuna chica",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Uvas",
+      "portion": "18 pzas"
+    },
+    {
+      "name": "Zapote negro",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Zarzamora",
+      "portion": "3/4 tza"
+    }
+  ],
+  "VERDURAS": [
+    {
+      "name": "Acelga",
+      "portion": "Libre"
+    },
+    {
+      "name": "Apio",
+      "portion": "Libre"
+    },
+    {
+      "name": "Arúgula",
+      "portion": "Libre"
+    },
+    {
+      "name": "Alcachofa",
+      "portion": "Libre"
+    },
+    {
+      "name": "Berenjena",
+      "portion": "Libre"
+    },
+    {
+      "name": "Berro",
+      "portion": "Libre"
+    },
+    {
+      "name": "Betabel crudo rallado",
+      "portion": "1/4 tza"
+    },
+    {
+      "name": "Brócoli",
+      "portion": "Libre"
+    },
+    {
+      "name": "Calabacita",
+      "portion": "Libre"
+    },
+    {
+      "name": "Cebolla",
+      "portion": "Libre"
+    },
+    {
+      "name": "Col",
+      "portion": "Libre"
+    },
+    {
+      "name": "Col de Bruselas",
+      "portion": "Libre"
+    },
+    {
+      "name": "Coliflor",
+      "portion": "Libre"
+    },
+    {
+      "name": "Cuitlacoche",
+      "portion": "Libre"
+    },
+    {
+      "name": "Champiñón",
+      "portion": "Libre"
+    },
+    {
+      "name": "Chayote",
+      "portion": "Libre"
+    },
+    {
+      "name": "Chícharo",
+      "portion": "Libre"
+    },
+    {
+      "name": "Chile",
+      "portion": "Libre"
+    },
+    {
+      "name": "Cilantro",
+      "portion": "Libre"
+    },
+    {
+      "name": "Edamame",
+      "portion": "30 g"
+    },
+    {
+      "name": "Ejote",
+      "portion": "Libre"
+    },
+    {
+      "name": "Espárrago",
+      "portion": "Libre"
+    },
+    {
+      "name": "Espinaca",
+      "portion": "Libre"
+    },
+    {
+      "name": "Flor de calabaza",
+      "portion": "Libre"
+    },
+    {
+      "name": "Germen de alfalfa",
+      "portion": "Libre"
+    },
+    {
+      "name": "Germen de soya",
+      "portion": "Libre"
+    },
+    {
+      "name": "Hongo",
+      "portion": "Libre"
+    },
+    {
+      "name": "Jícama",
+      "portion": "Libre"
+    },
+    {
+      "name": "Jitomate",
+      "portion": "Libre"
+    },
+    {
+      "name": "Jugo verde natural",
+      "portion": "6 cdas"
+    },
+    {
+      "name": "Jugo de zanahoria natural",
+      "portion": "1/4 tza"
+    },
+    {
+      "name": "Kale",
+      "portion": "Libre"
+    },
+    {
+      "name": "Lechuga",
+      "portion": "Libre"
+    },
+    {
+      "name": "Nabo",
+      "portion": "Libre"
+    },
+    {
+      "name": "Nopal",
+      "portion": "Libre"
+    },
+    {
+      "name": "Pepinillo crudo",
+      "portion": "80 g"
+    },
+    {
+      "name": "Pepino",
+      "portion": "Libre"
+    },
+    {
+      "name": "Pimiento",
+      "portion": "Libre"
+    },
+    {
+      "name": "Poro crudo",
+      "portion": "Libre"
+    },
+    {
+      "name": "Puerro crudo",
+      "portion": "Libre"
+    },
+    {
+      "name": "Puré de tomate natural",
+      "portion": "Libre"
+    },
+    {
+      "name": "Quelite crudo",
+      "portion": "80 g"
+    },
+    {
+      "name": "Rábano",
+      "portion": "Libre"
+    },
+    {
+      "name": "Romeritos",
+      "portion": "Libre"
+    },
+    {
+      "name": "Salsa de chile",
+      "portion": "Libre"
+    },
+    {
+      "name": "Setas",
+      "portion": "Libre"
+    },
+    {
+      "name": "Tomate verde",
+      "portion": "Libre"
+    },
+    {
+      "name": "Verdolaga",
+      "portion": "Libre"
+    },
+    {
+      "name": "Xoconostle",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Zanahoria miniatura cruda",
+      "portion": "4 pzas"
+    },
+    {
+      "name": "Zanahoria rallada cruda",
+      "portion": "1/2 tza"
+    }
+  ],
+  "CEREALES SIN GRASA": [
+    {
+      "name": "Alegría natural",
+      "portion": "4 cditas"
+    },
+    {
+      "name": "Amaranto tostado",
+      "portion": "4 cditas"
+    },
+    {
+      "name": "Arroz blanco cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Arroz integral cocido",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Arroz precocido cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Atole en sobre",
+      "portion": "1/3 sobre"
+    },
+    {
+      "name": "Avena cocida",
+      "portion": "3/4 tza"
+    },
+    {
+      "name": "Avena cruda",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Avena instantánea de sabor",
+      "portion": "1/2 sobre"
+    },
+    {
+      "name": "Avena integral",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Bagel",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Baguette",
+      "portion": "1/7 pza"
+    },
+    {
+      "name": "Barrita de avena o granola",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Barrita Special K cosecha roja",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Barrita Stila",
+      "portion": "3/4 pza"
+    },
+    {
+      "name": "Bebida de avena sin azúcar",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Birote",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Bolillo",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Bolillo sin migajón",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Bolillo integral sin migajón",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Bollo de hamburguesa",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Camote cocido",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Cebada",
+      "portion": "20 g"
+    },
+    {
+      "name": "Cereal de caja sin azúcar",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Chapata",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Codito cocido",
+      "portion": "20 g"
+    },
+    {
+      "name": "Elote blanco cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Elote desgranado",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Elote enlatado",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Espagueti cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Espagueti integral cocido",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Fécula de maíz",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Fettuccini cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Fideo cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Fusili cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Galleta de animalitos",
+      "portion": "5 pzas"
+    },
+    {
+      "name": "Galletas Marías",
+      "portion": "5 pzas"
+    },
+    {
+      "name": "Galletas saladas",
+      "portion": "4 pzas"
+    },
+    {
+      "name": "Galletas habaneras integral",
+      "portion": "5 pzas"
+    },
+    {
+      "name": "Galletas horneadas de maíz (salmas)",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Granola bajo en grasa",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Harina de arroz/avena",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Harina de maíz",
+      "portion": "2 1/2 cdas"
+    },
+    {
+      "name": "Harina de trigo",
+      "portion": "2 1/2 cdas"
+    },
+    {
+      "name": "Harina para hot cakes",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Macarrón cocido",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Maicena de sabor",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Maíz",
+      "portion": "20 g"
+    },
+    {
+      "name": "Media noche",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Muesli con manzana",
+      "portion": "1/4 tza"
+    },
+    {
+      "name": "Nixtamal",
+      "portion": "45 g"
+    },
+    {
+      "name": "Palitos de pan",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Palomitas naturales sin grasa",
+      "portion": "2 1/2 tzas"
+    },
+    {
+      "name": "Pan árabe",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Pan de caja",
+      "portion": "1 reb"
+    },
+    {
+      "name": "Pan de caja integral",
+      "portion": "1 reb"
+    },
+    {
+      "name": "Pan molido",
+      "portion": "8 cditas"
+    },
+    {
+      "name": "Pan Thin integral",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Pan tostado",
+      "portion": "1 reb"
+    },
+    {
+      "name": "Papa cocida / al horno",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Papa de cambray",
+      "portion": "5 pzas"
+    },
+    {
+      "name": "Pasta cocida",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Puré de papa",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Quinoa cruda",
+      "portion": "20 g"
+    },
+    {
+      "name": "Ravioles crudos",
+      "portion": "30 g"
+    },
+    {
+      "name": "Saladitas",
+      "portion": "5 pzas"
+    },
+    {
+      "name": "Salvado de trigo",
+      "portion": "8 cdas"
+    },
+    {
+      "name": "Tallarín cocido",
+      "portion": "20 g"
+    },
+    {
+      "name": "Tapioca",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Tortilla de maíz",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Tortilla de nopal",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Tortilla de harina",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Tortitas de arroz y quinoa",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Tostadas horneadas",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Trigo cocido",
+      "portion": "1 1/2 cda"
+    },
+    {
+      "name": "Yuca",
+      "portion": "1/4 pza"
+    }
+  ],
+  "CEREALES CON GRASA": [
+    {
+      "name": "Barrita de granola con cacahuate",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Barrita Special K Nut Bar",
+      "portion": "1 barra"
+    },
+    {
+      "name": "Barrita Marinela",
+      "portion": "20 g"
+    },
+    {
+      "name": "Barrita Nature Valley",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Bigote de chocolate",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Bigotes miniatura de cajeta",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Bimbo Nito",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Bisquet",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Brownie comercial",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Cuernito",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Churritos de nopal",
+      "portion": "20 g"
+    },
+    {
+      "name": "Donita azucarada",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Donita espolvoreada",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Frituras de maíz",
+      "portion": "1/3 bolsa"
+    },
+    {
+      "name": "Galletas con chispas de chocolate",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Granola estándar",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Hot cake chico",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Macarrón con queso",
+      "portion": "1/4 tza"
+    },
+    {
+      "name": "Muffin",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Nachos",
+      "portion": "3 pzas"
+    },
+    {
+      "name": "Panqué de limón",
+      "portion": "20 g"
+    },
+    {
+      "name": "Panqué de nata",
+      "portion": "20 g"
+    },
+    {
+      "name": "Pan de dulce",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Pan francés",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Papas comerciales",
+      "portion": "20 g"
+    },
+    {
+      "name": "Papas fritas a la francesa",
+      "portion": "20 g"
+    },
+    {
+      "name": "Pastel",
+      "portion": "35 g"
+    },
+    {
+      "name": "Pay de queso",
+      "portion": "35 g"
+    },
+    {
+      "name": "Roles de canela",
+      "portion": "30 g"
+    },
+    {
+      "name": "Tamal",
+      "portion": "1/5 pza"
+    },
+    {
+      "name": "Waffle chico",
+      "portion": "1 pza"
+    }
+  ],
+  "LEGUMINOSAS": [
+    {
+      "name": "Alubia cocida",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Bebida de soya sin azúcar",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Chícharo seco cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Chícharo germinado cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Frijol negro cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Frijol refrito / molido",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Frijol entero enlatado",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Garbanzo cocido",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Haba cocida",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Harina de garbanzo o haba",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Lenteja cocida",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Miso de soya",
+      "portion": "60 g"
+    },
+    {
+      "name": "Proteína aislada de soya",
+      "portion": "15 g"
+    },
+    {
+      "name": "Proteína concentrada de soya",
+      "portion": "20 g"
+    },
+    {
+      "name": "Soya cocida",
+      "portion": "60 g"
+    },
+    {
+      "name": "Soya texturizada",
+      "portion": "30 g"
+    }
+  ],
+  "ALIMENTOS DE ORIGEN ANIMAL (AOA)": [
+    {
+      "name": "Abulón fresco",
+      "portion": "40 g"
+    },
+    {
+      "name": "Aguayón de res",
+      "portion": "30 g"
+    },
+    {
+      "name": "Agujas de res",
+      "portion": "35 g"
+    },
+    {
+      "name": "Almeja fresca sin concha",
+      "portion": "4 pzas"
+    },
+    {
+      "name": "Anchoas frescas",
+      "portion": "30 g"
+    },
+    {
+      "name": "Atún en aceite enlatado*",
+      "portion": "1/3 lata"
+    },
+    {
+      "name": "Atún en agua enlatado",
+      "portion": "1/3 lata"
+    },
+    {
+      "name": "Atún en agua en sobre",
+      "portion": "1/2 sobre"
+    },
+    {
+      "name": "Atún fresco",
+      "portion": "30 g"
+    },
+    {
+      "name": "Arenque fresco",
+      "portion": "35 g"
+    },
+    {
+      "name": "Arrachera de res",
+      "portion": "30 g"
+    },
+    {
+      "name": "Bacalao fresco",
+      "portion": "45 g"
+    },
+    {
+      "name": "Bagre fileteado",
+      "portion": "40 g"
+    },
+    {
+      "name": "Barbacoa maciza",
+      "portion": "50 g"
+    },
+    {
+      "name": "Bistec de res",
+      "portion": "30 g"
+    },
+    {
+      "name": "Bistec de ternera",
+      "portion": "35 g"
+    },
+    {
+      "name": "Cabrito",
+      "portion": "25 g"
+    },
+    {
+      "name": "Calamar fresco",
+      "portion": "45 g"
+    },
+    {
+      "name": "Camarón pacotilla",
+      "portion": "6 pzas"
+    },
+    {
+      "name": "Camarón seco",
+      "portion": "10 g"
+    },
+    {
+      "name": "Cangrejo cocido",
+      "portion": "40 g"
+    },
+    {
+      "name": "Carne de cerdo",
+      "portion": "40 g"
+    },
+    {
+      "name": "Carne de res seca",
+      "portion": "10 g"
+    },
+    {
+      "name": "Carnero",
+      "portion": "50 g"
+    },
+    {
+      "name": "Carne molida de res / pollo",
+      "portion": "30 g"
+    },
+    {
+      "name": "Caviar*",
+      "portion": "5 cdas"
+    },
+    {
+      "name": "Cecina",
+      "portion": "30 g"
+    },
+    {
+      "name": "Cecina enchilada",
+      "portion": "30 g"
+    },
+    {
+      "name": "Conejo*",
+      "portion": "40 g"
+    },
+    {
+      "name": "Chambarete",
+      "portion": "35 g"
+    },
+    {
+      "name": "Charales secos",
+      "portion": "15 g"
+    },
+    {
+      "name": "Chicharrón**",
+      "portion": "10 g"
+    },
+    {
+      "name": "Chuleta ahumada",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Claras de huevo",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Fajitas de pollo sin piel",
+      "portion": "30 g"
+    },
+    {
+      "name": "Falda de res",
+      "portion": "30 g"
+    },
+    {
+      "name": "Filete de cerdo",
+      "portion": "40 g"
+    },
+    {
+      "name": "Filete de res",
+      "portion": "30 g"
+    },
+    {
+      "name": "Filete de pescado / mojarra",
+      "portion": "40 g"
+    },
+    {
+      "name": "Hígado de res",
+      "portion": "30 g"
+    },
+    {
+      "name": "Huevo entero",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Jaiba cruda",
+      "portion": "40 g"
+    },
+    {
+      "name": "Jamón de pavo / pierna",
+      "portion": "2 reb delgadas"
+    },
+    {
+      "name": "Langosta cocida",
+      "portion": "35 g"
+    },
+    {
+      "name": "Lomo de venado / cerdo",
+      "portion": "40 g"
+    },
+    {
+      "name": "Maciza de res en trozos",
+      "portion": "25 g"
+    },
+    {
+      "name": "Machaca / Machacado de res",
+      "portion": "15 g"
+    },
+    {
+      "name": "Mariscos cocidos",
+      "portion": "20 g"
+    },
+    {
+      "name": "Milt",
+      "portion": "35 g"
+    },
+    {
+      "name": "Mejillones frescos",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Mortadela**",
+      "portion": "1 1/2 rebs"
+    },
+    {
+      "name": "Muslo de pollo sin piel*",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Ostión cocido",
+      "portion": "35 g"
+    },
+    {
+      "name": "Pavo entero",
+      "portion": "45 g"
+    },
+    {
+      "name": "Pechuga de pavo / ahumado",
+      "portion": "2 reb delgadas"
+    },
+    {
+      "name": "Pechuga de pollo sin piel aplanada",
+      "portion": "30 g"
+    },
+    {
+      "name": "Pechuga de pollo deshebrada",
+      "portion": "30 g"
+    },
+    {
+      "name": "Pierna de pollo sin piel",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Pulpo cocido",
+      "portion": "25 g"
+    },
+    {
+      "name": "Punta de res",
+      "portion": "30 g"
+    },
+    {
+      "name": "Queso de cabra / holandés*",
+      "portion": "20 g"
+    },
+    {
+      "name": "Queso cottage / requesón",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Queso manchego / gouyere**",
+      "portion": "25 g"
+    },
+    {
+      "name": "Queso Monterey / mozzarella**",
+      "portion": "1 reb"
+    },
+    {
+      "name": "Queso canasto / oaxaca*",
+      "portion": "30 g"
+    },
+    {
+      "name": "Queso panela / fresco",
+      "portion": "40 g"
+    },
+    {
+      "name": "Queso parmesano rallado*",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Queso provolone**",
+      "portion": "30 g"
+    },
+    {
+      "name": "Queso roquefort / chihuahua**",
+      "portion": "25 g"
+    },
+    {
+      "name": "Rib eye**",
+      "portion": "30 g"
+    },
+    {
+      "name": "Roast beef*",
+      "portion": "35 g"
+    },
+    {
+      "name": "Robalo fileteado",
+      "portion": "40 g"
+    },
+    {
+      "name": "Sabritas chicharrón de cerdo*",
+      "portion": "15 g"
+    },
+    {
+      "name": "Salami**",
+      "portion": "3 reb"
+    },
+    {
+      "name": "Salmón fresco*",
+      "portion": "30 g"
+    },
+    {
+      "name": "Salchicha de pavo",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Sardina*",
+      "portion": "35 g"
+    },
+    {
+      "name": "Sirloin",
+      "portion": "25 g"
+    },
+    {
+      "name": "Suadero crudo*",
+      "portion": "30 g"
+    },
+    {
+      "name": "Surimi*",
+      "portion": "1 barra"
+    },
+    {
+      "name": "Tampiqueña*",
+      "portion": "30 g"
+    },
+    {
+      "name": "Ternera",
+      "portion": "30 g"
+    },
+    {
+      "name": "Tofu, Firme",
+      "portion": "40 g"
+    },
+    {
+      "name": "Trucha fresca",
+      "portion": "35 g"
+    }
+  ],
+  "LÁCTEOS": [
+    {
+      "name": "Jocoque*",
+      "portion": "3/4 tza"
+    },
+    {
+      "name": "Leche descremada / light",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Leche entera*",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Leche evaporada / clavel**",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Leche semidescremada",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Sofúl natural",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Yogurt para beber natural triple 0",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Yogurt light natural",
+      "portion": "3/4 tza"
+    },
+    {
+      "name": "Yogurt natural sin azúcar añadidos",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Activia natural bebible",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Danonino",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Helado de leche de sabor",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Helado de chocolate",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Helado de yogurt de sabor",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Leche con chocolate / vainilla",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Malteada de sabor",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Sofúl de sabor",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Yogurt de sabor para beber",
+      "portion": "1 pza"
+    }
+  ],
+  "ACEITES Y GRASAS": [
+    {
+      "name": "Aceite en spray",
+      "portion": "5 disparos 1 seg"
+    },
+    {
+      "name": "Aceite vegetal",
+      "portion": "1 cdita"
+    },
+    {
+      "name": "Aceitunas verde",
+      "portion": "6 pzas"
+    },
+    {
+      "name": "Aderezo",
+      "portion": "1 cdita"
+    },
+    {
+      "name": "Aguacate mediano / Hass",
+      "portion": "1/3 de pza"
+    },
+    {
+      "name": "Coco",
+      "portion": "15 g"
+    },
+    {
+      "name": "Coco rallado",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Crema",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Crema batida",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Crema para café",
+      "portion": "1 cda"
+    },
+    {
+      "name": "Dip",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Guacamole",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Mantequilla",
+      "portion": "1 cdita"
+    },
+    {
+      "name": "Margarina",
+      "portion": "1 cdita"
+    },
+    {
+      "name": "Mayonesa",
+      "portion": "1 cdita"
+    },
+    {
+      "name": "Queso crema / Philadelphia",
+      "portion": "15 g"
+    },
+    {
+      "name": "Salsa alfredo",
+      "portion": "1 cda"
+    },
+    {
+      "name": "Tocino",
+      "portion": "1 reb delgada"
+    },
+    {
+      "name": "Vinagreta",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Ajonjolí",
+      "portion": "4 cditas"
+    },
+    {
+      "name": "Almendra",
+      "portion": "10 pzas"
+    },
+    {
+      "name": "Almendra acaramelada",
+      "portion": "5 pzas"
+    },
+    {
+      "name": "Avellana",
+      "portion": "9 pzas"
+    },
+    {
+      "name": "Bebida de almendras sin azúcar",
+      "portion": "1 tza"
+    },
+    {
+      "name": "Cacahuates de Japón",
+      "portion": "15 pzas"
+    },
+    {
+      "name": "Cacahuate salados",
+      "portion": "13 pzas"
+    },
+    {
+      "name": "Castaña sin cáscara",
+      "portion": "12 g"
+    },
+    {
+      "name": "Chía",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Chistora / Chorizo",
+      "portion": "15 g"
+    },
+    {
+      "name": "Crema de avellana / cacahuate sin azúcar",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Nuez de la India tostada sin sal",
+      "portion": "8 pzas"
+    },
+    {
+      "name": "Nuez en mitades",
+      "portion": "7 pzas"
+    },
+    {
+      "name": "Nuez garapiñada",
+      "portion": "12 g"
+    },
+    {
+      "name": "Paté",
+      "portion": "4 cditas"
+    },
+    {
+      "name": "Pepitas tostadas",
+      "portion": "1 cda"
+    },
+    {
+      "name": "Piñón",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Pistaches",
+      "portion": "18 pzas"
+    },
+    {
+      "name": "Queso de puerco",
+      "portion": "20 g"
+    },
+    {
+      "name": "Semilla de girasol",
+      "portion": "4 cditas"
+    }
+  ],
+  "AZÚCAR SIN GRASA": [
+    {
+      "name": "Agua quina",
+      "portion": "1/2 tza"
+    },
+    {
+      "name": "Ate",
+      "portion": "15 g"
+    },
+    {
+      "name": "Azúcar blanca / morena",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Azúcar granulada / mascabado",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Bebida para deportista",
+      "portion": "150 ml"
+    },
+    {
+      "name": "Bebida para deportista en polvo",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Boing",
+      "portion": "125 ml"
+    },
+    {
+      "name": "Bubbaloo",
+      "portion": "1/3 pza"
+    },
+    {
+      "name": "Café capuchino instantáneo",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Cajeta",
+      "portion": "1 1/2 cditas"
+    },
+    {
+      "name": "Chocolate en polvo",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Chocolate en tableta (Abuelita)",
+      "portion": "10 g"
+    },
+    {
+      "name": "Gelatina de agua preparada",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Gomitas",
+      "portion": "4 pzas"
+    },
+    {
+      "name": "Jarabe de sabor para preparar agua",
+      "portion": "1 cda"
+    },
+    {
+      "name": "Jugo industrializado",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Leche condensada",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Malvaviscos",
+      "portion": "2 pzas"
+    },
+    {
+      "name": "Mermelada / Miel / Maple",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Nieve de fruta",
+      "portion": "40 g"
+    },
+    {
+      "name": "Obleas de cajeta",
+      "portion": "1 pza chica"
+    },
+    {
+      "name": "Paleta helada de agua",
+      "portion": "1 pza"
+    },
+    {
+      "name": "Piloncillo",
+      "portion": "10 g"
+    },
+    {
+      "name": "Ponche de frutas",
+      "portion": "1/3 tza"
+    },
+    {
+      "name": "Refresco",
+      "portion": "1/4 lata"
+    },
+    {
+      "name": "Salsa cátsup",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Salsa chamoy",
+      "portion": "40 g"
+    },
+    {
+      "name": "Salsa Teriyaki",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Té helado en polvo",
+      "portion": "2 cditas"
+    },
+    {
+      "name": "Yakult",
+      "portion": "1 pza"
+    }
+  ],
+  "AZÚCAR CON GRASA": [
+    {
+      "name": "Aderezo light de miel y mostaza",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Aderezo light mil islas",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Aderezo light tipo ranch / ruso",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Almendra con chocolate",
+      "portion": "15 g"
+    },
+    {
+      "name": "Cacahuate confitado (chocolate)",
+      "portion": "4 pzas"
+    },
+    {
+      "name": "Chocolate Carlos V",
+      "portion": "1/2 pza"
+    },
+    {
+      "name": "Chocolate con arroz tostado",
+      "portion": "1/3 de barra"
+    },
+    {
+      "name": "Chocolate en barra",
+      "portion": "15 g"
+    },
+    {
+      "name": "Chocolate de menta",
+      "portion": "15 g"
+    },
+    {
+      "name": "Flan casero preparado",
+      "portion": "1/4 de taza"
+    },
+    {
+      "name": "Hot-nuts",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Lunetas",
+      "portion": "15 g"
+    },
+    {
+      "name": "Mayonesa light",
+      "portion": "2 cdas"
+    },
+    {
+      "name": "Mole poblano preparado",
+      "portion": "3 cdas"
+    },
+    {
+      "name": "Palanqueta de cacahuate",
+      "portion": "15 g"
+    },
+    {
+      "name": "Rompope sin alcohol",
+      "portion": "1/4 tza"
+    }
+  ],
+  "LIBRES DE ENERGÍA": [
+    {
+      "name": "Agua",
+      "portion": "Libre"
+    },
+    {
+      "name": "Agua mineral",
+      "portion": "Libre"
+    },
+    {
+      "name": "Ajo / Albahaca / Azafrán",
+      "portion": "Libre"
+    },
+    {
+      "name": "Café en polvo / americano",
+      "portion": "Libre"
+    },
+    {
+      "name": "Caldos / consomé desgrasados",
+      "portion": "Libre"
+    },
+    {
+      "name": "Canela / cardamomo",
+      "portion": "Libre"
+    },
+    {
+      "name": "Cebolla en polvo / clavo",
+      "portion": "Libre"
+    },
+    {
+      "name": "Chile tajín bajo en sodio",
+      "portion": "Libre"
+    },
+    {
+      "name": "Clavo / comino / curry",
+      "portion": "Libre"
+    },
+    {
+      "name": "Clight",
+      "portion": "Libre"
+    },
+    {
+      "name": "Especias para sazonar aves",
+      "portion": "Libre"
+    },
+    {
+      "name": "Fruto de monje / estevia",
+      "portion": "Libre"
+    },
+    {
+      "name": "Gelatina de dieta / sin azúcar",
+      "portion": "Libre"
+    },
+    {
+      "name": "Hierbas de olor / finas / Hierbabuena",
+      "portion": "Libre"
+    },
+    {
+      "name": "Hoja de aguacate / Laurel",
+      "portion": "Libre"
+    },
+    {
+      "name": "Jamaica / Jengibre",
+      "portion": "Libre"
+    },
+    {
+      "name": "Limón",
+      "portion": "Libre"
+    },
+    {
+      "name": "Manzanilla / Menta",
+      "portion": "Libre"
+    },
+    {
+      "name": "Mostaza",
+      "portion": "Libre"
+    },
+    {
+      "name": "Orégano / Páprika / Pimienta",
+      "portion": "Libre"
+    },
+    {
+      "name": "Sal / Romero / Tomillo",
+      "portion": "Libre"
+    },
+    {
+      "name": "Salsa de soya / inglesa / maggy",
+      "portion": "Libre"
+    },
+    {
+      "name": "Salsa Tabasco / Valentina",
+      "portion": "Libre"
+    },
+    {
+      "name": "Té sin azúcar",
+      "portion": "Libre"
+    },
+    {
+      "name": "Vainilla",
+      "portion": "Libre"
+    },
+    {
+      "name": "Vinagre de vino tinto / blanco",
+      "portion": "Libre"
+    }
+  ]
+}
