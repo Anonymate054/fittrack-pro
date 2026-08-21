@@ -1,0 +1,16 @@
+{
+  "name": "Fitness & Nutrición App",
+  "short_name": "FitApp",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#00e676",
+  "description": "App local y offline para seguimiento de rutinas de ejercicio, plan de alimentación, equivalentes y progresión física.",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

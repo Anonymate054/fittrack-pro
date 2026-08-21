@@ -1,0 +1,32 @@
+[
+  {
+    "eval_index": 1,
+    "eval_label": "Evaluación I (Muestra Demo)",
+    "filename": "RESULTADOS_DEMO.pdf",
+    "fecha": "01/01/2026",
+    "edad": 25.0,
+    "peso_kg": 70.0,
+    "masa_magra_kg": 58.0,
+    "grasa_kg": 12.0,
+    "pct_grasa": 17.1,
+    "masa_muscular_kg": 32.0,
+    "pct_musculo": 45.7,
+    "masa_osea_kg": 10.0,
+    "masa_residual_kg": 14.0,
+    "masa_piel_kg": 2.0,
+    "imc": 22.5,
+    "icc": 0.80,
+    "disminuir_grasa_kg": 2.0,
+    "aumentar_musculo_kg": 3.0,
+    "peso_ideal_kg": 68.0,
+    "somatotype": {
+      "endo": 3.0,
+      "meso": 4.0,
+      "ecto": 3.0,
+      "x": 0.0,
+      "y": 2.0
+    },
+    "phantom_circunferencias": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "phantom_pliegues": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  }
+]
