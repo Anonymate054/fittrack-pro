@@ -48,9 +48,9 @@
           </div>
         </div>
 
-        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">
-          <label style="font-size: 0.85rem; color: var(--text-muted);">Seleccionar Histórico de Plan:</label>
-          <select id="planHistorySelector" style="width: auto;">
+        <div class="selector-field-group">
+          <label for="planHistorySelector" class="selector-field-label">📋 Seleccionar Plan de Alimentación:</label>
+          <select id="planHistorySelector" class="form-select-full">
             <!-- Se llena dinámicamente -->
           </select>
         </div>
@@ -163,9 +163,9 @@
 
       <div class="card">
         <!-- Selector de Plan de Entrenamiento -->
-        <div style="margin-bottom: 16px;">
-          <label style="font-size: 0.85rem; color: var(--text-muted);">Tipo de Entrenamiento / Técnica:</label>
-          <select id="routinePlanSelector">
+        <div class="selector-field-group">
+          <label for="routinePlanSelector" class="selector-field-label">🏋️ Tipo de Entrenamiento / Técnica:</label>
+          <select id="routinePlanSelector" class="form-select-full">
             <!-- Carga dinámicamente -->
           </select>
         </div>
@@ -179,7 +179,7 @@
           <span>Ejercicios Programados</span>
           <div style="display: flex; gap: 10px; align-items: center;">
             <label style="font-size: 0.85rem; color: var(--text-muted);">Semana:</label>
-            <select id="weekSelector" style="width: auto; padding: 4px 8px;">
+            <select id="weekSelector" class="form-select-full" style="width: auto !important; padding: 4px 28px 4px 10px !important;">
               <option value="1">Semana 1</option>
               <option value="2">Semana 2</option>
               <option value="3">Semana 3</option>
@@ -188,9 +188,9 @@
           </div>
         </div>
 
-        <div style="margin-bottom: 16px;">
-          <label style="font-size: 0.85rem; color: var(--text-muted);">Día & Grupo Muscular:</label>
-          <select id="routineDaySelector">
+        <div class="selector-field-group">
+          <label for="routineDaySelector" class="selector-field-label">📅 Día & Grupo Muscular:</label>
+          <select id="routineDaySelector" class="form-select-full">
             <!-- Días cargados dinámicamente -->
           </select>
         </div>
