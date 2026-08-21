@@ -254,9 +254,17 @@ function renderNutritionView() {
 
   if (!state.nutritionData || state.nutritionData.length === 0) return;
 
-  planSelector.innerHTML = state.nutritionData.map((p, idx) => `
-    <option value="${idx}">${idx === 0 ? '⭐ [MÁS RECIENTE] ' : ''}${p.file} (${p.kcal || 2100} Kcal - ${p.date || '06/10/2025'})</option>
-  `).join('');
+  planSelector.innerHTML = state.nutritionData.map((p, idx) => {
+    const isRecent = idx === 0 ? '⭐ [RECIENTE] ' : '';
+    const kcalStr = p.kcal ? `${p.kcal} Kcal` : '2100 Kcal';
+    const dateStr = p.date ? ` (${p.date.trim()})` : '';
+    let fileName = (p.file || '').replace(/\.pdf$/i, '').trim();
+    if (fileName.toLowerCase().includes('plan de alimentación')) {
+      fileName = fileName.replace(/plan de alimentación/i, '').replace(/[\(\)]/g, '').trim();
+    }
+    const labelText = fileName ? `${kcalStr} • ${fileName}` : `${kcalStr}`;
+    return `<option value="${idx}">${isRecent}${labelText}${dateStr}</option>`;
+  }).join('');
 
   planSelector.value = state.selectedMealPlanIndex;
   planSelector.onchange = (e) => {
