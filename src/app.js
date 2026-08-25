@@ -111,21 +111,46 @@ function detectTodayWorkout() {
 }
 
 // 3. NAVEGACIÓN POR PESTAÑAS
-function initTabs() {
+function switchTab(targetId) {
   const navBtns = document.querySelectorAll('.nav-btn');
   const panels = document.querySelectorAll('.tab-panel');
+
+  navBtns.forEach(b => b.classList.remove('active'));
+  panels.forEach(p => p.classList.remove('active'));
+
+  const activeBtn = document.querySelector(`.nav-btn[data-tab="${targetId}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  const activePanel = document.getElementById(targetId);
+  if (activePanel) activePanel.classList.add('active');
+
+  state.currentTab = targetId;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function initTabs() {
+  const navBtns = document.querySelectorAll('.nav-btn');
 
   navBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const target = btn.getAttribute('data-tab');
-      navBtns.forEach(b => b.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
-
-      btn.classList.add('active');
-      document.getElementById(target).classList.add('active');
-      state.currentTab = target;
+      switchTab(target);
     });
   });
+
+  // Clicks en las tarjetas del Menú Principal Home
+  document.querySelectorAll('.home-module-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const target = card.getAttribute('data-tab-target');
+      if (target) switchTab(target);
+    });
+  });
+
+  // Click en el logo de la marca (brand) para regresar al Menú Principal Home
+  const brand = document.querySelector('.brand');
+  if (brand) {
+    brand.addEventListener('click', () => switchTab('tab-home'));
+  }
 
   const tableBtn = document.getElementById('subtabTableBtn');
   const calcBtn = document.getElementById('subtabCalcBtn');
@@ -235,7 +260,30 @@ async function loadAppData() {
 }
 
 // 6. RENDERIZADO DE VISTAS
+function renderHomeView() {
+  const nutSummary = document.getElementById('homeNutSummary');
+  const workSummary = document.getElementById('homeWorkSummary');
+  const progSummary = document.getElementById('homeProgSummary');
+
+  if (nutSummary && state.nutritionData && state.nutritionData.length > 0) {
+    const activePlan = state.nutritionData[state.selectedPlanIndex || 0];
+    const planName = activePlan?.plan_name || activePlan?.technique_title || 'Plan Nutricional';
+    nutSummary.textContent = `⭐ ${state.nutritionData.length} Planes disponibles (Activo: ${planName})`;
+  }
+
+  if (workSummary && state.workoutData && state.workoutData.length > 0) {
+    const activeWork = state.workoutData[state.selectedRoutineIndex || 0];
+    const workName = activeWork?.technique_title || activeWork?.plan_name || 'Rutina de Gimnasio';
+    workSummary.textContent = `🏋️ ${state.workoutData.length} Rutinas disponibles (Activa: ${workName})`;
+  }
+
+  if (progSummary && state.resultsData) {
+    progSummary.textContent = `📊 ${state.resultsData.length} Reportes de Evaluación Antropométrica`;
+  }
+}
+
 function renderAllViews() {
+  renderHomeView();
   renderNutritionView();
   renderWorkoutView();
   renderEquivalentsView();
@@ -1660,7 +1708,7 @@ function initSettings() {
     const evalCount = (state.resultsData || []).length;
     statusInfo.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-        <span>🏷️ Versión Instalada: <strong>v2.0.4</strong></span>
+        <span>🏷️ Versión Instalada: <strong>v2.1.0</strong></span>
         <span>🏋️ Cargas Registradas: <strong>${logsCount} ejercicios</strong></span>
         <span>📊 Evaluaciones: <strong>${evalCount} reportes</strong></span>
       </div>
