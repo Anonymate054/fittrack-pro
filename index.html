@@ -17,11 +17,12 @@
   <!-- Header & Navegación -->
   <header>
     <div class="brand">
-      <span>💪</span> FitTrack Pro <span id="appVersionBadge" class="app-version-tag" style="font-size: 0.72rem; font-weight: 700; background: rgba(16, 185, 129, 0.15); color: var(--accent-color); padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3); margin-left: 6px; vertical-align: middle;">v2.0.4</span>
+      <span>💪</span> FitTrack Pro <span id="appVersionBadge" class="app-version-tag" style="font-size: 0.72rem; font-weight: 700; background: rgba(16, 185, 129, 0.15); color: var(--accent-color); padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3); margin-left: 6px; vertical-align: middle;">v2.1.0</span>
     </div>
     
     <nav class="nav-tabs">
-      <button class="nav-btn active" data-tab="tab-nutrition">🥗 Nutrición</button>
+      <button class="nav-btn active" data-tab="tab-home">🏠 Inicio</button>
+      <button class="nav-btn" data-tab="tab-nutrition">🥗 Nutrición</button>
       <button class="nav-btn" data-tab="tab-workout">🏋️ Gimnasio</button>
       <button class="nav-btn" data-tab="tab-equivalents">🧮 Equivalentes</button>
       <button class="nav-btn" data-tab="tab-progress">📊 Progresión</button>
@@ -37,8 +38,86 @@
   <!-- Contenedor Principal -->
   <main>
 
+    <!-- TAB 0: INICIO / MENÚ PRINCIPAL -->
+    <section id="tab-home" class="tab-panel active">
+      <div class="card home-hero-card" style="border-left: 4px solid var(--accent-color);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h2 style="font-size: 1.25rem; color: var(--accent-color); margin-bottom: 4px;">👋 Menú Principal FitTrack Pro</h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Selecciona el módulo al que deseas acceder o navega fácilmente desde el menú.</p>
+          </div>
+          <div id="homeQuickStatus" style="font-size: 0.8rem; background: var(--input-bg); border: 1px solid var(--card-border); padding: 6px 12px; border-radius: 20px; color: var(--accent-color); font-weight: 600;">
+            ⚡ Modo Offline Activo
+          </div>
+        </div>
+      </div>
+
+      <!-- Rejilla de Módulos (Mobile Dashboard Grid) -->
+      <div class="home-grid">
+        <!-- Módulo 1: Nutrición -->
+        <div class="home-module-card" data-tab-target="tab-nutrition">
+          <div class="home-module-icon">🥗</div>
+          <div class="home-module-content">
+            <h3>Plan Nutricional</h3>
+            <p id="homeNutSummary">Plan de alimentación, raciones y suplementación diaria</p>
+          </div>
+          <div class="home-module-arrow">➔</div>
+        </div>
+
+        <!-- Módulo 2: Gimnasio -->
+        <div class="home-module-card" data-tab-target="tab-workout">
+          <div class="home-module-icon">🏋️</div>
+          <div class="home-module-content">
+            <h3>Rutinas de Gimnasio</h3>
+            <p id="homeWorkSummary">Rutinas de 4 días, biseries y registro de cargas</p>
+          </div>
+          <div class="home-module-arrow">➔</div>
+        </div>
+
+        <!-- Módulo 3: Equivalentes -->
+        <div class="home-module-card" data-tab-target="tab-equivalents">
+          <div class="home-module-icon">🧮</div>
+          <div class="home-module-content">
+            <h3>Tabla de Equivalentes</h3>
+            <p>Calculadora y guía de intercambio de alimentos</p>
+          </div>
+          <div class="home-module-arrow">➔</div>
+        </div>
+
+        <!-- Módulo 4: Progresión -->
+        <div class="home-module-card" data-tab-target="tab-progress">
+          <div class="home-module-icon">📊</div>
+          <div class="home-module-content">
+            <h3>Progresión Antropométrica</h3>
+            <p id="homeProgSummary">Evaluaciones ISAK 2, % de grasa y masa muscular</p>
+          </div>
+          <div class="home-module-arrow">➔</div>
+        </div>
+
+        <!-- Módulo 5: Cargar Datos / PDFs -->
+        <div class="home-module-card" data-tab-target="tab-add-data">
+          <div class="home-module-icon">📂</div>
+          <div class="home-module-content">
+            <h3>Cargar Documentos y Datos</h3>
+            <p>Carga directa de PDFs o JSONs desde tu dispositivo</p>
+          </div>
+          <div class="home-module-arrow">➔</div>
+        </div>
+
+        <!-- Módulo 6: Ajustes y Respaldo -->
+        <div class="home-module-card" data-tab-target="tab-settings">
+          <div class="home-module-icon">⚙️</div>
+          <div class="home-module-content">
+            <h3>Ajustes & Respaldo</h3>
+            <p>Exportar/Importar copia de seguridad privada</p>
+          </div>
+          <div class="home-module-arrow">➔</div>
+        </div>
+      </div>
+    </section>
+
     <!-- TAB 1: NUTRICIÓN -->
-    <section id="tab-nutrition" class="tab-panel active">
+    <section id="tab-nutrition" class="tab-panel">
       <div class="card">
         <div class="card-title">
           <span>Plan de Alimentación</span>
@@ -581,11 +660,11 @@
 
   <!-- Pie de página -->
   <footer>
-    FitTrack Pro <span id="footerVersionText">v2.0.4</span> &bull; Modo Offline Activo &bull; Datos Privados en Dispositivo
+    FitTrack Pro <span id="footerVersionText">v2.1.0</span> &bull; Modo Offline Activo &bull; Datos Privados en Dispositivo
   </footer>
 
   <!-- Scripts -->
-  <script type="module" src="./src/app.js?v=1787334972056"></script>
+  <script type="module" src="./src/app.js?v=1787625184722"></script>
 
   <!-- Service Worker Registration & Cache Invalidation -->
   <script>
