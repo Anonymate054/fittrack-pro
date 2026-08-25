@@ -1645,7 +1645,8 @@ function initAddDataView() {
         reader.onload = (event) => {
           try {
             const parsed = JSON.parse(event.target.result);
-            state[stateKey] = Array.isArray(parsed) ? parsed : [parsed];
+            const extracted = parsed[stateKey] || (Array.isArray(parsed) ? parsed : [parsed]);
+            state[stateKey] = extracted;
             localStorage.setItem(storageKey, JSON.stringify(state[stateKey]));
 
             if (pdfStatus) {
@@ -1708,7 +1709,7 @@ function initSettings() {
     const evalCount = (state.resultsData || []).length;
     statusInfo.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-        <span>🏷️ Versión Instalada: <strong>v2.1.0</strong></span>
+        <span>🏷️ Versión Instalada: <strong>v2.1.1</strong></span>
         <span>🏋️ Cargas Registradas: <strong>${logsCount} ejercicios</strong></span>
         <span>📊 Evaluaciones: <strong>${evalCount} reportes</strong></span>
       </div>
@@ -1739,9 +1740,14 @@ function initSettings() {
     exportBtn.onclick = () => {
       const backupData = {
         app: 'FitTrack Pro',
-        version: '2.0.0',
+        version: '2.1.0',
         timestamp: new Date().toISOString(),
+        nutritionData: state.nutritionData,
+        workoutData: state.workoutData,
+        resultsData: state.resultsData,
         userLogs: state.userLogs,
+        customFoods: state.customFoods,
+        customExercises: state.customExercises,
         theme: state.theme
       };
       const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
@@ -1761,17 +1767,58 @@ function initSettings() {
       reader.onload = (event) => {
         try {
           const imported = JSON.parse(event.target.result);
-          if (imported.userLogs) {
+          let restoredCount = 0;
+
+          // 1. Logs de ejercicios
+          if (imported.userLogs && Object.keys(imported.userLogs).length > 0) {
             state.userLogs = imported.userLogs;
             localStorage.setItem('fitapp_user_logs', JSON.stringify(state.userLogs));
-            alert('✓ Respaldo importado correctamente.');
+            restoredCount++;
+          }
+
+          // 2. Planes Nutricionales (ej. user_private_backup.json)
+          const nutData = imported.nutritionData || imported.mealPlans || (Array.isArray(imported) && imported[0]?.ration_matrix ? imported : null);
+          if (nutData) {
+            state.nutritionData = nutData;
+            localStorage.setItem('fitapp_custom_nutrition', JSON.stringify(nutData));
+            restoredCount++;
+          }
+
+          // 3. Rutinas de Gimnasio (ej. user_private_backup.json)
+          const workData = imported.workoutData || imported.workoutPlans || (Array.isArray(imported) && imported[0]?.days ? imported : null);
+          if (workData) {
+            state.workoutData = workData;
+            localStorage.setItem('fitapp_custom_workout', JSON.stringify(workData));
+            restoredCount++;
+          }
+
+          // 4. Reportes de Progresión (ej. user_private_backup.json)
+          const progData = imported.resultsData || imported.progressData || imported.results || (Array.isArray(imported) && imported[0]?.skinholds ? imported : null);
+          if (progData) {
+            state.resultsData = progData;
+            localStorage.setItem('fitapp_custom_progress', JSON.stringify(progData));
+            restoredCount++;
+          }
+
+          // 5. Insumos y Ejercicios Personalizados
+          if (imported.customFoods) {
+            state.customFoods = imported.customFoods;
+            localStorage.setItem('fitapp_custom_foods', JSON.stringify(state.customFoods));
+          }
+          if (imported.customExercises) {
+            state.customExercises = imported.customExercises;
+            localStorage.setItem('fitapp_custom_exercises', JSON.stringify(state.customExercises));
+          }
+
+          if (restoredCount > 0) {
+            alert('✅ Respaldo privado importado y guardado correctamente en tu dispositivo.');
             renderAllViews();
             updateStatusInfo();
           } else {
-            alert('El archivo JSON no contiene una estructura de respaldo válida.');
+            alert('El archivo JSON no contiene una estructura de respaldo reconocida.');
           }
         } catch (err) {
-          alert('Error al leer el archivo de respaldo JSON.');
+          alert('Error al leer el archivo de respaldo JSON: ' + err.message);
         }
       };
       reader.readAsText(file);
