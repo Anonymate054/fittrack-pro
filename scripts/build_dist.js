@@ -63,4 +63,17 @@ if (fs.existsSync(rootAppJsPath)) {
   fs.writeFileSync(rootAppJsPath, rAppJs, 'utf8');
 }
 
+// Sincronizar versionCode y versionName en android/app/build.gradle
+const gradlePath = path.join(srcDir, 'android', 'app', 'build.gradle');
+if (fs.existsSync(gradlePath)) {
+  let gradleContent = fs.readFileSync(gradlePath, 'utf8');
+  const cleanVersion = pkgVersion.replace(/^v/, '');
+  const parts = cleanVersion.split('.').map(n => parseInt(n, 10) || 0);
+  const vCode = (parts[0] || 1) * 10000 + (parts[1] || 0) * 100 + (parts[2] || 0);
+
+  gradleContent = gradleContent.replace(/versionCode\s+\d+/g, `versionCode ${vCode}`);
+  gradleContent = gradleContent.replace(/versionName\s+"[^"]+"/g, `versionName "${cleanVersion}"`);
+  fs.writeFileSync(gradlePath, gradleContent, 'utf8');
+}
+
 console.log(`✓ Build a dist/ (${pkgVersion}) completado.`);
