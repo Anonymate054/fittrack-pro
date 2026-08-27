@@ -761,20 +761,29 @@ function renderSubblocks(biseriesList, techniqueTitle) {
     });
   });
 
-  document.querySelectorAll('.weight-input').forEach(input => {
-    input.addEventListener('change', (e) => {
-      const key = e.target.getAttribute('data-key');
-      const val = e.target.value.trim();
-      const btn = document.querySelector(`.save-weight-btn[data-key="${key}"]`);
-      if (val !== '') {
-        if (!state.userLogs[key]) state.userLogs[key] = {};
-        state.userLogs[key].weight = val;
-        localStorage.setItem('fitapp_user_logs', JSON.stringify(state.userLogs));
-        if (btn) {
-          btn.style.background = '#10b981';
-          btn.style.color = '#ffffff';
-          btn.innerHTML = `✓ Registrado (${val} kg)`;
-        }
+  // Event Listener para abrir modal de detalle del ejercicio al tocar la tarjeta
+  document.querySelectorAll('.exercise-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.weight-input') || e.target.closest('.save-weight-btn') || e.target.closest('a')) {
+        return;
+      }
+      const exName = card.getAttribute('data-exname');
+      if (!exName) return;
+
+      let foundEx = null;
+      (state.workoutData || []).forEach(plan => {
+        (plan.days || []).forEach(day => {
+          (day.biseries || []).forEach(bis => {
+            (bis.exercises || []).forEach(ex => {
+              if (ex.name === exName) foundEx = ex;
+            });
+          });
+        });
+      });
+
+      if (foundEx) {
+        openExerciseModal(foundEx);
       }
     });
   });
@@ -784,18 +793,53 @@ function openExerciseModal(ex) {
   const modal = document.getElementById('exerciseModal');
   const title = document.getElementById('modalExerciseTitle');
   const body = document.getElementById('modalExerciseBody');
-  title.innerText = ex.name;
-  const weekData = ex.weeks.find(w => w.week === state.currentWeek) || ex.weeks[0];
+  if (!modal || !title || !body) return;
+
+  title.innerHTML = `💪 ${ex.name}`;
+  const weekData = (ex.weeks && ex.weeks.find(w => w.week === state.currentWeek)) || ex.weeks?.[0] || { sets: ex.sets || 4, reps: ex.reps || '10-12', tempo: ex.tempo || '2,1,2' };
   const ytId = getYouTubeVideoId(ex.video_url);
 
+  const muscleTag = ex.target_muscle || ex.muscle_group || 'Gimnasio';
+  const rpeTag = ex.rpe || 'RPE 8.5';
+  const restTag = ex.rest || '60 - 90 seg';
+  const notesText = ex.notes || 'Controlar la fase excéntrica y mantener la postura limpia.';
+
   body.innerHTML = `
-    <div style="font-size: 0.9rem; margin-bottom: 12px;">
-      <div><strong>Tempo:</strong> ${weekData.tempo}</div>
-      <div><strong>Series:</strong> ${weekData.sets}</div>
-      <div><strong>Repeticiones:</strong> ${weekData.reps}</div>
+    <!-- Etiquetas / Badges de Información -->
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.15); color: var(--accent-color); padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3);">🎯 Grupo: ${muscleTag}</span>
+      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(59, 130, 246, 0.15); color: #3b82f6; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3);">⚡ ${rpeTag}</span>
+      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(245, 158, 11, 0.15); color: #f59e0b; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(245, 158, 11, 0.3);">⏳ Descanso: ${restTag}</span>
     </div>
-    ${ytId ? `<div style="text-align:center;"><iframe width="100%" height="200" src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen></iframe></div>` : ''}
+
+    <!-- Parámetros Principales del Ejercicio -->
+    <div style="background: var(--input-bg); border: 1px solid var(--card-border); padding: 14px; border-radius: 10px; margin-bottom: 14px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; font-size: 0.88rem;">
+        <div><strong>🔢 Carga Programada:</strong><br>${weekData.sets} series × ${weekData.reps} reps</div>
+        <div><strong>⏱ Tempo de Ejecución:</strong><br>${weekData.tempo}</div>
+        <div><strong>📅 Semana Activa:</strong><br>Semana ${state.currentWeek} de 4</div>
+      </div>
+    </div>
+
+    <!-- Indicaciones / Notas Técnicas -->
+    <div style="font-size: 0.88rem; color: var(--text-main); background: var(--card-bg); border-left: 4px solid var(--accent-color); padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; border: 1px solid var(--card-border); border-left-width: 4px;">
+      💡 <strong>Indicaciones de Ejecución:</strong><br>${notesText}
+    </div>
+
+    <!-- Reproductor de Video de YouTube Ampliado -->
+    ${ytId ? `
+      <div style="margin-top: 14px;">
+        <div style="font-size: 0.88rem; font-weight: 700; color: var(--accent-color); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+          <span>🎥 Video Demostrativo de Técnica</span>
+          <a href="${ex.video_url}" target="_blank" style="font-size: 0.8rem; color: var(--accent-color); text-decoration: underline; font-weight: 600;">Abrir en YouTube ↗</a>
+        </div>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
+          <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=0&rel=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    ` : ''}
   `;
+
   modal.style.display = 'flex';
 }
 
@@ -1709,7 +1753,7 @@ function initSettings() {
     const evalCount = (state.resultsData || []).length;
     statusInfo.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-        <span>🏷️ Versión Instalada: <strong>v2.1.1</strong></span>
+        <span>🏷️ Versión Instalada: <strong>v2.1.2</strong></span>
         <span>🏋️ Cargas Registradas: <strong>${logsCount} ejercicios</strong></span>
         <span>📊 Evaluaciones: <strong>${evalCount} reportes</strong></span>
       </div>
