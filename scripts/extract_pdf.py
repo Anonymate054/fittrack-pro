@@ -455,10 +455,21 @@ def extract_training_plan(pdf_path):
             })
         return blocks
 
+    def build_day3_blocks(ex_list):
+        if len(ex_list) >= 9:
+            return [
+                {"biserie_id": 1, "exercises": ex_list[0:2], "note": data["technique_description"]},
+                {"biserie_id": 2, "exercises": ex_list[2:4], "note": data["technique_description"]},
+                {"biserie_id": 3, "exercises": ex_list[4:6], "note": data["technique_description"]},
+                {"biserie_id": 4, "exercises": ex_list[6:9], "note": data["technique_description"]}
+            ]
+        else:
+            return build_biseries(ex_list)
+
     data["days"] = [
         {"day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)", "biseries": build_biseries(day1_exercises)},
         {"day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)", "biseries": build_biseries(day2_exercises)},
-        {"day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)", "biseries": build_biseries(day3_exercises)}
+        {"day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)", "biseries": build_day3_blocks(day3_exercises)}
     ]
 
     data["abdomen_table"] = abd_ex

@@ -714,7 +714,15 @@ function renderSubblocks(biseriesList, techniqueTitle) {
       `;
     }).join('');
 
-    const titleText = techniqueTitle ? `⚡ ${techniqueTitle.toUpperCase()} &bull; BISERIE #${block.biserie_id || (bIdx + 1)}` : `⚡ SUB-BLOQUE DE BISERIE #${block.biserie_id || (bIdx + 1)}`;
+    const count = block.exercises ? block.exercises.length : 2;
+    let blockLabel = 'BISERIE';
+    if (count === 3) blockLabel = 'TRISERIE';
+    else if (count === 1) blockLabel = 'SERIE SIMPLE';
+    else if (count >= 4) blockLabel = 'CIRCUITO';
+
+    const titleText = techniqueTitle
+      ? `⚡ ${techniqueTitle.toUpperCase()} &bull; ${blockLabel} #${block.biserie_id || (bIdx + 1)}`
+      : `⚡ ${blockLabel} #${block.biserie_id || (bIdx + 1)}`;
 
     return `
       <div class="biseries-block" style="background: ${blockBg}; border: 1px solid ${blockBorder}; margin-bottom: 16px; padding: 14px; border-radius: 8px;">
@@ -1753,7 +1761,7 @@ function initSettings() {
     const evalCount = (state.resultsData || []).length;
     statusInfo.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-        <span>🏷️ Versión Instalada: <strong>v2.1.2</strong></span>
+        <span>🏷️ Versión Instalada: <strong>v2.1.3</strong></span>
         <span>🏋️ Cargas Registradas: <strong>${logsCount} ejercicios</strong></span>
         <span>📊 Evaluaciones: <strong>${evalCount} reportes</strong></span>
       </div>
