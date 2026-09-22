@@ -470,7 +470,7 @@ def extract_training_plan(pdf_path):
     data["days"] = [
         {"day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)", "biseries": build_biseries(day1_exercises)},
         {"day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)", "biseries": build_biseries(day2_exercises)},
-        {"day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)", "biseries": build_day3_blocks(day3_exercises)}
+        {"day_name": "FUERZA DÍA 3 (PECHO, BÍCEPS Y TRÍCEPS)", "biseries": build_day3_blocks(day3_exercises)}
     ]
 
     data["abdomen_table"] = abd_ex
