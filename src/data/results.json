@@ -1,44 +1,325 @@
 [
   {
-    "eval_index": 1,
-    "eval_label": "Evaluación I (Demo)",
-    "filename": "RESULTADOS_DEMO_I.pdf",
-    "fecha": "01/01/2026",
-    "edad": 25.0,
-    "peso_kg": 70.0,
-    "masa_magra_kg": 58.0,
-    "grasa_kg": 12.0,
-    "pct_grasa": 17.1,
-    "masa_muscular_kg": 32.0,
-    "pct_musculo": 45.7,
-    "masa_osea_kg": 10.0,
-    "masa_residual_kg": 14.0,
-    "masa_piel_kg": 2.0,
-    "imc": 22.5,
-    "icc": 0.80,
-    "disminuir_grasa_kg": 2.0,
-    "aumentar_musculo_kg": 3.0,
-    "peso_ideal_kg": 68.0
+    "file": "RESULTADOS XI.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "01/08/2026",
+      "age": 28.9
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.6,
+      "musculo_kg": 25.4,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 15,5 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar un AUMENTO del 2,3 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se DEBERÁ",
+      "• incrementar la MM (masa muscular) en los segmentos.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 13 % de MG que",
+      "• seria un optima es de 1 - 2 meses., y en cuanto a lleg"
+    ]
   },
   {
-    "eval_index": 2,
-    "eval_label": "Evaluación II (Demo)",
-    "filename": "RESULTADOS_DEMO_II.pdf",
-    "fecha": "01/02/2026",
-    "edad": 25.1,
-    "peso_kg": 69.5,
-    "masa_magra_kg": 58.5,
-    "grasa_kg": 11.0,
-    "pct_grasa": 15.8,
-    "masa_muscular_kg": 32.5,
-    "pct_musculo": 46.7,
-    "masa_osea_kg": 10.0,
-    "masa_residual_kg": 14.0,
-    "masa_piel_kg": 2.0,
-    "imc": 22.3,
-    "icc": 0.79,
-    "disminuir_grasa_kg": 1.0,
-    "aumentar_musculo_kg": 2.0,
-    "peso_ideal_kg": 68.0
+    "file": "RESULTADOS X.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "06/06/2026",
+      "age": 28.7
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.6,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 13,2 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar un AUMENTO del 0,5 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se DEBERÁ",
+      "• incrementar la MM (masa muscular) en los segmentos.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 12 % de MG que",
+      "• seria un optima es de 1 - 2 meses., y en cuanto a lleg"
+    ]
+  },
+  {
+    "file": "RESULTADOS IX.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "09/05/2026",
+      "age": 28.6
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.6,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 12,7 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar un AUMENTO del 1,8 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se DEBERÁ",
+      "• incrementar la MM (masa muscular) en los segmentos.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 12 % de MG que",
+      "• seria un optima es de 1 - 2 meses., y en cuanto a lleg"
+    ]
+  },
+  {
+    "file": "RESULTADOS VIII.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "11/04/2026",
+      "age": 28.6
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.7,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 10,9 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar una DISMINUCIÓN del 0.3 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se DEBERÁ",
+      "• incrementar la MM (masa muscular) en los segmentos.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 12 % de MG que",
+      "• seria un optima es de 2 - 3 meses., y en cuanto a"
+    ]
+  },
+  {
+    "file": "RESULTADOS VII.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "14/03/2026",
+      "age": 28.5
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.7,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 11,2 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar una DISMINUCIÓN del 0.3 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se DEBERÁ",
+      "• incrementar la MM (masa muscular) en los segmentos.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 11 % de MG que",
+      "• seria un optima es de 1 mes., y en cuanto a llega"
+    ]
+  },
+  {
+    "file": "RESULTADOS VI-1.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "31/01/2026",
+      "age": 28.4
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.7,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 11,5 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar una DISMINUCIÓN del 0.6 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se DEBERÁ",
+      "• incrementar la MM (masa muscular) en los segmentos.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 11 % de MG que",
+      "• seria un optima es de 1 mes., y en cuanto a llega"
+    ]
+  },
+  {
+    "file": "RESULTADOS V.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "03/01/2026",
+      "age": 28.3
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.7,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 12,1 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar una DISMINUCIÓN del 0.7 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se DISMINUYÓ",
+      "• la MG (masa grasa) en todos los segmentos.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 12 % de MG que",
+      "• seria un optima es de 1 mes., y en cuanto a llegar",
+      "• 06/1"
+    ]
+  },
+  {
+    "file": "RESULTADOS IV.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "06/12/2025",
+      "age": 28.2
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.7,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 12,8 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar una DISMINUCIÓN del 0.2 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se MANTIENE",
+      "• la composición corporal como la ultima vez.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 12 % de MG que",
+      "• seria un optima es de 1 a 2 meses., y en cuanto a llega"
+    ]
+  },
+  {
+    "file": "RESULTADOS III.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "22/11/2025",
+      "age": 28.2
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.7,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 13,0 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar una DISMINUCIÓN del 0.6 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se DISMINUYÓ",
+      "• la MG (masa grasa) en zona central.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 12 % de MG que",
+      "• seria un optima es de 1 a 2 meses., y en cuanto a llegar",
+      "• 06/10"
+    ]
+  },
+  {
+    "file": "RESULTADOS II.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "01/11/2025",
+      "age": 28.1
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.6,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.1,
+      "pct_musculo": 42.7,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 13,6 % de MG por lo que se considera",
+      "• ADECUADO, en comparación a la medición pasada se",
+      "• 1.0",
+      "• puede observar una DISMINUCIÓN del 1.6 % de MG.",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se AUMENTÓ",
+      "• la MM (masa mucular) en brazo y muslo",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 12 % de MG que",
+      "• seria un optima es de 1 a 2 meses., y en cuanto a llegar",
+      "• 06/10"
+    ]
+  },
+  {
+    "file": "RESULTADOS I.pdf",
+    "metadata": {
+      "name": "LUIS ENRIQUE NOGUERA GIL",
+      "date": "06/10/2025",
+      "age": 28.0
+    },
+    "composition": {
+      "peso_kg": 59.7,
+      "masa_magra_kg": 50.7,
+      "pct_grasa": 15.2,
+      "grasa_kg": 9.0,
+      "pct_musculo": 42.7,
+      "musculo_kg": 25.5,
+      "imc": 10.8
+    },
+    "comments": [
+      "• 2.0 Se presenta un 15,2 % de MG por lo que se considera",
+      "• ADECUADO, además se observa un inadecuado balance",
+      "• 1.0",
+      "• entre MM y MG en segmentos (brazo, muslo y pierna)",
+      "• 0.0",
+      "• El estudio del Phantom nos muestra que se deberá",
+      "• INCREMENTAR la MM en todos los segmentos.",
+      "• ENDOMORFIA ECTOMORFIA",
+      "• El tiempo determinado para llegar a un 15 % de MG que",
+      "• seria un optima es de 1 mes., y en cuanto a llegar",
+      "• 06/1"
+    ]
   }
 ]

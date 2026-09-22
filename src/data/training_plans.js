@@ -1,707 +1,5867 @@
-export const trainingPlansData = [
+export const initialTrainingPlans = [
   {
-    "plan_id": "fuerza_hipertrofia_4d",
-    "plan_name": "Rutina de Fuerza & Hipertrofia (4 Días - Rest-Pause / Biseries)",
-    "technique_title": "Rutina de Fuerza & Hipertrofia (4 Días)",
-    "technique_name": "Biseries Antagonistas & Rest-Pause",
-    "technique_description": "Ejecuta los ejercicios A1 y A2 de forma consecutiva con mínimo descanso. En la última serie del ejercicio principal, realiza un descanso breve de 15 segundos y completa reps adicionales al fallo técnico (Rest-Pause).",
-    "cardio_schedule": "25 minutos de caminata a paso ligero en caminadora con 5% de inclinación (115-130 PPM / Zona 2) al finalizar la sesión de pesas.",
-    "abdomen_table": [
+    "file": "PLAN DE ENTRENAMIENTO BISERIES REST PAUSE.pdf",
+    "technique_title": "BISERIES REST PAUSE",
+    "technique_description": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie.",
+    "days": [
       {
-        "name": "Crunch en Polea Alta con Cuerda",
-        "video_url": "https://www.youtube.com/watch?v=2fROkQxBStg",
-        "weeks": [
+        "day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)",
+        "biseries": [
           {
-            "week": 1,
-            "sets": 3,
-            "reps": "15",
-            "tempo": "2,1,2"
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(E) Jalón al frente cerrado con gironda",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=o8DLNpjv9sY&list=PLRNAPFc-y9D8HrF3qdwmSnQSLwy5Yw3Ih",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(E) Remo sentado con agarre abierto",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=trIBa_tguS8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 2,
-            "sets": 3,
-            "reps": "15",
-            "tempo": "2,1,2"
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(H) Press de hombro con barra",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=VeXdeTDoAMc&list=PLRNAPFc-y9D9fLCTFeler5n392g24ClbM&index=11",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(H) Elevación frontal en supino c/mancuerna",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=kHpGae_EXoQ",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 3,
-            "sets": 4,
-            "reps": "15",
-            "tempo": "2,1,2"
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(E) Remo inclinado con barra en polea (supino)",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=zuWdgVV0av8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(E) Remo inclinado a una mano en polea baja",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=LUW215_Pbo0&list=PL6sOjAIjZENHRLvXKxyZCcnwM0_4YcTlO&index=18",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 4,
-            "sets": 4,
-            "reps": "15",
-            "tempo": "2,1,2"
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(H) Elevación lateral con mancuerna",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=x-Mvtdu8vGE",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(H) Rear delt c/mancuernas",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=x2ZMZDP_TmY",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           }
         ]
       },
       {
-        "name": "Elevación de Piernas Colgado en Barra",
-        "video_url": "https://www.youtube.com/watch?v=hdng3Nm1x_E",
-        "weeks": [
+        "day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)",
+        "biseries": [
           {
-            "week": 1,
-            "sets": 3,
-            "reps": "12-15",
-            "tempo": "2,0,2"
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Leg extension en maquina",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=QQHDah7ec1Q",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(P) Sentadilla sumo c/mancuernas y step",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=G0JF3QcKQs0",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 2,
-            "sets": 3,
-            "reps": "12-15",
-            "tempo": "2,0,2"
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "Desplante con barra debajo de piernas",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=WhLwdbkamAI",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(G) Abductor de cadera con grilletes atrás",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=ysqsoHMkTG4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 3,
-            "sets": 4,
-            "reps": "12-15",
-            "tempo": "2,0,2"
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(I) Leg curl acostado",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=Ysy0Aci4VvQ&list=PLRNAPFc-y9D_uRMy8B-jW6CetPFcpy8eS&index=11",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(I) Leg curl de pie c/grilletes sobre step",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=PbpXCosuT3E",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 4,
-            "sets": 4,
-            "reps": "12-15",
-            "tempo": "2,0,2"
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(I) Pantorrilla en maquina",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=zqtks6XqXc4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(I) Pantorrilla sentado (costurera)",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=nqvJ_ATDx8k&list=PLRNAPFc-y9D9cfhu_pDC16zBv9ciRBCLT&index=1",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           }
         ]
       },
       {
-        "name": "(A) Plancha Isométrica Core con Carga",
-        "video_url": "https://www.youtube.com/watch?v=pSHjTRCQxIw",
-        "weeks": [
+        "day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)",
+        "biseries": [
           {
-            "week": 1,
-            "sets": 3,
-            "reps": "45 seg",
-            "tempo": "Fijo"
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Press de pecho con barra en banco H",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=mNaO2urs5b8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 2,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 3
+                  },
+                  {
+                    "week": 3,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 4,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  }
+                ]
+              },
+              {
+                "name": "A perturas de pecho (cristos) banco H",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=UKwkChzThig",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 2,
-            "sets": 3,
-            "reps": "45 seg",
-            "tempo": "Fijo"
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(B) C url de biceps c/ barra en polea baja",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=THiILEV7o7s",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 2,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 3
+                  },
+                  {
+                    "week": 3,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 4,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  }
+                ]
+              },
+              {
+                "name": "(B) C url de biceps c/polea baja a una m ano",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=HLh-Vqp6lPM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 3,
-            "sets": 4,
-            "reps": "60 seg",
-            "tempo": "Fijo"
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(T) E C H O , B IC E P S , T R IC E P S ) (T) Extensión de triceps con barra V",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=V20nQHnsDyg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 2,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 3
+                  },
+                  {
+                    "week": 3,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 4,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  }
+                ]
+              },
+              {
+                "name": "C opa con LA Z O en polea baja",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=VN_QtPv4Ugo",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           },
           {
-            "week": 4,
-            "sets": 4,
-            "reps": "60 seg",
-            "tempo": "Fijo"
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "C rossO ver en poleas altas",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=mXkWDktMPPM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "C url araña c/m ancuerna",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=M_SU5KtMDmw",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(T) Press frances con barra Z",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=61A2oTh10V8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "REST PAUSE (RP): Realizar las repeticiones objetivo (ej. 12 reps) hasta el fallo técnico, descansar 15s, realizar 5 reps más con el mismo peso, descansar 15s y realizar 3 reps finales para terminar la serie."
           }
         ]
       }
     ],
+    "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
+    "abdomen_table": [
+      {
+        "name": "(H) Elevación de piernas en banco declinado",
+        "muscle_group": "Hombro",
+        "video_url": "https://www.youtube.com/watch?v=E1dilCu9jrg",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      },
+      {
+        "name": "(A) Plancha C ore",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=3ZTTSka2Niw",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 40
+          },
+          {
+            "week": 2,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 50
+          },
+          {
+            "week": 3,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 50
+          },
+          {
+            "week": 4,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 60
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "PLAN DE ENTRENAMIENTO BISERIES CONTRASTE-1.pdf",
+    "technique_title": "BISERIES CONTRASTE-1",
+    "technique_description": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio.",
     "days": [
       {
-        "day_number": 1,
-        "day_name": "Día 1: Pecho & Espalda (Empuje - Jalón)",
-        "day_title": "Día 1: Pecho & Espalda (Empuje - Jalón)",
-        "focus": "Pecho & Espalda (Torso Completo)",
+        "day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)",
         "biseries": [
           {
-            "biserie_id": "B1",
-            "biserie_label": "Biserie A (Fuerza Torso)",
+            "biserie_id": 1,
             "exercises": [
               {
-                "name": "Press de Banca Plano con Barra",
-                "sets": 4,
-                "reps": "8 - 10",
-                "tempo": "2,1,2",
-                "rest": "90s",
-                "rpe": "RPE 8.5",
-                "target_muscle": "Pecho",
-                "svg_type": "chest",
-                "video_url": "https://www.youtube.com/watch?v=rT7DgCr-3pg",
-                "notes": "Mantener retracción escapular y apoyar pies firmes en el piso.",
+                "name": "CALENTA MIENTO VOLUMEN (min)",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=o8DLNpjv9sY&list=PLRNAPFc-y9D8HrF3qdwmSnQSLwy5Yw3Ih",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "tempo": "10",
+                    "sets": 10,
+                    "reps": 10
                   },
                   {
                     "week": 2,
-                    "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "tempo": "10",
+                    "sets": 10,
+                    "reps": 10
                   },
                   {
                     "week": 3,
-                    "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "tempo": "10",
+                    "sets": 10,
+                    "reps": 10
                   },
                   {
                     "week": 4,
-                    "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "tempo": "10",
+                    "sets": 10,
+                    "reps": 10
                   }
                 ]
               },
               {
-                "name": "Remo con Barra Agarre Prono",
-                "sets": 4,
-                "reps": "8 - 10",
-                "tempo": "2,1,2",
-                "rest": "90s",
-                "rpe": "RPE 8.5",
-                "target_muscle": "Espalda",
-                "svg_type": "back",
-                "video_url": "https://www.youtube.com/watch?v=FWJR5Ve8bnQ",
-                "notes": "Tirar con los codos hacia la cadera manteniendo la columna neutra.",
+                "name": "(E) Jalón al frente cerrado con gironda",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=trIBa_tguS8",
                 "weeks": [
                   {
                     "week": 1,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "reps": 10
                   },
                   {
                     "week": 2,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "reps": 12
                   },
                   {
                     "week": 3,
+                    "tempo": "3,1,2",
                     "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "reps": 8
                   },
                   {
                     "week": 4,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "reps": 10
                   }
                 ]
               }
-            ]
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
           },
           {
-            "biserie_id": "B2",
-            "biserie_label": "Biserie B (Hipertrofia & Rest-Pause)",
+            "biserie_id": 2,
             "exercises": [
               {
-                "name": "Press Inclinado con Mancuernas",
-                "sets": 3,
-                "reps": "10 - 12",
-                "tempo": "3,1,1",
-                "rest": "60s",
-                "rpe": "RPE 9",
-                "target_muscle": "Pecho Superior",
-                "svg_type": "chest",
-                "video_url": "https://www.youtube.com/watch?v=8iPEnn-ltC8",
-                "notes": "Inclinación de banco a 30°. En la serie 3 realizar Rest-Pause (+3-4 reps).",
+                "name": "(E) Remo sentado con agarre abierto",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=VeXdeTDoAMc&list=PLRNAPFc-y9D9fLCTFeler5n392g24ClbM&index=11",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "3,1,1"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
                   },
                   {
                     "week": 2,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "3,1,1"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
                   },
                   {
                     "week": 3,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "3,1,1"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
                   },
                   {
                     "week": 4,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "3,1,1"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
                   }
                 ]
               },
               {
-                "name": "Jalón al Pecho Agarre Neutro en Polea",
-                "sets": 3,
-                "reps": "10 - 12",
-                "tempo": "2,1,2",
-                "rest": "60s",
-                "rpe": "RPE 8.5",
-                "target_muscle": "Dorsal Ancho",
-                "svg_type": "back",
-                "video_url": "https://www.youtube.com/watch?v=CAwf7n6Luuc",
-                "notes": "Llevar el agarre al esternón apretando escápulas al final.",
+                "name": "(H) Press de hombro con barra",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=kHpGae_EXoQ",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
                   },
                   {
                     "week": 2,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
                   },
                   {
                     "week": 3,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 8
                   },
                   {
                     "week": 4,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
                   }
                 ]
               }
-            ]
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(H) Elevación frontal en supino c/mancuerna",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=CP2H4sTBCyg&list=PLRNAPFc-y9D_KF_HygJ1EAJ4QGDN0zzTc&index=9",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(E) Dominadas asistidas abiertas",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=3ZE9dW0kpEA",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(E) Remo inclinado con lazo en polea baja",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=KcFQCdztjYE",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(E) Remo vertical con barra",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=x2ZMZDP_TmY",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
           }
         ]
       },
       {
-        "day_number": 2,
-        "day_name": "Día 2: Pierna Completa & Femorales",
-        "day_title": "Día 2: Pierna Completa & Femorales",
-        "focus": "Cuádriceps, Isquios & Glúteos",
+        "day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)",
         "biseries": [
           {
-            "biserie_id": "B1",
-            "biserie_label": "Biserie A (Dominante de Cadera / Rodilla)",
+            "biserie_id": 1,
             "exercises": [
               {
-                "name": "Sentadilla Trasera con Barra (Back Squat)",
-                "sets": 4,
-                "reps": "6 - 8",
-                "tempo": "3,1,1",
-                "rest": "120s",
-                "rpe": "RPE 8.5",
-                "target_muscle": "Cuádriceps & Glúteos",
-                "svg_type": "legs",
-                "video_url": "https://www.youtube.com/watch?v=ultWZbUMPL8",
-                "notes": "Bajar romper el paralelo a 90° manteniendo rodillas alineadas con la punta del pie.",
+                "name": "(H) Rear delt c/mancuernas",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=3muwy0wyVWY",
                 "weeks": [
                   {
                     "week": 1,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "6-8",
-                    "tempo": "3,1,1"
+                    "reps": 12
                   },
                   {
                     "week": 2,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "6-8",
-                    "tempo": "3,1,1"
+                    "reps": 15
                   },
                   {
                     "week": 3,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "6-8",
-                    "tempo": "3,1,1"
+                    "reps": 10
                   },
                   {
                     "week": 4,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "6-8",
-                    "tempo": "3,1,1"
+                    "reps": 12
                   }
                 ]
               },
               {
-                "name": "Peso Muerto Rumano con Mancuernas",
-                "sets": 4,
-                "reps": "8 - 10",
-                "tempo": "3,1,1",
-                "rest": "90s",
-                "rpe": "RPE 8",
-                "target_muscle": "Femorales / Isquios",
-                "svg_type": "legs",
-                "video_url": "https://www.youtube.com/watch?v=JCXUYuzwvgM",
-                "notes": "Empujar la cadera hacia atrás sintiendo el estiramiento en la parte posterior.",
+                "name": "(P) Sentadilla tipo GOBLET con mancuerna",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=7II31GoNjSo",
                 "weeks": [
                   {
                     "week": 1,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "3,1,1"
+                    "reps": 10
                   },
                   {
                     "week": 2,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "3,1,1"
+                    "reps": 12
                   },
                   {
                     "week": 3,
+                    "tempo": "3,1,2",
                     "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "3,1,1"
+                    "reps": 8
                   },
                   {
                     "week": 4,
+                    "tempo": "2,1,2",
                     "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "3,1,1"
+                    "reps": 10
                   }
                 ]
               }
-            ]
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
           },
           {
-            "biserie_id": "B2",
-            "biserie_label": "Biserie B (Aislamiento de Pierna)",
+            "biserie_id": 2,
             "exercises": [
               {
-                "name": "Prensa de Pierna 45°",
-                "sets": 3,
-                "reps": "10 - 12",
-                "tempo": "2,1,2",
-                "rest": "75s",
-                "rpe": "RPE 9",
-                "target_muscle": "Cuádriceps",
-                "svg_type": "legs",
-                "video_url": "https://www.youtube.com/watch?v=IZxyjWcy36U",
-                "notes": "Pies a la anchura de hombros en el centro de la plataforma.",
+                "name": "(P) Leg press horizontal maquina",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=1mL-NCet4dY",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
                   },
                   {
                     "week": 2,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
                   },
                   {
                     "week": 3,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
                   },
                   {
                     "week": 4,
-                    "sets": 3,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
                   }
                 ]
               },
               {
-                "name": "Curl Femoral Tumbado en Máquina",
-                "sets": 3,
-                "reps": "12 - 15",
-                "tempo": "2,1,2",
-                "rest": "60s",
-                "rpe": "RPE 9",
-                "target_muscle": "Femorales",
-                "svg_type": "legs",
-                "video_url": "https://www.youtube.com/watch?v=1Tq3QdYUuHs",
-                "notes": "Controlar la bajada excéntrica en 2 segundos.",
+                "name": "(G) Extension de cadera c/grilletes",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/shorts/FRq7m1_KzG4",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 3,
-                    "reps": "12-15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
                   },
                   {
                     "week": 2,
-                    "sets": 3,
-                    "reps": "12-15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
                   },
                   {
                     "week": 3,
-                    "sets": 3,
-                    "reps": "12-15",
-                    "tempo": "2,1,2"
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 8
                   },
                   {
                     "week": 4,
-                    "sets": 3,
-                    "reps": "12-15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
                   }
                 ]
               }
-            ]
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(G) Abductor de cadera con grilletes atrás",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=fItDiXXZyZo",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(G) Aductor en maquina",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=btCzEKtNUNI&list=PLO_hFlE2UYkdP7514e81xUToaMe_42SYo&index=9",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(I) Leg curl sentado",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=nqvJ_ATDx8k&list=PLRNAPFc-y9D9cfhu_pDC16zBv9ciRBCLT&index=1",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(I) Pantorrilla sentado (costurera)",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=mROxEgJV5D0",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
           }
         ]
       },
       {
-        "day_number": 3,
-        "day_name": "Día 3: Hombro & Abdomen Core",
-        "day_title": "Día 3: Hombro & Abdomen Core",
-        "focus": "Deltoides & Estabilidad Abdominal",
+        "day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)",
         "biseries": [
           {
-            "biserie_id": "B1",
-            "biserie_label": "Biserie A (Deltoides Lateral & Anterior)",
+            "biserie_id": 1,
             "exercises": [
               {
-                "name": "Press Militar con Mancuernas",
-                "sets": 4,
-                "reps": "8 - 10",
-                "tempo": "2,1,2",
-                "rest": "90s",
-                "rpe": "RPE 8.5",
-                "target_muscle": "Hombro Anterior",
-                "svg_type": "shoulders",
-                "video_url": "https://www.youtube.com/watch?v=B-aVuyhvLHU",
-                "notes": "Mantener torso erguido sin hiperextender la zona lumbar.",
+                "name": "/w a tch ? v= T H iIL E V",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=mNaO2urs5b8",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 2,
+                    "reps": 6
                   },
                   {
                     "week": 2,
-                    "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 2,
+                    "reps": 6
                   },
                   {
                     "week": 3,
-                    "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 2,
+                    "reps": 6
                   },
                   {
                     "week": 4,
-                    "sets": 4,
-                    "reps": "8-10",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 2,
+                    "reps": 6
                   }
                 ]
               },
               {
-                "name": "Elevaciones Laterales con Polea",
-                "sets": 4,
-                "reps": "12 - 15",
-                "tempo": "2,1,2",
-                "rest": "60s",
-                "rpe": "RPE 9",
-                "target_muscle": "Deltoides Lateral",
-                "svg_type": "shoulders",
-                "video_url": "https://www.youtube.com/watch?v=PzsMitRZs_0",
-                "notes": "Elevar a la altura del hombro sosteniendo 1 segundo arriba.",
+                "name": "/w a tch ? v=",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=UKwkChzThig",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 4,
-                    "reps": "12-15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 8,
+                    "reps": 5
                   },
                   {
                     "week": 2,
-                    "sets": 4,
-                    "reps": "12-15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 8,
+                    "reps": 5
                   },
                   {
                     "week": 3,
-                    "sets": 4,
-                    "reps": "12-15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 8,
+                    "reps": 5
                   },
                   {
                     "week": 4,
-                    "sets": 4,
-                    "reps": "12-15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 8,
+                    "reps": 5
                   }
                 ]
               }
-            ]
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
           },
           {
-            "biserie_id": "B2",
-            "biserie_label": "Biserie B (Deltoides Posterior & Core)",
+            "biserie_id": 2,
             "exercises": [
               {
-                "name": "Pájaro / Pájaros en Polea Posterior",
-                "sets": 3,
-                "reps": "15",
-                "tempo": "2,1,2",
-                "rest": "60s",
-                "rpe": "RPE 8.5",
-                "target_muscle": "Deltoides Posterior",
-                "svg_type": "shoulders",
-                "video_url": "https://www.youtube.com/watch?v=t5J5s-j8a2M",
-                "notes": "Enfocar la tracción en la parte trasera del hombro.",
+                "name": "/w a tch ? v=",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=fx9VW2lDx_s",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 3,
-                    "reps": "15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 6,
+                    "reps": 1
                   },
                   {
                     "week": 2,
-                    "sets": 3,
-                    "reps": "15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 0
                   },
                   {
                     "week": 3,
-                    "sets": 3,
-                    "reps": "15",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 0
                   },
                   {
                     "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 0
+                  }
+                ]
+              }
+            ],
+            "note": "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
+          }
+        ]
+      }
+    ],
+    "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
+    "abdomen_table": []
+  },
+  {
+    "file": "PLAN DE ENTRENAMIENTO BISERIES DROP SET-1.pdf",
+    "technique_title": "BISERIES DROP SET-1",
+    "technique_description": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate.",
+    "days": [
+      {
+        "day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(E) Jalón al frente con maquina guiada",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=EFbWLOBrrM8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
                     "sets": 3,
-                    "reps": "15",
-                    "tempo": "2,1,2"
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
                   }
                 ]
               },
               {
-                "name": "(A) Plancha Core / Abdominal",
-                "sets": 4,
-                "reps": "45 segundos",
-                "tempo": "Isométrico",
-                "rest": "45s",
-                "rpe": "RPE 8",
-                "target_muscle": "Abdomen / Core",
-                "svg_type": "core",
-                "video_url": "https://www.youtube.com/watch?v=pSHjTRCQxIw",
-                "notes": "Apretar glúteos y abdomen manteniendo alineación neutra de columna.",
+                "name": "(E) Remo inclinado con barra en prono",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=lOKkUqgsgTk&list=PLO_hFlE2UYkcTVJD-8w0nUz3X8yk5cxqE&index=6",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 4,
-                    "reps": "45 seg",
-                    "tempo": "Isométrico"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
                   },
                   {
                     "week": 2,
-                    "sets": 4,
-                    "reps": "45 seg",
-                    "tempo": "Isométrico"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
                   },
                   {
                     "week": 3,
-                    "sets": 4,
-                    "reps": "45 seg",
-                    "tempo": "Isométrico"
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
                   },
                   {
                     "week": 4,
-                    "sets": 4,
-                    "reps": "45 seg",
-                    "tempo": "Isométrico"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
                   }
                 ]
               }
-            ]
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(H) Elevación Frontal con lazo",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=pbyk3E0MF2E",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(H) Face pull en polea alta",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=CruifQcSALU",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(E) Remo cerrado con maquina",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=FOusO8JMU3Q",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(E) Dominadas asistidas abiertas",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=CP2H4sTBCyg&list=PLRNAPFc-y9D_KF_HygJ1EAJ4QGDN0zzTc&index=9",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(H) Press de hombro con mancuerna",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=GELRUlUSxeI",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(E) Remo vertical con barra",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=KcFQCdztjYE",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
           }
         ]
       },
       {
-        "day_number": 4,
-        "day_name": "Día 4: Brazo Completo (Bíceps & Tríceps)",
-        "day_title": "Día 4: Brazo Completo (Bíceps & Tríceps)",
-        "focus": "Bíceps, Tríceps & Antebrazo",
+        "day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)",
         "biseries": [
           {
-            "biserie_id": "B1",
-            "biserie_label": "Biserie A (Bíceps & Tríceps Masa)",
+            "biserie_id": 1,
             "exercises": [
               {
-                "name": "Curl de Bíceps con Barra Z",
-                "sets": 4,
-                "reps": "10 - 12",
-                "tempo": "2,1,2",
-                "rest": "60s",
-                "rpe": "RPE 8.5",
-                "target_muscle": "Bíceps",
-                "svg_type": "biceps",
-                "video_url": "https://www.youtube.com/watch?v=soxrZlIl35U",
-                "notes": "Evitar balancear la cadera durante el movimiento.",
+                "name": "(P) Leg press horizontal piernas cerradas",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=EMb9r2IW07w",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 4,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
                   },
                   {
                     "week": 2,
-                    "sets": 4,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
                   },
                   {
                     "week": 3,
-                    "sets": 4,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
                   },
                   {
                     "week": 4,
-                    "sets": 4,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
                   }
                 ]
               },
               {
-                "name": "Press Francés con Barra Z en Banco Plano",
-                "sets": 4,
-                "reps": "10 - 12",
-                "tempo": "2,1,2",
-                "rest": "60s",
-                "rpe": "RPE 8.5",
-                "target_muscle": "Tríceps",
-                "svg_type": "triceps",
-                "video_url": "https://www.youtube.com/watch?v=d_KZxkY_0cM",
-                "notes": "Flexionar codos llevando la barra hacia la frente.",
+                "name": "(P) Sentadilla tipo GOBLET con mancuerna",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=3muwy0wyVWY",
                 "weeks": [
                   {
                     "week": 1,
-                    "sets": 4,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
                   },
                   {
                     "week": 2,
-                    "sets": 4,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
                   },
                   {
                     "week": 3,
-                    "sets": 4,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
                   },
                   {
                     "week": 4,
-                    "sets": 4,
-                    "reps": "10-12",
-                    "tempo": "2,1,2"
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
                   }
                 ]
               }
-            ]
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(G) Patada de gluteo en maquina",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=S5-HwkvK6gc",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(P) Step up con mancuerna en cajon",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/shorts/9day6RhW8XA",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(I) Leg curl sentado",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=btCzEKtNUNI&list=PLO_hFlE2UYkdP7514e81xUToaMe_42SYo&index=9",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(I) Leg curl de pie en maquina",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=qmVmt5Rxucg&list=PL6sOjAIjZENEMYCuWF4syGFUDUuDkrIyL&index=4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(I) Pantorrilla de a un pie con mancuerna",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=ptKQKTlKffg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(I) Pantorrilla sentado (costurera)",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=nqvJ_ATDx8k&list=PLRNAPFc-y9D9cfhu_pDC16zBv9ciRBCLT&index=1",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          }
+        ]
+      },
+      {
+        "day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Press de pecho en m aquina H A M M ER",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=Oqq2B26THtU",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 2,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 3
+                  },
+                  {
+                    "week": 3,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 4,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  }
+                ]
+              },
+              {
+                "name": "C rossO ver en poleas bajas",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=3te7Rt2pmFI",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(B) C url de biceps en m aquina S C O T T",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=0GiLS6VyyHE",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 2,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 3
+                  },
+                  {
+                    "week": 3,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 4,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  }
+                ]
+              },
+              {
+                "name": "(B) C url de biceps m artillo c/lazo",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=fx9VW2lDx_s",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(T) E C H O , B IC E P S , T R IC E P S ) (T) Press frances con m aquina",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=X500Q80xfpw",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 2,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 3
+                  },
+                  {
+                    "week": 3,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  },
+                  {
+                    "week": 4,
+                    "tempo": ",1,2",
+                    "sets": 3,
+                    "reps": 2
+                  }
+                ]
+              },
+              {
+                "name": "(T) Extensión de triceps con barra en polea alta",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=8JN6dt3XWtc",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(P) Press de pecho c/m ancuena banco H",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=Jk5wHQQD7HM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(B) C url de biceps con m ancuerna",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=rqy0oxx__sU",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "C opa con m ancuerna",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=UGSMuqoef_k",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
+          }
+        ]
+      }
+    ],
+    "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
+    "abdomen_table": [
+      {
+        "name": "(A) Flutter K icks C O N PO LA IN A S",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=RweIIyttJR0",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "PLAN DE ENTRENAMIENTO BISERIES PROG LINEAL.pdf",
+    "technique_title": "BISERIES PROG LINEAL",
+    "technique_description": "PROGRESIÓN LINEAL: Incrementar la carga de forma progresiva serie a serie manteniendo la técnica impecable.",
+    "days": [
+      {
+        "day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "? v= o V",
+                "muscle_group": "General",
+                "video_url": "",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  }
+                ]
+              },
+              {
+                "name": "? v=",
+                "muscle_group": "General",
+                "video_url": "",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 7,
+                    "reps": 9
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 7,
+                    "reps": 9
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 7,
+                    "reps": 9
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 7,
+                    "reps": 9
+                  }
+                ]
+              }
+            ],
+            "note": "PROGRESIÓN LINEAL: Incrementar la carga de forma progresiva serie a serie manteniendo la técnica impecable."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "? v= Y s y",
+                "muscle_group": "General",
+                "video_url": "",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 1
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 1
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 1
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 1
+                  }
+                ]
+              },
+              {
+                "name": "? v= n q vJ_ A T D x",
+                "muscle_group": "General",
+                "video_url": "",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 6
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 6
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 6
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 1,
+                    "reps": 6
+                  }
+                ]
+              }
+            ],
+            "note": "PROGRESIÓN LINEAL: Incrementar la carga de forma progresiva serie a serie manteniendo la técnica impecable."
+          }
+        ]
+      },
+      {
+        "day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)",
+        "biseries": []
+      },
+      {
+        "day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Press de pecho con barra en banco I",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=0XnRcQepkuE",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "A perturas (cristos) c/m anc en banco I",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=bhRTIO31e-E",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "PROGRESIÓN LINEAL: Incrementar la carga de forma progresiva serie a serie manteniendo la técnica impecable."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(B) D oble curl de biceps en poleas altas",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=aZ4d_jtez-E",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(B) C url de biceps m artillo c/lazo",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=fx9VW2lDx_s",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "PROGRESIÓN LINEAL: Incrementar la carga de forma progresiva serie a serie manteniendo la técnica impecable."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "E C H O , B IC E P S , T R IC E P S ) (T) C opa con m ancuerna",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=UGSMuqoef_k",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(T) Press frances con m ancuernas",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=gU-bdqfhu7Y",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "PROGRESIÓN LINEAL: Incrementar la carga de forma progresiva serie a serie manteniendo la técnica impecable."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "C rossO ver en poleas bajas",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=3te7Rt2pmFI",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(B) C url de biceps en m aquina",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=-tnYdPDikMw",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(T) Fondos en m aquina",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=mXkWDktMPPM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "PROGRESIÓN LINEAL: Incrementar la carga de forma progresiva serie a serie manteniendo la técnica impecable."
+          }
+        ]
+      }
+    ],
+    "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
+    "abdomen_table": [
+      {
+        "name": "(H) Elevación de piernas en banco declinado",
+        "muscle_group": "Hombro",
+        "video_url": "https://www.youtube.com/watch?v=61A2oTh10V8",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      },
+      {
+        "name": "(A) Plancha C ore",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=K3VputefVE8",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 40
+          },
+          {
+            "week": 2,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 50
+          },
+          {
+            "week": 3,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 50
+          },
+          {
+            "week": 4,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 60
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "PLAN DE ENTRENAMIENTO BISERIES PROG TRUNCO-2.pdf",
+    "technique_title": "BISERIES PROG TRUNCO-2",
+    "technique_description": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios.",
+    "days": [
+      {
+        "day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(E) Jalón al frente con maquina guiada",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=EFbWLOBrrM8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(E) Remo sentado c/gironda en polea",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/shorts/own3uEE4wP8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(H) Press de hombro lateral con maquina",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=IyRu1XMhbIM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(H) Press de hombro frontal con maquina",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=XEuLJz-mzCg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(E) Pull Over con barra en polea alta",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=Tl4npAbzI3Y",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(E) Remo inclinado con barra en polea (supino)",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=zuWdgVV0av8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(H) Encogimientos con mancuernas",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/shorts/QgokS_HikVo",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(H) Face pull en polea alta",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=CruifQcSALU",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      },
+      {
+        "day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Sentadilla sumo c/mancuernas y step",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=G0JF3QcKQs0",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(I) Leg curl de pie en maquina",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=qmVmt5Rxucg&list=PL6sOjAIjZENEMYCuWF4syGFUDUuDkrIyL&index=4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(P) Step up con mancuerna en cajon",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/shorts/9day6RhW8XA",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(G) Patada diagonal con grilletes",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=pDH_WOI9QRI",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(P) Leg press horizontal piernas cerradas",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=EMb9r2IW07w",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(P) Leg extension a una pierna",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/shorts/kG83qbQ5l4I",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(I) Pantorrilla en maquina",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=zqtks6XqXc4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(I) Pantorrilla de a un pie con mancuerna",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=ptKQKTlKffg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      },
+      {
+        "day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Press de pecho en maquina HAMMER",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=Oqq2B26THtU",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(P) CrossOver en poleas altas",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=HLh-Vqp6lPM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(B) Curl de biceps en maquina SCOTT",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=0GiLS6VyyHE",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(B) Curl de biceps con mancuerna",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=rqy0oxx__sU",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(T) (T) Press frances con MAQUINA",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=X500Q80xfpw",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(T) Extensión de triceps con barra V",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=Jk5wHQQD7HM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(P) Press de pecho c/mancuena banco H",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=TQUYKUxAIYQ",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(B) Curl concentrado c/mancuerna",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=dpZxd4ax0eg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(G) Patada de mula c/mancuernas",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=RweIIyttJR0",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      }
+    ],
+    "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
+    "abdomen_table": [
+      {
+        "name": "(A) Flutter Kicks CON POLAINAS",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=Rq7AgoEyXU8",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      },
+      {
+        "name": "(A) Cruces alternos CON POLAINAS",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=E1dilCu9jrg",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      },
+      {
+        "name": "(A) Superman alternado",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=zPvhTc0wI38",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "PLAN DE ENTRENAMIENTO BISERIES RESISTENCIA.pdf",
+    "technique_title": "BISERIES RESISTENCIA",
+    "technique_description": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios.",
+    "days": [
+      {
+        "day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(E) Jalón al frente abierto en prono",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=HRW6o9Udbjg&list=PLRNAPFc-y9D8HrF3qdwmSnQSLwy5Yw3Ih&index=2",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(E) Remo inclinado con LAZO",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=2672v_gWAuo",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(H) Press de hombro lateral c/maquina",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=IyRu1XMhbIM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(H) Elevación unilateral con polea baja",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=wJcADdn-vlk",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(E) Remo con barra Olimpica con gironda",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=v_Dy-LDFqC4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(E) Pull Over con LAZO en pole ata",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=ttIKFeeXKrU",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(H) Press de hombro frontal c/maquina",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=AhbUExp0Y7I",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(H) Rear delt con maquina",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=-igJgh0kLt4&list=PLRNAPFc-y9D9fLCTFeler5n392g24ClbM&index=3",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      },
+      {
+        "day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(I) Leg curl sentado",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=btCzEKtNUNI&list=PLO_hFlE2UYkdP7514e81xUToaMe_42SYo&index=9",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(P) Leg press libre abierto",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=zQIldyfxZ9o",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(G) Hip thrust con MAQUINA",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/shorts/mqLLbkIpClA",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(G) Extension de cadera c/grilletes",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=1mL-NCet4dY",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(G) Abductor en maquina",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=xTHl7omVigM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(I) Leg curl de pie en maquina",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=qmVmt5Rxucg&list=PL6sOjAIjZENEMYCuWF4syGFUDUuDkrIyL&index=4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(I) Pantorrilla sentado (costurera)",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=_LxQH4o7COk",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(I) Pantorrilla de a un pie con mancuerna",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=ptKQKTlKffg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      },
+      {
+        "day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Peck fly en maquina",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=jiitI2ma3J4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(P) Press de pecho en maquina",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=SX9nY83DpyQ",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(B) Curl de biceps c/ barra Z de pie",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=umiNqixhh-c",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(B) Curl de biceps con barra Z en banco SCOTT",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=Ks5KNBSmw6A",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(T) (T) Extensión de codo c/lazo en polea alta",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=5P2Gt2bIgcE",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 15
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(T) Press frances con lazo en polea alta",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=cq4DX0WV0BQ",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(P) Press de pecho c/mancuena banco I",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=qSmo-8QapTg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(G) Patada de mula con mancuernas",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=dpZxd4ax0eg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              },
+              {
+                "name": "(B) Curl de biceps c/mancuerna en banco I",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=FM7725AeXPA",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 12
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 3,
+                    "reps": 8
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 3,
+                    "reps": 10
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      }
+    ],
+    "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
+    "abdomen_table": [
+      {
+        "name": "(A) Flutter Kicks CON POLAINAS",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=RweIIyttJR0",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      },
+      {
+        "name": "(A) Cruces alternos CON POLAINAS",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=Rq7AgoEyXU8",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      },
+      {
+        "name": "(A) Elevacion de piernas en silla romana",
+        "muscle_group": "Abdomen",
+        "video_url": "https://www.youtube.com/watch?v=WHEppHwqVUw",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "3",
+            "sets": 10,
+            "reps": 3
+          },
+          {
+            "week": 2,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 3,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "10",
+            "sets": 3,
+            "reps": 12
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "PLAN DE ENTRENAMIENTO BISERIES-1.pdf",
+    "technique_title": "BISERIES-1",
+    "technique_description": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios.",
+    "days": [
+      {
+        "day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(E) Jalón al frente abierto en prono",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=HRW6o9Udbjg&list=PLRNAPFc-y9D8HrF3qdwmSnQSLwy5Yw3Ih&index=2",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(E) Remo con maquina",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=FOusO8JMU3Q",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(H) Press de hombro con mancuerna",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=GELRUlUSxeI",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(H) Elevación lateral con mancuerna",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=x-Mvtdu8vGE",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(E) Remo con mancuerna a",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=Ef4I2J3dfX0&list=PLRNAPFc-y9D8HrF3qdwmSnQSLwy5Yw3Ih&index=5",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(E) Pull Over con lazo en polea alta",
+                "muscle_group": "Espalda",
+                "video_url": "https://www.youtube.com/watch?v=z66PPQ_hGsc",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(H) Elevación Frontal con lazo",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=pbyk3E0MF2E",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(H) Rear delt con maquina",
+                "muscle_group": "Hombro",
+                "video_url": "https://www.youtube.com/watch?v=-igJgh0kLt4&list=PLRNAPFc-y9D9fLCTFeler5n392g24ClbM&index=3",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      },
+      {
+        "day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Sentadilla sumo c/mancuernas y step",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=G0JF3QcKQs0",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(P) Leg extension en maquina",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=QQHDah7ec1Q",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(G) Patada de gluteo en maquina",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=S5-HwkvK6gc",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(G) Abductor en maquina",
+                "muscle_group": "Glúteo / Abductor",
+                "video_url": "https://www.youtube.com/watch?v=xTHl7omVigM",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(P) Desplantes estaticos c/mancuerna (c/pierna)",
+                "muscle_group": "Cuádriceps",
+                "video_url": "https://www.youtube.com/watch?v=79Xnn3yWsWo&t=4s",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(I) Leg curl acostado",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=Ysy0Aci4VvQ&list=PLRNAPFc-y9D_uRMy8B-jW6CetPFcpy8eS&index=11",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(I) Pantorrilla sentado (costurera)",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=nqvJ_ATDx8k&list=PLRNAPFc-y9D9cfhu_pDC16zBv9ciRBCLT&index=1",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(I) Pantorrilla de a un pie con mancuerna",
+                "muscle_group": "Isquiotibiales / Pantorrilla",
+                "video_url": "https://www.youtube.com/watch?v=ptKQKTlKffg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      },
+      {
+        "day_name": "FUERZA DÍA 3 (PECHO Y BÍCEPS)",
+        "biseries": [
+          {
+            "biserie_id": 1,
+            "exercises": [
+              {
+                "name": "(P) Press de pecho c/m ancuena banco I h ttp s ://w",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=qSmo-8QapTg",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "A perturas (cristos) c/m anc en banco I h ttp s ://w",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=bhRTIO31e-E",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 2,
+            "exercises": [
+              {
+                "name": "(B) C url de biceps c/ barra Z de pie h ttp s ://w",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=umiNqixhh-c",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(B) C url de biceps c/m ancuerna en banco I h ttp s ://w",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=FM7725AeXPA",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 3,
+            "exercises": [
+              {
+                "name": "(T) Extensión de triceps con barra en polea alta h ttp s ://w",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=8JN6dt3XWtc",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "C opa con m ancuerna h ttp s ://w",
+                "muscle_group": "General",
+                "video_url": "https://www.youtube.com/watch?v=UGSMuqoef_k",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          },
+          {
+            "biserie_id": 4,
+            "exercises": [
+              {
+                "name": "(P) Peck fly en m aquina h ttp s ://w",
+                "muscle_group": "Pecho",
+                "video_url": "https://www.youtube.com/watch?v=jiitI2ma3J4",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(B) C url de biceps en m aquina h ttp s ://w",
+                "muscle_group": "Bíceps",
+                "video_url": "https://www.youtube.com/watch?v=-tnYdPDikMw",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              },
+              {
+                "name": "(T) Fondos en m aquina h ttp s ://w",
+                "muscle_group": "Tríceps",
+                "video_url": "https://www.youtube.com/watch?v=SOC2SQR09j8",
+                "weeks": [
+                  {
+                    "week": 1,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  },
+                  {
+                    "week": 2,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 15
+                  },
+                  {
+                    "week": 3,
+                    "tempo": "3,1,2",
+                    "sets": 4,
+                    "reps": 10
+                  },
+                  {
+                    "week": 4,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": 12
+                  }
+                ]
+              }
+            ],
+            "note": "BISERIES: Realizar dos ejercicios en circuito sin descanso intermedio. Descansar 60 segundos al finalizar ambos ejercicios."
+          }
+        ]
+      }
+    ],
+    "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
+    "abdomen_table": [
+      {
+        "name": "(A) h ttp s ://w Flutter K icks",
+        "muscle_group": "Abdomen",
+        "video_url": "",
+        "weeks": [
+          {
+            "week": 1,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 10
+          },
+          {
+            "week": 2,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 10
+          },
+          {
+            "week": 3,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "week": 4,
+            "tempo": "2,1,2",
+            "sets": 3,
+            "reps": 12
           }
         ]
       }

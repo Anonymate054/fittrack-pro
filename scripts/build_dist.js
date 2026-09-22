@@ -26,7 +26,7 @@ function copyRecursiveSync(src, dest) {
 }
 
 // Copiar archivos raíz clave y src
-const filesToCopy = ['index.html', 'manifest.json', 'sw.js', 'src'];
+const filesToCopy = ['index.html', 'manifest.json', 'sw.js', 'user_private_backup.json', 'src'];
 filesToCopy.forEach(item => {
   const itemPath = path.join(srcDir, item);
   if (fs.existsSync(itemPath)) {
