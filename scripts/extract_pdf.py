@@ -3,6 +3,7 @@ import json
 import re
 import pypdf
 import pdfplumber
+import fitz as pymupdf
 
 def parse_date_sort_key(date_str):
     try:
@@ -391,58 +392,54 @@ def parse_exercise_line(line_str, video_url):
 
 def extract_training_plan(pdf_path):
     filename = os.path.basename(pdf_path)
+    desc = get_technique_description(filename)
     data = {
         "file": filename,
-        "technique_title": filename.replace(".pdf", "").replace("PLAN DE ENTRENAMIENTO ", ""),
-        "technique_description": get_technique_description(filename),
+        "technique_title": filename.replace(".pdf", "").replace(".PDF", "").replace("PLAN DE ENTRENAMIENTO ", ""),
+        "technique_description": desc,
         "days": [],
         "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
         "abdomen_table": []
     }
     
-    with pdfplumber.open(pdf_path) as pdf:
-        p1_text = pdf.pages[0].extract_text()
-        p2_text = pdf.pages[1].extract_text()
+    doc = pymupdf.open(pdf_path)
+    p1_ex = []
+    p2_ex = []
+    abd_ex = []
 
-        p1_urls = []
-        for line in p1_text.split('\n'):
-            m = re.search(r'(https?://[^\s]+)', line)
-            if m: p1_urls.append(m.group(1))
-
-        p2_ids = re.findall(r'v=\s*([a-zA-Z0-9_-]{8,15})', p2_text.replace(' ', '')) + re.findall(r'shorts/\s*([a-zA-Z0-9_-]{8,15})', p2_text.replace(' ', ''))
-        p2_urls = [f'https://www.youtube.com/watch?v={vid}' for vid in p2_ids]
-
-        p1_lines = [l.strip() for l in p1_text.split("\n") if l.strip()]
-        p1_ex = []
-        url_idx = 0
-        for line in p1_lines:
-            if any(k in line for k in ["CALENTAMIENTO", "MARTES", "DOMINGO", "EJERCICIO", "% INTESIDAD", "RP (REST", "DROP", "CONTRASTE", "PROG", "CIRCUITO", "MEDIO", "HIPERVINCULO"]):
+    for page_num, target_list in [(0, p1_ex), (1, p2_ex)]:
+        if page_num >= len(doc):
+            continue
+        page = doc[page_num]
+        blocks = page.get_text("blocks")
+        for b in blocks:
+            text = b[4].strip()
+            lines = [l.strip() for l in text.split("\n") if l.strip()]
+            if not lines:
                 continue
-            v_url = p1_urls[url_idx] if url_idx < len(p1_urls) else ""
-            parsed = parse_exercise_line(line, v_url)
-            if parsed and len(parsed["name"]) > 3:
-                p1_ex.append(parsed)
-                url_idx += 1
-
-        p2_lines = [l.strip() for l in p2_text.split("\n") if l.strip()]
-        p2_ex = []
-        abd_ex = []
-        url_idx = 0
-        for line in p2_lines:
-            if any(k in line for k in ["CALENTAMIENTO", "MARTES", "DOMINGO", "EJERCICIO", "% INTESIDAD", "RP (REST", "CARDIOVASCULAR", "CIRCUITO", "MEDIO", "HIPERVINCULO"]):
-                continue
-            v_url = p2_urls[url_idx] if url_idx < len(p2_urls) else ""
-            parsed = parse_exercise_line(line, v_url)
-            if parsed and len(parsed["name"]) > 3:
-                url_idx += 1
-                if any(a in parsed["name"].lower() for a in ["silla romana", "elevación de piernas", "plancha", "crunch", "flutter", "cruces", "superman"]):
-                    abd_ex.append(parsed)
+            first_line = lines[0]
+            if any(first_line.startswith(prefix) for prefix in ['(P)', '(E)', '(H)', '(B)', '(T)', '(I)', '(G)', '(A)', 'Press', 'Curl', 'Remo', 'Sentadilla', 'Peck', 'Fondos', 'Jalón', 'Elevación', 'Leg', 'Abductor', 'Patada', 'Step', 'Desplantes', 'Pantorrilla', 'Pájaro', 'Plancha', 'Crunch', 'Flutter', 'Cruces', 'Adductor', 'Aperturas', 'CrossOver', 'Copa', 'Fondos']):
+                if any(k in first_line for k in ['EJERCICIO', 'FUERZA', 'CALENTAMIENTO', 'CARDIOVASCULAR', 'ABDOMEN', 'SEMANA', 'VOLUMEN']):
+                    continue
+                url = ""
+                for l in lines:
+                    if 'youtube.com' in l or 'youtu.be' in l:
+                        url = l
+                        break
+                
+                clean_name = re.sub(r'https?://[^\s]+', '', first_line).strip()
+                ex_obj = {
+                    "name": clean_name,
+                    "video_url": url,
+                    "tempo": "2,1,2",
+                    "sets": 4,
+                    "reps": "10-12"
+                }
+                
+                if page_num == 1 and any(a in clean_name.lower() for a in ['silla romana', 'elevación de piernas', 'plancha', 'crunch', 'flutter', 'cruces', 'superman']):
+                    abd_ex.append(ex_obj)
                 else:
-                    p2_ex.append(parsed)
-
-    day1_exercises = p1_ex[:8]
-    day2_exercises = p1_ex[8:16]
-    day3_exercises = p2_ex
+                    target_list.append(ex_obj)
 
     def build_biseries(ex_list):
         blocks = []
@@ -451,20 +448,24 @@ def extract_training_plan(pdf_path):
             blocks.append({
                 "biserie_id": (i // 2) + 1,
                 "exercises": pair,
-                "note": data["technique_description"]
+                "note": desc
             })
         return blocks
 
     def build_day3_blocks(ex_list):
         if len(ex_list) >= 9:
             return [
-                {"biserie_id": 1, "exercises": ex_list[0:2], "note": data["technique_description"]},
-                {"biserie_id": 2, "exercises": ex_list[2:4], "note": data["technique_description"]},
-                {"biserie_id": 3, "exercises": ex_list[4:6], "note": data["technique_description"]},
-                {"biserie_id": 4, "exercises": ex_list[6:9], "note": data["technique_description"]}
+                {"biserie_id": 1, "exercises": ex_list[0:2], "note": desc},
+                {"biserie_id": 2, "exercises": ex_list[2:4], "note": desc},
+                {"biserie_id": 3, "exercises": ex_list[4:6], "note": desc},
+                {"biserie_id": 4, "exercises": ex_list[6:9], "note": desc}
             ]
         else:
             return build_biseries(ex_list)
+
+    day1_exercises = p1_ex[:8]
+    day2_exercises = p1_ex[8:16]
+    day3_exercises = p2_ex
 
     data["days"] = [
         {"day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)", "biseries": build_biseries(day1_exercises)},
