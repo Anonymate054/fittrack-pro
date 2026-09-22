@@ -1,4 +1,4 @@
-export const initialTrainingPlans = [
+export const trainingPlansData = [
   {
     "file": "PLAN DE ENTRENAMIENTO BISERIES REST PAUSE.pdf",
     "technique_title": "BISERIES REST PAUSE",
@@ -5868,3 +5868,4 @@ export const initialTrainingPlans = [
     ]
   }
 ];
+export const initialTrainingPlans = trainingPlansData;
