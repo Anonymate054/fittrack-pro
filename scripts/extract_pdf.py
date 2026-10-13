@@ -521,7 +521,11 @@ def main():
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     files_dir = os.path.join(repo_root, "files")
     output_dir = os.path.join(repo_root, "src", "data")
+    # Resultados y planes de alimentación son datos personales: se escriben fuera del repo
+    # (carpeta ignorada en git) y se cargan en la app con "Importar respaldo".
+    private_dir = os.path.join(repo_root, "private_data")
     os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(private_dir, exist_ok=True)
 
     print("Pipeline de extracción v20 en ejecución (Parser directo de celdas PDF)...")
 
@@ -532,7 +536,7 @@ def main():
             if f.endswith(".pdf"):
                 all_results.append(extract_results(os.path.join(results_dir, f)))
         all_results.sort(key=lambda x: parse_date_sort_key(x["metadata"].get("date", "")), reverse=True)
-        with open(os.path.join(output_dir, "results.json"), "w", encoding="utf-8") as f:
+        with open(os.path.join(private_dir, "results.json"), "w", encoding="utf-8") as f:
             json.dump(all_results, f, ensure_ascii=False, indent=2)
 
     meal_dir = os.path.join(files_dir, "meal_plan")
@@ -542,7 +546,7 @@ def main():
             if f.endswith(".pdf"):
                 meal_plans.append(extract_meal_plan(os.path.join(meal_dir, f)))
         meal_plans.sort(key=lambda x: x.get("sort_key", "00000000"), reverse=True)
-        with open(os.path.join(output_dir, "meal_plans.json"), "w", encoding="utf-8") as f:
+        with open(os.path.join(private_dir, "meal_plans.json"), "w", encoding="utf-8") as f:
             json.dump(meal_plans, f, ensure_ascii=False, indent=2)
 
     training_dir = os.path.join(files_dir, "training")
