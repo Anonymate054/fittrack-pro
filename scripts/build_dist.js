@@ -1,14 +1,11 @@
+// Construye dist/ (GitHub Pages y assets del APK). Solo escribe en dist/: nunca modifica archivos fuente.
 const fs = require('fs');
 const path = require('path');
 
-const srcDir = path.resolve(__dirname, '..');
-const distDir = path.join(srcDir, 'dist');
-
-// Limpiar y crear dist
-if (fs.existsSync(distDir)) {
-  fs.rmSync(distDir, { recursive: true, force: true });
-}
-fs.mkdirSync(distDir, { recursive: true });
+const rootDir = path.resolve(__dirname, '..');
+const distDir = path.join(rootDir, 'dist');
+const pkg = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json'), 'utf8'));
+const appVersion = `v${pkg.version}`;
 
 // Archivos con datos personales: nunca deben llegar a dist/ (GitHub Pages) ni al APK.
 // Los datos privados del usuario entran solo con "Importar respaldo" dentro de la app.
@@ -25,80 +22,35 @@ const PRIVATE_FILE_PATTERNS = [
 const isPrivateFile = (name) => PRIVATE_FILE_PATTERNS.some((re) => re.test(name));
 
 function copyRecursiveSync(src, dest) {
-  const stats = fs.statSync(src);
-  if (stats.isDirectory()) {
-    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
-    fs.readdirSync(src).forEach((childItemName) => {
-      if (childItemName === 'node_modules' || childItemName === 'dist' || childItemName === '.venv' || childItemName === '.git' || childItemName === 'android') {
-        return;
+  if (fs.statSync(src).isDirectory()) {
+    fs.mkdirSync(dest, { recursive: true });
+    for (const child of fs.readdirSync(src)) {
+      if (isPrivateFile(child)) {
+        console.log(`⚠ Omitido del build por contener datos privados: ${child}`);
+        continue;
       }
-      if (isPrivateFile(childItemName)) {
-        console.log(`⚠ Omitido del build por contener datos privados: ${childItemName}`);
-        return;
-      }
-      copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
-    });
+      copyRecursiveSync(path.join(src, child), path.join(dest, child));
+    }
   } else {
     fs.copyFileSync(src, dest);
   }
 }
 
-// Copiar archivos raíz clave y src
-const filesToCopy = ['index.html', 'manifest.json', 'sw.js', 'src'];
-filesToCopy.forEach(item => {
-  const itemPath = path.join(srcDir, item);
-  if (fs.existsSync(itemPath)) {
-    copyRecursiveSync(itemPath, path.join(distDir, item));
-  }
-});
-
-// Leer versión desde package.json
-const pkgPath = path.join(srcDir, 'package.json');
-const pkgVersion = fs.existsSync(pkgPath) ? `v${JSON.parse(fs.readFileSync(pkgPath, 'utf8')).version}` : 'v2.0.3';
-
-// Inyectar versión dinámica y cache-busting timestamp en dist/index.html
-const distHtmlPath = path.join(distDir, 'index.html');
-if (fs.existsSync(distHtmlPath)) {
-  let htmlContent = fs.readFileSync(distHtmlPath, 'utf8');
-  htmlContent = htmlContent.replace(/app\.js\?v=\d+/g, `app.js?v=${Date.now()}`);
-  htmlContent = htmlContent.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
-  fs.writeFileSync(distHtmlPath, htmlContent, 'utf8');
+// Reemplaza __APP_VERSION__ (versión de package.json) en un archivo de dist/
+function injectVersion(relativePath) {
+  const filePath = path.join(distDir, relativePath);
+  const content = fs.readFileSync(filePath, 'utf8');
+  fs.writeFileSync(filePath, content.replace(/__APP_VERSION__/g, appVersion), 'utf8');
 }
 
-// Versionar la caché del service worker para que cada release reemplace la anterior
-const distSwPath = path.join(distDir, 'sw.js');
-if (fs.existsSync(distSwPath)) {
-  const swContent = fs.readFileSync(distSwPath, 'utf8').replace(/__APP_VERSION__/g, pkgVersion);
-  fs.writeFileSync(distSwPath, swContent, 'utf8');
+fs.rmSync(distDir, { recursive: true, force: true });
+fs.mkdirSync(distDir, { recursive: true });
+
+for (const item of ['index.html', 'manifest.json', 'sw.js', 'icons', 'src']) {
+  const itemPath = path.join(rootDir, item);
+  if (fs.existsSync(itemPath)) copyRecursiveSync(itemPath, path.join(distDir, item));
 }
 
-// Inyectar versión en root y dist
-const rootHtmlPath = path.join(srcDir, 'index.html');
-if (fs.existsSync(rootHtmlPath)) {
-  let rHtml = fs.readFileSync(rootHtmlPath, 'utf8');
-  rHtml = rHtml.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
-  rHtml = rHtml.replace(/app\.js\?v=\d+/g, `app.js?v=${Date.now()}`);
-  fs.writeFileSync(rootHtmlPath, rHtml, 'utf8');
-}
+for (const file of ['index.html', 'sw.js', 'src/app.js']) injectVersion(file);
 
-const rootAppJsPath = path.join(srcDir, 'src', 'app.js');
-if (fs.existsSync(rootAppJsPath)) {
-  let rAppJs = fs.readFileSync(rootAppJsPath, 'utf8');
-  rAppJs = rAppJs.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
-  fs.writeFileSync(rootAppJsPath, rAppJs, 'utf8');
-}
-
-// Sincronizar versionCode y versionName en android/app/build.gradle
-const gradlePath = path.join(srcDir, 'android', 'app', 'build.gradle');
-if (fs.existsSync(gradlePath)) {
-  let gradleContent = fs.readFileSync(gradlePath, 'utf8');
-  const cleanVersion = pkgVersion.replace(/^v/, '');
-  const parts = cleanVersion.split('.').map(n => parseInt(n, 10) || 0);
-  const vCode = (parts[0] || 1) * 10000 + (parts[1] || 0) * 100 + (parts[2] || 0);
-
-  gradleContent = gradleContent.replace(/versionCode\s+\d+/g, `versionCode ${vCode}`);
-  gradleContent = gradleContent.replace(/versionName\s+"[^"]+"/g, `versionName "${cleanVersion}"`);
-  fs.writeFileSync(gradlePath, gradleContent, 'utf8');
-}
-
-console.log(`✓ Build a dist/ (${pkgVersion}) completado.`);
+console.log(`✓ Build a dist/ (${appVersion}) completado.`);

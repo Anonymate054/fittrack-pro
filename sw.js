@@ -7,9 +7,12 @@ const APP_SHELL = [
   './',
   './index.html',
   './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
   './src/app.js',
   './src/styles/app.css',
   './src/components/svg_muscles.js',
+  './src/utils.js',
   './src/data/meal_plans.json',
   './src/data/training_plans.json',
   './src/data/equivalents.json',
@@ -36,8 +39,9 @@ self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
 
+  // cache: 'no-cache' revalida con el servidor (ETag) para no servir archivos viejos de la caché HTTP
   e.respondWith(
-    fetch(req)
+    fetch(req, { cache: 'no-cache' })
       .then((res) => {
         if (res.ok) {
           const copy = res.clone();

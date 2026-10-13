@@ -6,10 +6,13 @@
   <!-- CSP: solo recursos propios + miniaturas/reproductor de YouTube. 'unsafe-inline' en script-src
        es necesario para el script que inyecta Capacitor en el WebView de Android. -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://img.youtube.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-  <title>Fitness & Nutrición Tracker</title>
+  <title>FitTrack Pro</title>
+  <meta name="description" content="Seguimiento offline de entrenamiento, nutrición y progresión antropométrica.">
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
   <meta name="theme-color" content="#00e676">
 
   <!-- Estilos -->
@@ -20,7 +23,7 @@
   <!-- Header & Navegación -->
   <header>
     <div class="brand">
-      <span>💪</span> FitTrack Pro <span id="appVersionBadge" class="app-version-tag" style="font-size: 0.72rem; font-weight: 700; background: rgba(16, 185, 129, 0.15); color: var(--accent-color); padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3); margin-left: 6px; vertical-align: middle;">v2.1.3</span>
+      <span>💪</span> FitTrack Pro <span id="appVersionBadge" class="app-version-tag" style="font-size: 0.72rem; font-weight: 700; background: rgba(16, 185, 129, 0.15); color: var(--accent-color); padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3); margin-left: 6px; vertical-align: middle;">__APP_VERSION__</span>
     </div>
     
     <nav class="nav-tabs">
@@ -663,11 +666,11 @@
 
   <!-- Pie de página -->
   <footer>
-    FitTrack Pro <span id="footerVersionText">v2.1.3</span> &bull; Modo Offline Activo &bull; Datos Privados en Dispositivo
+    FitTrack Pro <span id="footerVersionText">__APP_VERSION__</span> &bull; Modo Offline Activo &bull; Datos Privados en Dispositivo
   </footer>
 
   <!-- Scripts -->
-  <script type="module" src="./src/app.js?v=1790049252466"></script>
+  <script type="module" src="./src/app.js?v=1791923775515"></script>
 
 </body>
 </html>

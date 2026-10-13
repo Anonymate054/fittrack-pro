@@ -17,40 +17,48 @@
 
 ## 🚀 Instalación y Uso Local
 
-### 1. Requisitos Previos
-* Node.js (v16+)
-* npm
+### 1. Requisitos
+* Node.js 20 o superior (CI usa Node 22)
+* Python 3 (servidor de desarrollo y scripts de extracción de PDFs)
+* Para compilar el APK en tu equipo: JDK 21 y Android SDK
 
-### 2. Clonar e Inicializar
+### 2. Clonar e instalar
 ```bash
-git clone https://github.com/TU_USUARIO/fittrack-pro.git
+git clone https://github.com/Anonymate054/fittrack-pro.git
 cd fittrack-pro
-npm install
+npm ci
 ```
 
-### 3. Ejecutar en Modo Desarrollo Web
+### 3. Desarrollo
 ```bash
-python3 scripts/server.py
-# O usando tu servidor estático preferido en la carpeta raíz
+npm run dev     # sirve la raíz en http://localhost:8080 sin caché
 ```
-Abre tu navegador en `http://localhost:8080`.
+
+### 4. Calidad
+```bash
+npm run lint            # ESLint
+npm run validate:data   # valida la estructura de src/data/*.json
+npm test                # tests unitarios (Vitest)
+npm run test:e2e        # tests de la app en Chromium (Playwright)
+npm run check           # lint + datos + tests unitarios
+```
+
+### 5. Scripts de extracción de PDFs (opcional)
+```bash
+pip install -r scripts/requirements.txt
+python3 scripts/extract_pdf.py   # lee files/ y escribe en src/data/ y private_data/
+```
 
 ---
 
-## 📦 Compilación Web y APK Android
+## 📦 Build, despliegue y APK
 
-### 1. Reconstruir la distribución Web (`dist/`)
-```bash
-node scripts/build_dist.js
-```
-
-### 2. Sincronizar y Compilar APK Android
-```bash
-npx cap copy android
-cd android
-./gradlew assembleDebug
-# El APK se genera en: android/app/build/outputs/apk/debug/app-debug.apk
-```
+* `npm run build` genera `dist/` e inyecta la versión de `package.json` (la única fuente de versión; Gradle también la lee de ahí). No modifica archivos fuente.
+* **GitHub Actions** (`.github/workflows/ci.yml`) corre lint, validación de datos y tests en cada PR y push. En `main` además despliega `dist/` a GitHub Pages.
+* **APK:** el mismo workflow compila el APK y lo publica como artefacto `FitTrackPro-apk` de cada ejecución (pestaña *Actions*). Antes de subirlo verifica que no contenga datos privados.
+  * Sin secretos configurados se genera un APK de debug.
+  * Para un APK de release firmado, crea un keystore y agrega en *Settings → Secrets and variables → Actions*: `ANDROID_KEYSTORE_BASE64` (el keystore en base64), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` y `ANDROID_KEY_PASSWORD`.
+* APK local: `npm run android:debug` (resultado en `android/app/build/outputs/apk/debug/`).
 
 ---
 
@@ -69,4 +77,4 @@ cp src/data/progress_history.template.json src/data/progress_history.json
 ---
 
 ## 📜 Licencia
-Licencia MIT &bull; Libre para uso personal y modificaciones.
+[MIT](LICENSE)
