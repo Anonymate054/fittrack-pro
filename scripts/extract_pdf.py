@@ -25,11 +25,11 @@ def extract_results(pdf_path):
     with pdfplumber.open(pdf_path) as pdf:
         text = "\n".join([page.extract_text() or "" for page in pdf.pages])
         
-        name_m = re.search(r"Paciente", text)
         date_m = re.search(r"(\d{2}/\d{2}/\d{4})", text)
         age_m = re.search(r"EDAD\s*([\d.]+)", text)
         
-        data["metadata"]["name"] = "Paciente" if name_m else "Paciente"
+        # No se guarda el nombre real del paciente: estos datos no deben salir del dispositivo
+        data["metadata"]["name"] = "Paciente"
         data["metadata"]["date"] = date_m.group(1) if date_m else "06/10/2025"
         data["metadata"]["age"] = float(age_m.group(1)) if age_m else 28.0
 
@@ -518,8 +518,9 @@ def extract_equivalents(pdf_path):
     return categories_dict
 
 def main():
-    files_dir = "/home/lenovo/Documents/projects/fitness/files"
-    output_dir = "/home/lenovo/Documents/projects/fitness/src/data"
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    files_dir = os.path.join(repo_root, "files")
+    output_dir = os.path.join(repo_root, "src", "data")
     os.makedirs(output_dir, exist_ok=True)
 
     print("Pipeline de extracción v20 en ejecución (Parser directo de celdas PDF)...")

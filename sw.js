@@ -1,21 +1,50 @@
-// SERVICE WORKER v9 (NETWORK FIRST PARA EVITAR CACHE VIEJO)
-const CACHE_NAME = 'fitapp-v9-live';
+// SERVICE WORKER: precache del app shell + network-first con actualización de caché.
+// En línea siempre se sirve la versión más reciente; sin conexión se usa la última copia guardada.
+// scripts/build_dist.js reemplaza __APP_VERSION__ para que cada release use una caché nueva.
+const CACHE_NAME = 'fittrack-__APP_VERSION__';
+
+const APP_SHELL = [
+  './',
+  './index.html',
+  './manifest.json',
+  './src/app.js',
+  './src/styles/app.css',
+  './src/components/svg_muscles.js',
+  './src/data/meal_plans.json',
+  './src/data/training_plans.json',
+  './src/data/equivalents.json',
+  './src/data/progress_history.demo.json'
+];
 
 self.addEventListener('install', (e) => {
-  self.skipWaiting();
+  e.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(keys.map((key) => caches.delete(key)));
-    }).then(() => self.clients.claim())
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', (e) => {
-  // Siempre intentar red primero, fallback a cache si no hay conexión
+  const req = e.request;
+  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+
   e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
+    fetch(req)
+      .then((res) => {
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+        }
+        return res;
+      })
+      .catch(() => caches.match(req, { ignoreSearch: true }))
   );
 });

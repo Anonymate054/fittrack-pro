@@ -1,10 +1,6 @@
 // LOGICA PRINCIPAL DE LA APLICACIÓN FITNESS & NUTRICIÓN (FITTRACK PRO v10)
 
 import { renderMuscleSVG } from './components/svg_muscles.js';
-import { mealPlansData } from './data/meal_plans.js';
-import { trainingPlansData } from './data/training_plans.js';
-import { equivalentsData } from './data/equivalents.js';
-import { progressHistoryData } from './data/progress_history.js';
 
 // ESTADO GLOBAL DE LA APP
 const state = {
@@ -15,10 +11,10 @@ const state = {
   selectedPlanIndex: 0, // 0 es siempre el plan MÁS RECIENTE (REST PAUSE)
   selectedRoutineIndex: 0,
   selectedMealPlanIndex: 0, // 0 es siempre el plan MÁS RECIENTE
-  nutritionData: mealPlansData || [],
-  workoutData: trainingPlansData || [],
-  equivalentsData: equivalentsData || {},
-  resultsData: progressHistoryData || [],
+  nutritionData: [],
+  workoutData: [],
+  equivalentsData: {},
+  resultsData: [],
   customFoods: (() => {
     try {
       return JSON.parse(localStorage.getItem('fitapp_custom_foods') || '[]');
@@ -44,6 +40,26 @@ const state = {
 
 window.state = state;
 
+// ESCAPAR TEXTO ANTES DE INTERPOLARLO EN innerHTML (evita XSS desde datos importados o capturados)
+function esc(value) {
+  if (value === null || value === undefined) return '';
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// VALIDACIÓN ESTRUCTURAL DE DATOS IMPORTADOS
+function isPlainObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function isArrayOfObjects(value) {
+  return Array.isArray(value) && value.every(isPlainObject);
+}
+
 // EXTRAER ID DE YOUTUBE PARA MINIATURAS HD
 function getYouTubeVideoId(url) {
   if (!url) return null;
@@ -59,6 +75,17 @@ async function initApp() {
   await loadAppData();
   detectTodayWorkout();
   renderAllViews();
+  registerServiceWorker();
+}
+
+// SERVICE WORKER: habilita el modo offline de la PWA. En el APK no hace falta
+// porque Capacitor sirve los archivos desde el propio paquete.
+function registerServiceWorker() {
+  const isNativeApp = window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform();
+  if (!('serviceWorker' in navigator) || isNativeApp) return;
+  navigator.serviceWorker.register('./sw.js').catch((err) => {
+    console.error('No se pudo registrar el service worker:', err);
+  });
 }
 
 if (document.readyState === 'loading') {
@@ -190,50 +217,66 @@ function initToggle() {
   });
 }
 
-// 5. CARGA DE DATOS LOCALES CON FALLBACK GARANTIZADO
-async function loadAppData() {
+// 5. CARGA DE DATOS LOCALES
+// Fuente única de verdad: los archivos JSON de src/data/. El service worker los precachea para uso offline.
+async function fetchJson(url) {
   try {
-    const ts = Date.now();
-    const [nutRes, workRes, eqRes, resRes] = await Promise.all([
-      fetch('./src/data/meal_plans.json?v=' + ts).catch(() => null),
-      fetch('./src/data/training_plans.json?v=' + ts).catch(() => null),
-      fetch('./src/data/equivalents.json?v=' + ts).catch(() => null),
-      fetch('./src/data/progress_history.json?v=' + ts).catch(() => null)
-    ]);
-
-    if (nutRes && nutRes.ok) state.nutritionData = await nutRes.json();
-    if (workRes && workRes.ok) state.workoutData = await workRes.json();
-    if (eqRes && eqRes.ok) state.equivalentsData = await eqRes.json();
-    if (resRes && resRes.ok) state.resultsData = await resRes.json();
-
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    return await res.json();
   } catch (err) {
-    console.warn('Usando respaldo estático de datos importados:', err);
+    console.error(`No se pudo cargar ${url}:`, err);
+    return null;
+  }
+}
+
+function readStoredJson(key) {
+  const raw = localStorage.getItem(key);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error(`Datos corruptos en localStorage (${key}); se ignoran.`, err);
+    return null;
+  }
+}
+
+async function loadAppData() {
+  const [nutrition, workout, equivalents, privateProgress] = await Promise.all([
+    fetchJson('./src/data/meal_plans.json'),
+    fetchJson('./src/data/training_plans.json'),
+    fetchJson('./src/data/equivalents.json'),
+    // progress_history.json es privado (ignorado en git); si no existe se usan datos demo
+    fetchJson('./src/data/progress_history.json')
+  ]);
+
+  if (isArrayOfObjects(nutrition)) state.nutritionData = nutrition;
+  if (isArrayOfObjects(workout)) state.workoutData = workout;
+  if (isPlainObject(equivalents)) state.equivalentsData = equivalents;
+  if (isArrayOfObjects(privateProgress) && privateProgress.length > 0) {
+    state.resultsData = privateProgress;
+  } else {
+    const demoProgress = await fetchJson('./src/data/progress_history.demo.json');
+    if (isArrayOfObjects(demoProgress)) state.resultsData = demoProgress;
   }
 
-  // Cargar datos privados personalizados de localStorage o respaldo local ignórado en git
-  try {
-    const backupRes = await fetch('./user_private_backup.json').catch(() => null);
-    if (backupRes && backupRes.ok) {
-      const privateBackup = await backupRes.json();
-      if (privateBackup.nutritionData) state.nutritionData = privateBackup.nutritionData;
-      if (privateBackup.workoutData) state.workoutData = privateBackup.workoutData;
-      if (privateBackup.resultsData) state.resultsData = privateBackup.resultsData;
+  // Respaldo privado local: solo en desarrollo (localhost). El build nunca lo incluye.
+  if (['localhost', '127.0.0.1'].includes(location.hostname)) {
+    const privateBackup = await fetchJson('./user_private_backup.json');
+    if (isPlainObject(privateBackup)) {
+      if (isArrayOfObjects(privateBackup.nutritionData)) state.nutritionData = privateBackup.nutritionData;
+      if (isArrayOfObjects(privateBackup.workoutData)) state.workoutData = privateBackup.workoutData;
+      if (isArrayOfObjects(privateBackup.resultsData)) state.resultsData = privateBackup.resultsData;
     }
+  }
 
-    const savedNut = localStorage.getItem('fitapp_custom_nutrition');
-    const savedWork = localStorage.getItem('fitapp_custom_workout');
-    const savedProg = localStorage.getItem('fitapp_custom_progress');
-
-    if (savedNut) state.nutritionData = JSON.parse(savedNut);
-    if (savedWork) state.workoutData = JSON.parse(savedWork);
-    if (savedProg) state.resultsData = JSON.parse(savedProg);
-  } catch(e) {}
-
-  // Fallbacks incondicionales
-  if (!state.nutritionData || state.nutritionData.length === 0) state.nutritionData = mealPlansData;
-  if (!state.workoutData || state.workoutData.length === 0) state.workoutData = trainingPlansData;
-  if (!state.equivalentsData || Object.keys(state.equivalentsData).length === 0) state.equivalentsData = equivalentsData;
-  if (!state.resultsData || state.resultsData.length === 0) state.resultsData = progressHistoryData;
+  // Datos importados por el usuario en este dispositivo (tienen prioridad)
+  const savedNut = readStoredJson('fitapp_custom_nutrition');
+  const savedWork = readStoredJson('fitapp_custom_workout');
+  const savedProg = readStoredJson('fitapp_custom_progress');
+  if (isArrayOfObjects(savedNut) && savedNut.length > 0) state.nutritionData = savedNut;
+  if (isArrayOfObjects(savedWork) && savedWork.length > 0) state.workoutData = savedWork;
+  if (isArrayOfObjects(savedProg) && savedProg.length > 0) state.resultsData = savedProg;
 
   // Combinar insumos personalizados
   (state.customFoods || []).forEach(cf => {
@@ -311,7 +354,7 @@ function renderNutritionView() {
       fileName = fileName.replace(/plan de alimentación/i, '').replace(/[\(\)]/g, '').trim();
     }
     const labelText = fileName ? `${kcalStr} • ${fileName}` : `${kcalStr}`;
-    return `<option value="${idx}">${isRecent}${labelText}${dateStr}</option>`;
+    return `<option value="${idx}">${isRecent}${esc(labelText + dateStr)}</option>`;
   }).join('');
 
   planSelector.value = state.selectedMealPlanIndex;
@@ -321,7 +364,7 @@ function renderNutritionView() {
   };
 
   const activePlan = state.nutritionData[state.selectedMealPlanIndex] || state.nutritionData[0];
-  kcalSummary.innerHTML = `Plan Seleccionado: <strong>${activePlan.kcal || 2100} Kcal HP</strong> &bull; Fecha: ${activePlan.date || '06/10/2025'}`;
+  kcalSummary.innerHTML = `Plan Seleccionado: <strong>${esc(activePlan.kcal || 2100)} Kcal HP</strong> &bull; Fecha: ${esc(activePlan.date || '06/10/2025')}`;
 
   // Tabla Resumen de Raciones (Estructura Fiel al PDF con Subgrupos Combinados)
   if (activePlan.ration_matrix && activePlan.ration_matrix.length > 0) {
@@ -344,11 +387,11 @@ function renderNutritionView() {
 
       if (subRowCount > 1) {
         // Primera subfila con rowspan dinámico exacto
-        const rowCells = row.slice(2).map(c => `<td>${c || ''}</td>`).join('');
+        const rowCells = row.slice(2).map(c => `<td>${esc(c || '')}</td>`).join('');
         rowsHtml += `
           <tr>
-            <td rowspan="${subRowCount}" style="font-weight: 700; vertical-align: middle;">${mainGroup}</td>
-            <td style="font-style: italic; color: var(--text-muted);">${subGroup || ''}</td>
+            <td rowspan="${subRowCount}" style="font-weight: 700; vertical-align: middle;">${esc(mainGroup)}</td>
+            <td style="font-style: italic; color: var(--text-muted);">${esc(subGroup || '')}</td>
             ${rowCells}
           </tr>
         `;
@@ -356,10 +399,10 @@ function renderNutritionView() {
         // Subfilas secundarias
         for (let s = 1; s < subRowCount; s++) {
           const subRow = matrix[r];
-          const subRowCells = subRow.slice(2).map(c => `<td>${c || ''}</td>`).join('');
+          const subRowCells = subRow.slice(2).map(c => `<td>${esc(c || '')}</td>`).join('');
           rowsHtml += `
             <tr>
-              <td style="font-style: italic; color: var(--text-muted);">${subRow[1] || ''}</td>
+              <td style="font-style: italic; color: var(--text-muted);">${esc(subRow[1] || '')}</td>
               ${subRowCells}
             </tr>
           `;
@@ -367,19 +410,19 @@ function renderNutritionView() {
         }
       } else {
         // Grupo único de 1 fila
-        const rowCells = row.slice(2).map(c => `<td>${c || ''}</td>`).join('');
+        const rowCells = row.slice(2).map(c => `<td>${esc(c || '')}</td>`).join('');
         if (subGroup) {
           rowsHtml += `
             <tr>
-              <td style="font-weight: 700;">${mainGroup}</td>
-              <td style="font-style: italic; color: var(--text-muted);">${subGroup}</td>
+              <td style="font-weight: 700;">${esc(mainGroup)}</td>
+              <td style="font-style: italic; color: var(--text-muted);">${esc(subGroup)}</td>
               ${rowCells}
             </tr>
           `;
         } else {
           rowsHtml += `
             <tr>
-              <td colspan="2" style="font-weight: 700;">${mainGroup}</td>
+              <td colspan="2" style="font-weight: 700;">${esc(mainGroup)}</td>
               ${rowCells}
             </tr>
           `;
@@ -394,7 +437,7 @@ function renderNutritionView() {
   if (activePlan.menu_meals && activePlan.menu_meals.length > 0) {
     mealsContainer.innerHTML = activePlan.menu_meals.map(meal => {
       const eqPillsHtml = (meal.eq_summary && meal.eq_summary.length > 0)
-        ? meal.eq_summary.map(eq => `<span class="eq-pill">${eq}</span>`).join('')
+        ? meal.eq_summary.map(eq => `<span class="eq-pill">${esc(eq)}</span>`).join('')
         : '<span style="font-size: 0.8rem; color: var(--text-muted);">Sin equivalentes especificados</span>';
 
       let restDayBannerHtml = '';
@@ -420,11 +463,11 @@ function renderNutritionView() {
       const optionsHtml = meal.options.map((opt, idx) => `
         <div class="meal-option-row">
           <div class="meal-option-badge">
-            Opción ${opt.option_num || opt.option_number || idx + 1}
+            Opción ${esc(opt.option_num || opt.option_number || idx + 1)}
           </div>
           <div class="meal-option-body">
-            ${opt.title ? `<div class="meal-option-title">${opt.title}</div>` : ''}
-            <div class="meal-option-desc">${opt.description || ''}</div>
+            ${opt.title ? `<div class="meal-option-title">${esc(opt.title)}</div>` : ''}
+            <div class="meal-option-desc">${esc(opt.description || '')}</div>
           </div>
         </div>
       `).join('');
@@ -434,8 +477,8 @@ function renderNutritionView() {
           <!-- Encabezado de Comida -->
           <div class="meal-header">
             <div class="meal-title-group">
-              <div class="meal-name">${meal.meal_name}</div>
-              ${meal.target_time ? `<div class="meal-time">🕒 ${meal.target_time}</div>` : ''}
+              <div class="meal-name">${esc(meal.meal_name)}</div>
+              ${meal.target_time ? `<div class="meal-time">🕒 ${esc(meal.target_time)}</div>` : ''}
             </div>
           </div>
 
@@ -466,7 +509,7 @@ function renderNutritionView() {
     suppContainer.innerHTML = activePlan.supplements.map(supp => `
       <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--card-border);">
         <input type="checkbox" style="width: auto; margin-top: 4px;">
-        <span style="font-size: 0.9rem; line-height: 1.5; color: var(--text-color);">${supp}</span>
+        <span style="font-size: 0.9rem; line-height: 1.5; color: var(--text-color);">${esc(supp)}</span>
       </div>
     `).join('');
   }
@@ -479,7 +522,7 @@ function renderNutritionView() {
     const ensureBullet = (text) => {
       if (!text) return '';
       const clean = text.replace(/^[•\-]\s*/, '').trim();
-      return `• ${clean}`;
+      return `• ${esc(clean)}`;
     };
 
     if (activePlan.general_recommendations && activePlan.general_recommendations.length > 0) {
@@ -539,7 +582,7 @@ function renderWorkoutView() {
 
   if (planSelector.children.length === 0) {
     planSelector.innerHTML = state.workoutData.map((plan, idx) => `
-      <option value="${idx}">${idx === 0 ? '⭐ [RECIENTE] ' : ''}${plan.technique_title || plan.plan_name || plan.technique_name || 'Rutina ' + (idx + 1)}</option>
+      <option value="${idx}">${idx === 0 ? '⭐ [RECIENTE] ' : ''}${esc(plan.technique_title || plan.plan_name || plan.technique_name || 'Rutina ' + (idx + 1))}</option>
     `).join('');
 
     planSelector.value = state.selectedPlanIndex;
@@ -554,10 +597,10 @@ function renderWorkoutView() {
 
   techniqueBox.innerHTML = `
     <div style="font-weight: 700; color: var(--accent-color); margin-bottom: 4px;">
-      💡 Técnica Activa: ${activePlan.technique_title || activePlan.technique_name || 'BISERIES'}
+      💡 Técnica Activa: ${esc(activePlan.technique_title || activePlan.technique_name || 'BISERIES')}
     </div>
     <div style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">
-      ${activePlan.technique_description || activePlan.technique_desc || 'Ejecutar repeticiones con tempo controlado respetando pausas de descanso.'}
+      ${esc(activePlan.technique_description || activePlan.technique_desc || 'Ejecutar repeticiones con tempo controlado respetando pausas de descanso.')}
     </div>
   `;
 
@@ -571,7 +614,7 @@ function renderWorkoutView() {
 
   const daysList = activePlan.days || [];
   daySelector.innerHTML = daysList.map((d, idx) => `
-    <option value="${idx}">${d.day_name || d.day_title || 'Día ' + (idx + 1)}</option>
+    <option value="${idx}">${esc(d.day_name || d.day_title || 'Día ' + (idx + 1))}</option>
   `).join('');
 
   daySelector.value = state.selectedRoutineIndex;
@@ -596,7 +639,7 @@ function renderCardioBlock(cardioSchedule) {
   container.innerHTML = `
     <div style="background: var(--input-bg); border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 8px; margin-top: 14px;">
       <div style="font-weight: 700; color: #f59e0b; margin-bottom: 4px;">🏃 BLOQUE CARDIOVASCULAR (L - M - X - J - V)</div>
-      <div style="font-size: 0.88rem; line-height: 1.5;">${cardioSchedule}</div>
+      <div style="font-size: 0.88rem; line-height: 1.5;">${esc(cardioSchedule)}</div>
     </div>
   `;
 }
@@ -615,13 +658,13 @@ function renderAbdomenTable(abdList) {
 
     return `
       <tr>
-        <td><strong>${ex.name}</strong></td>
-        <td>${wData.tempo || '2,1,2'}</td>
-        <td>${wData.sets || 3}</td>
-        <td>${wData.reps} reps</td>
+        <td><strong>${esc(ex.name)}</strong></td>
+        <td>${esc(wData.tempo || '2,1,2')}</td>
+        <td>${esc(wData.sets || 3)}</td>
+        <td>${esc(wData.reps)} reps</td>
         <td>
           ${ytId ? `
-            <a href="${ex.video_url}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--accent-color); font-weight: 600;" title="Ver video">
+            <a href="https://www.youtube.com/watch?v=${ytId}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--accent-color); font-weight: 600;" title="Ver video">
               <img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" style="width: 50px; height: 32px; border-radius: 4px; object-fit: cover;">
             </a>
           ` : '--'}
@@ -681,31 +724,31 @@ function renderSubblocks(biseriesList, techniqueTitle) {
         <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap;">
           <div style="display: flex; align-items: center; gap: 4px;">
             <span style="font-size: 0.82rem; font-weight: 600; color: var(--accent-color);">⚖️ Carga Realizada:</span>
-            <input type="number" step="0.5" min="0" placeholder="0" value="${savedWeight}" id="${inputId}" data-key="${logKey}" class="weight-input" style="width: 65px; padding: 4px 6px; border-radius: 6px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text-color); font-weight: 700; text-align: center;">
+            <input type="number" step="0.5" min="0" placeholder="0" value="${esc(savedWeight)}" id="${esc(inputId)}" data-key="${esc(logKey)}" class="weight-input" style="width: 65px; padding: 4px 6px; border-radius: 6px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text-color); font-weight: 700; text-align: center;">
             <span style="font-size: 0.82rem; font-weight: 600;">kg</span>
           </div>
-          <button class="btn save-weight-btn" data-key="${logKey}" data-input-id="${inputId}" data-reps="${weekData.reps}" style="padding: 4px 10px; font-size: 0.78rem; background: ${savedWeight ? '#10b981' : 'var(--accent-color)'}; color: ${savedWeight ? '#ffffff' : '#000000'}; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">
-            ${savedWeight ? `✓ Registrado (${savedWeight} kg)` : '💾 Registrar Peso'}
+          <button class="btn save-weight-btn" data-key="${esc(logKey)}" data-input-id="${esc(inputId)}" data-reps="${esc(weekData.reps)}" style="padding: 4px 10px; font-size: 0.78rem; background: ${savedWeight ? '#10b981' : 'var(--accent-color)'}; color: ${savedWeight ? '#ffffff' : '#000000'}; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+            ${savedWeight ? `✓ Registrado (${esc(savedWeight)} kg)` : '💾 Registrar Peso'}
           </button>
         </div>
       `;
 
       const videoThumbHtml = ytId ? `
-        <a href="${ex.video_url}" target="_blank" class="video-thumbnail-box" title="Ver video">
-          <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" alt="${ex.name}">
+        <a href="https://www.youtube.com/watch?v=${ytId}" target="_blank" class="video-thumbnail-box" title="Ver video">
+          <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" alt="${esc(ex.name)}">
         </a>
       ` : `<div class="video-thumbnail-box">${svgHtml}</div>`;
 
       return `
-        <div class="exercise-card" data-exname="${ex.name}">
+        <div class="exercise-card" data-exname="${esc(ex.name)}">
           <div class="exercise-svg-container">
             ${svgHtml}
           </div>
           <div class="exercise-info">
-            <div class="exercise-title">${ex.name}</div>
+            <div class="exercise-title">${esc(ex.name)}</div>
             <div class="exercise-meta">
-              <span>⏱ Tempo: ${weekData.tempo}</span>
-              <span>🎯 Repeticiones Fijadas (Semana ${state.currentWeek}): <strong>${weekData.sets} series × ${weekData.reps} reps</strong></span>
+              <span>⏱ Tempo: ${esc(weekData.tempo)}</span>
+              <span>🎯 Repeticiones Fijadas (Semana ${state.currentWeek}): <strong>${esc(weekData.sets)} series × ${esc(weekData.reps)} reps</strong></span>
             </div>
             ${sessionInputHtml}
           </div>
@@ -721,8 +764,8 @@ function renderSubblocks(biseriesList, techniqueTitle) {
     else if (count >= 4) blockLabel = 'CIRCUITO';
 
     const titleText = techniqueTitle
-      ? `⚡ ${techniqueTitle.toUpperCase()} &bull; ${blockLabel} #${block.biserie_id || (bIdx + 1)}`
-      : `⚡ ${blockLabel} #${block.biserie_id || (bIdx + 1)}`;
+      ? `⚡ ${esc(techniqueTitle.toUpperCase())} &bull; ${blockLabel} #${esc(block.biserie_id || (bIdx + 1))}`
+      : `⚡ ${blockLabel} #${esc(block.biserie_id || (bIdx + 1))}`;
 
     return `
       <div class="biseries-block" style="background: ${blockBg}; border: 1px solid ${blockBorder}; margin-bottom: 16px; padding: 14px; border-radius: 8px;">
@@ -733,7 +776,7 @@ function renderSubblocks(biseriesList, techniqueTitle) {
         ${exCardsHtml}
         ${(block.note || block.rest_instructions) ? `
           <div style="font-size: 0.82rem; color: var(--text-muted); background: var(--card-bg); padding: 8px 12px; border-radius: 6px; margin-top: 10px;">
-            💡 ${block.note || block.rest_instructions}
+            💡 ${esc(block.note || block.rest_instructions)}
           </div>
         ` : ''}
       </div>
@@ -760,7 +803,7 @@ function renderSubblocks(biseriesList, techniqueTitle) {
         
         button.style.background = '#10b981';
         button.style.color = '#ffffff';
-        button.innerHTML = `✓ Registrado (${val} kg)`;
+        button.innerHTML = `✓ Registrado (${esc(val)} kg)`;
 
         if (typeof renderProgressView === 'function') {
           renderProgressView();
@@ -803,7 +846,7 @@ function openExerciseModal(ex) {
   const body = document.getElementById('modalExerciseBody');
   if (!modal || !title || !body) return;
 
-  title.innerHTML = `💪 ${ex.name}`;
+  title.innerHTML = `💪 ${esc(ex.name)}`;
   const weekData = (ex.weeks && ex.weeks.find(w => w.week === state.currentWeek)) || ex.weeks?.[0] || { sets: ex.sets || 4, reps: ex.reps || '10-12', tempo: ex.tempo || '2,1,2' };
   const ytId = getYouTubeVideoId(ex.video_url);
 
@@ -815,23 +858,23 @@ function openExerciseModal(ex) {
   body.innerHTML = `
     <!-- Etiquetas / Badges de Información -->
     <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
-      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.15); color: var(--accent-color); padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3);">🎯 Grupo: ${muscleTag}</span>
-      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(59, 130, 246, 0.15); color: #3b82f6; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3);">⚡ ${rpeTag}</span>
-      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(245, 158, 11, 0.15); color: #f59e0b; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(245, 158, 11, 0.3);">⏳ Descanso: ${restTag}</span>
+      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.15); color: var(--accent-color); padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3);">🎯 Grupo: ${esc(muscleTag)}</span>
+      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(59, 130, 246, 0.15); color: #3b82f6; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3);">⚡ ${esc(rpeTag)}</span>
+      <span style="font-size: 0.78rem; font-weight: 700; background: rgba(245, 158, 11, 0.15); color: #f59e0b; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(245, 158, 11, 0.3);">⏳ Descanso: ${esc(restTag)}</span>
     </div>
 
     <!-- Parámetros Principales del Ejercicio -->
     <div style="background: var(--input-bg); border: 1px solid var(--card-border); padding: 14px; border-radius: 10px; margin-bottom: 14px;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; font-size: 0.88rem;">
-        <div><strong>🔢 Carga Programada:</strong><br>${weekData.sets} series × ${weekData.reps} reps</div>
-        <div><strong>⏱ Tempo de Ejecución:</strong><br>${weekData.tempo}</div>
+        <div><strong>🔢 Carga Programada:</strong><br>${esc(weekData.sets)} series × ${esc(weekData.reps)} reps</div>
+        <div><strong>⏱ Tempo de Ejecución:</strong><br>${esc(weekData.tempo)}</div>
         <div><strong>📅 Semana Activa:</strong><br>Semana ${state.currentWeek} de 4</div>
       </div>
     </div>
 
     <!-- Indicaciones / Notas Técnicas -->
     <div style="font-size: 0.88rem; color: var(--text-main); background: var(--card-bg); border-left: 4px solid var(--accent-color); padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; border: 1px solid var(--card-border); border-left-width: 4px;">
-      💡 <strong>Indicaciones de Ejecución:</strong><br>${notesText}
+      💡 <strong>Indicaciones de Ejecución:</strong><br>${esc(notesText)}
     </div>
 
     <!-- Reproductor de Video de YouTube Ampliado -->
@@ -839,7 +882,7 @@ function openExerciseModal(ex) {
       <div style="margin-top: 14px;">
         <div style="font-size: 0.88rem; font-weight: 700; color: var(--accent-color); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
           <span>🎥 Video Demostrativo de Técnica</span>
-          <a href="${ex.video_url}" target="_blank" style="font-size: 0.8rem; color: var(--accent-color); text-decoration: underline; font-weight: 600;">Abrir en YouTube ↗</a>
+          <a href="https://www.youtube.com/watch?v=${ytId}" target="_blank" style="font-size: 0.8rem; color: var(--accent-color); text-decoration: underline; font-weight: 600;">Abrir en YouTube ↗</a>
         </div>
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
           <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=0&rel=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -883,7 +926,7 @@ function renderEquivalentsView() {
           return `
             <details class="card eq-category-card" style="margin-bottom: 0;">
               <summary class="card-title eq-category-title" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; margin: -16px; background: var(--input-bg); border-radius: 8px;">
-                <span style="font-weight: 700; color: var(--accent-color); font-size: 1rem;">${icon} ${cat}</span>
+                <span style="font-weight: 700; color: var(--accent-color); font-size: 1rem;">${icon} ${esc(cat)}</span>
                 <span style="font-size: 0.8rem; background: var(--card-border); padding: 2px 10px; border-radius: 12px; color: var(--text-color);">${items.length} alimentos</span>
               </summary>
               <div class="table-responsive" style="margin-top: 20px;">
@@ -897,8 +940,8 @@ function renderEquivalentsView() {
                   <tbody>
                     ${items.map(i => `
                       <tr>
-                        <td><strong>${i.name}</strong></td>
-                        <td style="text-align: right; color: var(--accent-color); font-weight: 600;">${i.portion}</td>
+                        <td><strong>${esc(i.name)}</strong></td>
+                        <td style="text-align: right; color: var(--accent-color); font-weight: 600;">${esc(i.portion)}</td>
                       </tr>
                     `).join('')}
                   </tbody>
@@ -938,13 +981,13 @@ function renderEquivalentsView() {
 
       calcResults.innerHTML = `
         <div style="margin-bottom: 12px; font-weight: 700; color: var(--accent-color);">
-          Alternativas Equivalentes (Categoría: ${targetCategory}):
+          Alternativas Equivalentes (Categoría: ${esc(targetCategory)}):
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;">
           ${sameCategoryItems.slice(0, 15).map(item => `
             <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--card-border);">
-              <div style="font-weight: 600; font-size: 0.88rem;">${item.name}</div>
-              <div style="font-size: 0.8rem; color: var(--accent-color);">Porción Eq: ${item.portion}</div>
+              <div style="font-weight: 600; font-size: 0.88rem;">${esc(item.name)}</div>
+              <div style="font-size: 0.8rem; color: var(--accent-color);">Porción Eq: ${esc(item.portion)}</div>
             </div>
           `).join('')}
         </div>
@@ -1039,32 +1082,32 @@ function renderProgressView() {
     <!-- Tarjetas Métricas Clave (Última Evaluación) -->
     <div style="margin-bottom: 20px;">
       <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
-        📊 Estado Actual &mdash; <strong>${latest.eval_label} (${latest.fecha})</strong>
+        📊 Estado Actual &mdash; <strong>${esc(latest.eval_label)} (${esc(latest.fecha)})</strong>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px;">
         <div style="background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border); text-align: center;">
           <div style="font-size: 0.78rem; color: var(--text-muted);">PESO ACTUAL</div>
-          <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-color);">${latest.peso_kg} kg</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-color);">${esc(latest.peso_kg)} kg</div>
         </div>
         <div style="background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border); text-align: center;">
           <div style="font-size: 0.78rem; color: var(--text-muted);">MASA MAGRA</div>
-          <div style="font-size: 1.25rem; font-weight: 700; color: #10b981;">${latest.masa_magra_kg} kg</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: #10b981;">${esc(latest.masa_magra_kg)} kg</div>
         </div>
         <div style="background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border); text-align: center;">
           <div style="font-size: 0.78rem; color: var(--text-muted);">% GRASA</div>
-          <div style="font-size: 1.25rem; font-weight: 700; color: #f59e0b;">${latest.pct_grasa}% (${latest.grasa_kg}kg)</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: #f59e0b;">${esc(latest.pct_grasa)}% (${esc(latest.grasa_kg)}kg)</div>
         </div>
         <div style="background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border); text-align: center;">
           <div style="font-size: 0.78rem; color: var(--text-muted);">% MÚSCULO</div>
-          <div style="font-size: 1.25rem; font-weight: 700; color: #ec4899;">${latest.pct_musculo}% (${latest.masa_muscular_kg}kg)</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: #ec4899;">${esc(latest.pct_musculo)}% (${esc(latest.masa_muscular_kg)}kg)</div>
         </div>
         <div style="background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border); text-align: center;">
           <div style="font-size: 0.78rem; color: var(--text-muted);">IMC</div>
-          <div style="font-size: 1.25rem; font-weight: 700; color: #3b82f6;">${latest.imc}</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: #3b82f6;">${esc(latest.imc)}</div>
         </div>
         <div style="background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border); text-align: center;">
           <div style="font-size: 0.78rem; color: var(--text-muted);">ICC</div>
-          <div style="font-size: 1.25rem; font-weight: 700; color: #8b5cf6;">${latest.icc}</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: #8b5cf6;">${esc(latest.icc)}</div>
         </div>
       </div>
     </div>
@@ -1096,17 +1139,17 @@ function renderProgressView() {
             <tr style="${r.eval_index === list.length ? 'background: rgba(0, 230, 118, 0.08); font-weight: 600;' : ''}">
               <td>
                 <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: ${EVAL_COLORS[(r.eval_index - 1) % EVAL_COLORS.length]}; margin-right: 6px;"></span>
-                <strong>${r.eval_label} ${r.eval_index === list.length ? '⭐ (Más reciente)' : ''}</strong>
+                <strong>${esc(r.eval_label)} ${r.eval_index === list.length ? '⭐ (Más reciente)' : ''}</strong>
               </td>
-              <td>${r.fecha}</td>
-              <td><strong>${r.peso_kg} kg</strong></td>
-              <td style="color: #10b981;">${r.masa_magra_kg} kg</td>
-              <td>${r.grasa_kg} kg</td>
-              <td style="color: #f59e0b;">${r.pct_grasa}%</td>
-              <td>${r.masa_muscular_kg} kg</td>
-              <td style="color: #ec4899;">${r.pct_musculo}%</td>
-              <td>${r.imc}</td>
-              <td>${r.icc}</td>
+              <td>${esc(r.fecha)}</td>
+              <td><strong>${esc(r.peso_kg)} kg</strong></td>
+              <td style="color: #10b981;">${esc(r.masa_magra_kg)} kg</td>
+              <td>${esc(r.grasa_kg)} kg</td>
+              <td style="color: #f59e0b;">${esc(r.pct_grasa)}%</td>
+              <td>${esc(r.masa_muscular_kg)} kg</td>
+              <td style="color: #ec4899;">${esc(r.pct_musculo)}%</td>
+              <td>${esc(r.imc)}</td>
+              <td>${esc(r.icc)}</td>
             </tr>
           `).join('')}
         </tbody>
@@ -1121,7 +1164,7 @@ function renderProgressView() {
       <div style="margin-top: 14px;">
         <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Seleccionar Reporte:</label>
         <select id="evalReportSelector" style="margin-bottom: 14px;">
-          ${reversedFilteredList.map(r => `<option value="${r.eval_index - 1}">${r.eval_label} (${r.fecha})</option>`).join('')}
+          ${reversedFilteredList.map(r => `<option value="${r.eval_index - 1}">${esc(r.eval_label)} (${esc(r.fecha)})</option>`).join('')}
         </select>
         <div id="evalDetailContent"></div>
       </div>
@@ -1146,16 +1189,16 @@ function renderProgressView() {
       detailContent.innerHTML = `
         <div style="background: var(--card-bg); padding: 14px; border-radius: 8px; border: 1px solid var(--card-border);">
           <div style="font-weight: 700; color: var(--accent-color); margin-bottom: 10px;">
-            📋 Reporte de Composición Corporal &bull; ${item.eval_label} (${item.fecha}) &bull; Edad: ${item.edad} años
+            📋 Reporte de Composición Corporal &bull; ${esc(item.eval_label)} (${esc(item.fecha)}) &bull; Edad: ${esc(item.edad)} años
           </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 0.88rem;">
-            <div>🔹 Masa Ósea: <strong>${item.masa_osea_kg} kg</strong></div>
-            <div>🔹 Masa Residual: <strong>${item.masa_residual_kg} kg</strong></div>
-            <div>🔹 Masa Piel: <strong>${item.masa_piel_kg} kg</strong></div>
-            <div>🔹 Disminuir Grasa (Obj): <strong>${item.disminuir_grasa_kg} kg</strong></div>
-            <div>🔹 Aumentar Músculo (Obj): <strong>${item.aumentar_musculo_kg} kg</strong></div>
-            <div>🔹 Peso Ideal Estimado: <strong>${item.peso_ideal_kg} kg</strong></div>
-            ${item.somatotype ? `<div>🔹 Somatotipo: <strong>Endo ${item.somatotype.endo} &bull; Meso ${item.somatotype.meso} &bull; Ecto ${item.somatotype.ecto}</strong></div>` : ''}
+            <div>🔹 Masa Ósea: <strong>${esc(item.masa_osea_kg)} kg</strong></div>
+            <div>🔹 Masa Residual: <strong>${esc(item.masa_residual_kg)} kg</strong></div>
+            <div>🔹 Masa Piel: <strong>${esc(item.masa_piel_kg)} kg</strong></div>
+            <div>🔹 Disminuir Grasa (Obj): <strong>${esc(item.disminuir_grasa_kg)} kg</strong></div>
+            <div>🔹 Aumentar Músculo (Obj): <strong>${esc(item.aumentar_musculo_kg)} kg</strong></div>
+            <div>🔹 Peso Ideal Estimado: <strong>${esc(item.peso_ideal_kg)} kg</strong></div>
+            ${item.somatotype ? `<div>🔹 Somatotipo: <strong>Endo ${esc(item.somatotype.endo)} &bull; Meso ${esc(item.somatotype.meso)} &bull; Ecto ${esc(item.somatotype.ecto)}</strong></div>` : ''}
           </div>
         </div>
       `;
@@ -1171,9 +1214,9 @@ function renderProgressView() {
       const color = EVAL_COLORS[(item.eval_index - 1) % EVAL_COLORS.length];
       return `
         <label style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: var(--card-bg); border-radius: 20px; border: 1.5px solid ${isChecked ? color : 'var(--card-border)'}; font-size: 0.82rem; cursor: pointer; user-select: none;">
-          <input type="checkbox" class="session-eval-checkbox" data-idx="${item.eval_index}" ${isChecked ? 'checked' : ''} style="accent-color: ${color};">
+          <input type="checkbox" class="session-eval-checkbox" data-idx="${esc(item.eval_index)}" ${isChecked ? 'checked' : ''} style="accent-color: ${color};">
           <span style="width: 10px; height: 10px; border-radius: 50%; background: ${color}; display: inline-block;"></span>
-          <strong>${item.eval_label}</strong> (${item.fecha.slice(0, 5)})
+          <strong>${esc(item.eval_label)}</strong> (${esc(item.fecha.slice(0, 5))})
         </label>
       `;
     }).join('');
@@ -1229,7 +1272,7 @@ function renderProgressView() {
   if (exerciseList.length > 0 && strengthSelector && strengthContainer) {
     strengthSelector.innerHTML = `
       <option value="">-- Seleccionar Ejercicio (${exerciseList.length} disponibles) --</option>
-      ${exerciseList.map(name => `<option value="${name.replace(/"/g, '&quot;')}">${name}</option>`).join('')}
+      ${exerciseList.map(name => `<option value="${esc(name)}">${esc(name)}</option>`).join('')}
     `;
 
     const renderStrengthHistory = (exName) => {
@@ -1247,9 +1290,9 @@ function renderProgressView() {
         return `
           <tr>
             <td><strong>Semana ${w}</strong></td>
-            <td>${log && log.reps ? log.reps + ' reps' : 'Según plan'}</td>
+            <td>${esc(log && log.reps ? log.reps + ' reps' : 'Según plan')}</td>
             <td style="color: ${log && log.weight ? '#10b981' : 'var(--text-muted)'}; font-weight: 700;">
-              ${log && log.weight ? log.weight + ' kg' : '--'}
+              ${esc(log && log.weight ? log.weight + ' kg' : '--')}
             </td>
             <td>
               ${log && log.weight ? '<span style="color: #10b981; font-weight: 600;">✓ Registrado</span>' : '<span style="color: var(--text-muted);">Pendiente</span>'}
@@ -1261,7 +1304,7 @@ function renderProgressView() {
       strengthContainer.innerHTML = `
         <div style="background: var(--input-bg); padding: 16px; border-radius: 8px; border: 1px solid var(--card-border);">
           <div style="font-weight: 700; color: var(--accent-color); margin-bottom: 12px; font-size: 0.95rem;">
-            🏋️ Desglose de Cargas por Semana &bull; ${exName}
+            🏋️ Desglose de Cargas por Semana &bull; ${esc(exName)}
           </div>
           <div class="table-responsive">
             <table>
@@ -1316,7 +1359,7 @@ function renderChartLegendHTML(selectedItems) {
           <span style="display: inline-flex; align-items: center; gap: 6px; background: var(--input-bg); padding: 4px 10px; border-radius: 16px; border: 1.5px solid ${color}; font-weight: 600; color: var(--text-main);">
             <span style="width: 16px; height: 0; border-top: 3px ${strokeStyle} ${color}; display: inline-block;"></span>
             <span style="width: 8px; height: 8px; border-radius: 50%; background: ${color}; display: inline-block;"></span>
-            ${item.eval_label} (${item.fecha})
+            ${esc(item.eval_label)} (${esc(item.fecha)})
           </span>
         `;
       }).join('')}
@@ -1413,15 +1456,15 @@ function renderSomatocartaSVG(selectedItems) {
               <!-- Puntos de Vértice en Cada Eje -->
               <!-- Mesomorfia -->
               <circle cx="${mPt.x}" cy="${mPt.y}" r="5.5" fill="${color}" stroke="#ffffff" stroke-width="2">
-                <title>${item.eval_label} (${item.fecha})\nMesomorfia: ${s.meso}</title>
+                <title>${esc(item.eval_label)} (${esc(item.fecha)})\nMesomorfia: ${esc(s.meso)}</title>
               </circle>
               <!-- Endomorfia -->
               <circle cx="${enPt.x}" cy="${enPt.y}" r="5.5" fill="${color}" stroke="#ffffff" stroke-width="2">
-                <title>${item.eval_label} (${item.fecha})\nEndomorfia: ${s.endo}</title>
+                <title>${esc(item.eval_label)} (${esc(item.fecha)})\nEndomorfia: ${esc(s.endo)}</title>
               </circle>
               <!-- Ectomorfia -->
               <circle cx="${ecPt.x}" cy="${ecPt.y}" r="5.5" fill="${color}" stroke="#ffffff" stroke-width="2">
-                <title>${item.eval_label} (${item.fecha})\nEctomorfia: ${s.ecto}</title>
+                <title>${esc(item.eval_label)} (${esc(item.fecha)})\nEctomorfia: ${esc(s.ecto)}</title>
               </circle>
             </g>
           `;
@@ -1496,11 +1539,11 @@ function renderPhantomGirthsSVG(selectedItems) {
           return `
             <g class="phantom-line-group" style="cursor: pointer;">
               <path d="${pathD}" fill="none" stroke="${color}" stroke-width="3.2" ${dashAttr} stroke-linecap="round" stroke-linejoin="round" opacity="1.0">
-                <title>${item.eval_label} (${item.fecha})</title>
+                <title>${esc(item.eval_label)} (${esc(item.fecha)})</title>
               </path>
               ${pts.map((p, i) => `
                 <circle cx="${p.x}" cy="${p.y}" r="5.5" fill="${color}" stroke="#ffffff" stroke-width="2">
-                  <title>${item.eval_label} (${item.fecha})\n${girthLabels[i]}: ${p.z > 0 ? '+' : ''}${p.z} Z</title>
+                  <title>${esc(item.eval_label)} (${esc(item.fecha)})\n${girthLabels[i]}: ${p.z > 0 ? '+' : ''}${esc(p.z)} Z</title>
                 </circle>
               `).join('')}
             </g>
@@ -1571,11 +1614,11 @@ function renderPhantomSkinfoldsSVG(selectedItems) {
           return `
             <g class="phantom-line-group" style="cursor: pointer;">
               <path d="${pathD}" fill="none" stroke="${color}" stroke-width="3.2" ${dashAttr} stroke-linecap="round" stroke-linejoin="round" opacity="1.0">
-                <title>${item.eval_label} (${item.fecha})</title>
+                <title>${esc(item.eval_label)} (${esc(item.fecha)})</title>
               </path>
               ${pts.map((p, i) => `
                 <circle cx="${p.x}" cy="${p.y}" r="5.5" fill="${color}" stroke="#ffffff" stroke-width="2">
-                  <title>${item.eval_label} (${item.fecha})\n${foldLabels[i]}: ${p.z > 0 ? '+' : ''}${p.z} Z</title>
+                  <title>${esc(item.eval_label)} (${esc(item.fecha)})\n${foldLabels[i]}: ${p.z > 0 ? '+' : ''}${esc(p.z)} Z</title>
                 </circle>
               `).join('')}
             </g>
@@ -1688,7 +1731,7 @@ function initAddDataView() {
       if (pdfStatus) {
         pdfStatus.style.display = 'block';
         pdfStatus.style.color = 'var(--accent-color)';
-        pdfStatus.innerHTML = `⏳ Cargando ${file.name}...`;
+        pdfStatus.innerHTML = `⏳ Cargando ${esc(file.name)}...`;
       }
 
       const reader = new FileReader();
@@ -1698,11 +1741,14 @@ function initAddDataView() {
           try {
             const parsed = JSON.parse(event.target.result);
             const extracted = parsed[stateKey] || (Array.isArray(parsed) ? parsed : [parsed]);
+            if (!isArrayOfObjects(extracted) || extracted.length === 0) {
+              throw new Error('la estructura no es una lista de registros válida');
+            }
             state[stateKey] = extracted;
             localStorage.setItem(storageKey, JSON.stringify(state[stateKey]));
 
             if (pdfStatus) {
-              pdfStatus.innerHTML = `✅ ${typeLabel} "${file.name}" cargado de forma privada en tu dispositivo.`;
+              pdfStatus.innerHTML = `✅ ${esc(typeLabel)} "${esc(file.name)}" cargado de forma privada en tu dispositivo.`;
             }
             alert(`✅ ${typeLabel} cargado correctamente.`);
             renderAllViews();
@@ -1726,7 +1772,7 @@ function initAddDataView() {
             localStorage.setItem('fitapp_user_pdfs', JSON.stringify(storedPdfs));
 
             if (pdfStatus) {
-              pdfStatus.innerHTML = `✅ Documento PDF "${file.name}" almacenado de forma 100% privada en la memoria de tu teléfono.`;
+              pdfStatus.innerHTML = `✅ Documento PDF "${esc(file.name)}" almacenado de forma 100% privada en la memoria de tu teléfono.`;
             }
             alert(`✅ Documento PDF "${file.name}" vinculado de forma privada en tu dispositivo.`);
             renderAllViews();
@@ -1822,7 +1868,7 @@ function initSettings() {
           let restoredCount = 0;
 
           // 1. Logs de ejercicios
-          if (imported.userLogs && Object.keys(imported.userLogs).length > 0) {
+          if (isPlainObject(imported.userLogs) && Object.keys(imported.userLogs).length > 0) {
             state.userLogs = imported.userLogs;
             localStorage.setItem('fitapp_user_logs', JSON.stringify(state.userLogs));
             restoredCount++;
@@ -1830,7 +1876,7 @@ function initSettings() {
 
           // 2. Planes Nutricionales (ej. user_private_backup.json)
           const nutData = imported.nutritionData || imported.mealPlans || (Array.isArray(imported) && imported[0]?.ration_matrix ? imported : null);
-          if (nutData) {
+          if (isArrayOfObjects(nutData)) {
             state.nutritionData = nutData;
             localStorage.setItem('fitapp_custom_nutrition', JSON.stringify(nutData));
             restoredCount++;
@@ -1838,7 +1884,7 @@ function initSettings() {
 
           // 3. Rutinas de Gimnasio (ej. user_private_backup.json)
           const workData = imported.workoutData || imported.workoutPlans || (Array.isArray(imported) && imported[0]?.days ? imported : null);
-          if (workData) {
+          if (isArrayOfObjects(workData)) {
             state.workoutData = workData;
             localStorage.setItem('fitapp_custom_workout', JSON.stringify(workData));
             restoredCount++;
@@ -1846,18 +1892,18 @@ function initSettings() {
 
           // 4. Reportes de Progresión (ej. user_private_backup.json)
           const progData = imported.resultsData || imported.progressData || imported.results || (Array.isArray(imported) && imported[0]?.skinholds ? imported : null);
-          if (progData) {
+          if (isArrayOfObjects(progData)) {
             state.resultsData = progData;
             localStorage.setItem('fitapp_custom_progress', JSON.stringify(progData));
             restoredCount++;
           }
 
           // 5. Insumos y Ejercicios Personalizados
-          if (imported.customFoods) {
+          if (isArrayOfObjects(imported.customFoods)) {
             state.customFoods = imported.customFoods;
             localStorage.setItem('fitapp_custom_foods', JSON.stringify(state.customFoods));
           }
-          if (imported.customExercises) {
+          if (isArrayOfObjects(imported.customExercises)) {
             state.customExercises = imported.customExercises;
             localStorage.setItem('fitapp_custom_exercises', JSON.stringify(state.customExercises));
           }
