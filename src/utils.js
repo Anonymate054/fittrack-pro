@@ -61,3 +61,15 @@ export function extractBackupSections(imported) {
   }
   return sections;
 }
+
+/**
+ * Normaliza una serie Phantom al número de mediciones esperado.
+ * Respaldos antiguos guardaban los pliegues intercalados con valores de relleno
+ * (15 valores para 8 pliegues); en ese caso se toman las posiciones pares.
+ */
+export function normalizePhantomSeries(values, expected) {
+  if (!Array.isArray(values)) return [];
+  const nums = values.filter(v => typeof v === 'number' && Number.isFinite(v));
+  if (nums.length === expected * 2 - 1) return nums.filter((_, i) => i % 2 === 0);
+  return nums.slice(0, expected);
+}

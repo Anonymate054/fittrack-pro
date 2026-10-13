@@ -1,111 +1,179 @@
-import pymupdf, json, re, os
+"""Extrae somatotipo y valores Z Phantom de los PDFs de resultados.
 
-eval_map = [
-    (1, 'Evaluación I', 'files/results/RESULTADOS I.pdf'),
-    (2, 'Evaluación II', 'files/results/RESULTADOS II.pdf'),
-    (3, 'Evaluación III', 'files/results/RESULTADOS III.pdf'),
-    (4, 'Evaluación IV', 'files/results/RESULTADOS IV.pdf'),
-    (5, 'Evaluación V', 'files/results/RESULTADOS V.pdf'),
-    (6, 'Evaluación VI', 'files/results/RESULTADOS VI-1.pdf'),
-    (7, 'Evaluación VII', 'files/results/RESULTADOS VII.pdf'),
-    (8, 'Evaluación VIII', 'files/results/RESULTADOS VIII.pdf'),
-    (9, 'Evaluación IX', 'files/results/RESULTADOS IX.pdf'),
-    (10, 'Evaluación X', 'files/results/RESULTADOS X.pdf'),
-    (11, 'Evaluación XI', 'files/results/RESULTADOS XI.pdf')
-]
+Las gráficas Phantom del PDF son vectoriales: cada evaluación es una serie de
+marcadores de un color (azul = primera evaluación de referencia, rojo = evaluación
+actual). Se leen los marcadores por color y se convierten a valor Z usando las
+líneas de la cuadrícula (3.00 a -3.00).
 
-json_path = 'src/data/progress_history.json'
+Orden de los puntos (igual que en el PDF):
+  pliegues:        Subescapular, Tríceps, Pectoral, Suprailiaco, Supraespinal,
+                   Abdominal, Muslo, Pierna
+  circunferencias: Brazo relajado, Brazo contraído, Cintura, Abdomen, Cadera,
+                   Muslo, Pierna
 
-with open(json_path, 'r', encoding='utf-8') as f:
-    history = json.load(f)
+Uso:
+  python scripts/extract_all_phantom_data.py                       # actualiza src/data/progress_history.json
+  python scripts/extract_all_phantom_data.py --json ruta/backup.json  # actualiza resultsData de un respaldo
+"""
+import argparse
+import json
+import os
+import sys
 
-for item in history:
-    idx = item['eval_index']
-    match_file = [f for i, l, f in eval_map if i == idx]
-    if not match_file or not os.path.exists(match_file[0]):
-        continue
-    
-    filepath = match_file[0]
-    doc = pymupdf.open(filepath)
-    page = doc[0]
-    words = page.get_text('words')
+import pymupdf
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RESULTS_DIR = os.path.join(ROOT, 'files', 'results')
+DEFAULT_JSON = os.path.join(ROOT, 'src', 'data', 'progress_history.json')
+
+N_PLIEGUES = 8
+N_CIRCUNFERENCIAS = 7
+
+BLUE = (0.29, 0.49, 0.73)
+RED = (0.75, 0.29, 0.28)
+
+# Zona de cada gráfica en la página (puntos PDF)
+CHARTS = {
+    'pliegues': (60, 300),
+    'circunferencias': (300, 560),
+}
+CHART_Y = (500, 650)
+
+
+def _close(color, ref):
+    return bool(color) and all(abs(a - b) < 0.05 for a, b in zip(color, ref))
+
+
+def _z_scale(page, x0, x1):
+    """Devuelve una función y -> Z a partir de las líneas de cuadrícula de la gráfica."""
+    ys = set()
+    for d in page.get_drawings():
+        for it in d['items']:
+            if it[0] != 'l':
+                continue
+            a, b = it[1], it[2]
+            if abs(a.y - b.y) < 0.3 and abs(a.x - b.x) > 100 and x0 < min(a.x, b.x) < x1 and CHART_Y[0] < a.y < CHART_Y[1]:
+                ys.add(round(a.y, 1))
+    # Fusionar líneas casi idénticas (bordes dobles)
+    grid = []
+    for y in sorted(ys):
+        if not grid or y - grid[-1] > 3:
+            grid.append(y)
+    if len(grid) >= 7:
+        grid = grid[-7:]  # 3.00, 2.00, ..., -3.00 de arriba a abajo
+        y_top, y_bottom = grid[0], grid[-1]
+    else:
+        # Respaldo: centro de las etiquetas 3.00 y -3.00
+        labels = {}
+        for w in page.get_text('words'):
+            if x0 < w[0] < x0 + 40 and CHART_Y[0] < w[1] < CHART_Y[1]:
+                labels[w[4]] = (w[1] + w[3]) / 2
+        y_top, y_bottom = labels['3.00'], labels['-3.00']
+    per_unit = (y_bottom - y_top) / 6
+    y_zero = y_top + 3 * per_unit
+    return lambda y: round((y_zero - y) / per_unit, 2)
+
+
+def phantom_series(page):
+    """{'pliegues': {'blue': [...], 'red': [...]}, 'circunferencias': {...}}"""
     drawings = page.get_drawings()
-    
-    # 1. Parse Somatotype
-    soma_v1_words = [w for w in words if 330 < w[1] < 342 and 410 < w[0] < 540]
-    soma_v2_words = [w for w in words if 342 < w[1] < 355 and 410 < w[0] < 540]
-    
-    def parse_soma_vals(w_list):
-        vals = []
-        for w in w_list:
+    out = {}
+    for name, (x0, x1) in CHARTS.items():
+        to_z = _z_scale(page, x0, x1)
+        series = {}
+        for d in drawings:
+            r = d['rect']
+            if d.get('type') != 'fs' or r.width > 8 or r.height > 8:
+                continue
+            if not (CHART_Y[0] < r.y0 < CHART_Y[1] and x0 < r.x0 < x1):
+                continue
+            color = d.get('fill') or d.get('color')
+            key = 'blue' if _close(color, BLUE) else 'red' if _close(color, RED) else None
+            if not key:
+                continue
+            z = to_z((r.y0 + r.y1) / 2)
+            if abs(z) > 3.5:  # marcador de la leyenda, fuera de la escala
+                continue
+            series.setdefault(key, []).append(((r.x0 + r.x1) / 2, z))
+        out[name] = {k: [z for _, z in sorted(v)] for k, v in series.items()}
+    return out
+
+
+def somatotype(page):
+    """Lee endo/meso/ecto; la segunda fila (si existe) es la evaluación actual."""
+    rows = {}
+    for w in page.get_text('words'):
+        if 400 < w[0] < 545 and 325 < w[1] < 355:
             try:
-                vals.append(float(w[4]))
-            except:
+                rows.setdefault(round(w[1]), []).append((w[0], float(w[4])))
+            except ValueError:
                 pass
-        return vals
-
-    v1_vals = parse_soma_vals(soma_v1_words)
-    v2_vals = parse_soma_vals(soma_v2_words)
-
-    soma_active = v2_vals if len(v2_vals) >= 3 else (v1_vals if len(v1_vals) >= 3 else [4.3, 2.6, 4.2])
-    endo, meso, ecto = soma_active[0], soma_active[1], soma_active[2]
-    x_soma = round(ecto - endo, 2)
-    y_soma = round(2 * meso - (endo + ecto), 2)
-
-    item['somatotype'] = {
+    if not rows:
+        return None
+    vals = [v for _, v in sorted(rows[max(rows)])]
+    if len(vals) < 3:
+        return None
+    endo, meso, ecto = vals[:3]
+    return {
         'endo': endo,
         'meso': meso,
         'ecto': ecto,
-        'x': x_soma,
-        'y': y_soma
+        'x': round(ecto - endo, 2),
+        'y': round(2 * meso - (endo + ecto), 2),
     }
 
-    # 2. Extract Phantom Z-Scores
-    z_zero_words1 = [w for w in words if w[4] == '0.00' and w[0] < 200]
-    z_zero_words2 = [w for w in words if w[4] == '0.00' and w[0] > 200]
-    
-    y0_p = z_zero_words1[0][1] + 4.0 if z_zero_words1 else 577.9
-    y0_c = z_zero_words2[0][1] + 4.0 if z_zero_words2 else 579.0
 
-    def extract_vector_z(rect, y_zero, px_per_unit):
-        pts = []
-        for d in drawings:
-            if rect.intersects(d['rect']):
-                for it in d['items']:
-                    if it[0] in ['c', 'l']:
-                        for p in it[1:]:
-                            if isinstance(p, pymupdf.Point) and rect.contains(p):
-                                pts.append(p)
-        clusters = {}
-        for p in pts:
-            xr = round(p.x, 1)
-            found = False
-            for k in clusters:
-                if abs(k - xr) < 4.0:
-                    clusters[k].append(p.y)
-                    found = True
-                    break
-            if not found:
-                clusters[xr] = [p.y]
-        
-        scores = []
-        for x_val in sorted(clusters.keys()):
-            avg_y = sum(clusters[x_val]) / len(clusters[x_val])
-            z = round((y_zero - avg_y) / px_per_unit, 2)
-            scores.append(z)
-        return scores
+def extract(pdf_path):
+    page = pymupdf.open(pdf_path)[0]
+    s = phantom_series(page)
+    result = {}
 
-    pts_p = extract_vector_z(pymupdf.Rect(85, 510, 290, 640), y0_p, 19.1)
-    pts_c = extract_vector_z(pymupdf.Rect(325, 510, 530, 640), y0_c, 19.0)
+    def current(name, expected):
+        # Rojo = evaluación actual; si solo hay una serie (primera evaluación) es la azul
+        values = s[name].get('red') or s[name].get('blue') or []
+        if len(values) != expected:
+            raise ValueError(f'{os.path.basename(pdf_path)}: {name} tiene {len(values)} puntos, se esperaban {expected}')
+        return values
 
-    if len(pts_c) == 14:
-        item['phantom_circunferencias'] = pts_c[1::2]
-    else:
-        item['phantom_circunferencias'] = pts_c[:7]
+    result['phantom_pliegues'] = current('pliegues', N_PLIEGUES)
+    result['phantom_circunferencias'] = current('circunferencias', N_CIRCUNFERENCIAS)
+    soma = somatotype(page)
+    if soma:
+        result['somatotype'] = soma
+    return result
 
-    item['phantom_pliegues'] = pts_p[-15:] if len(pts_p) >= 15 else pts_p
 
-with open(json_path, 'w', encoding='utf-8') as f:
-    json.dump(history, f, ensure_ascii=False, indent=2)
+def update_history(history, results_dir):
+    updated = 0
+    for item in history:
+        filename = item.get('filename')
+        if not filename:
+            continue
+        path = os.path.join(results_dir, filename)
+        if not os.path.exists(path):
+            print(f'  · {filename}: PDF no encontrado, se omite', file=sys.stderr)
+            continue
+        item.update(extract(path))
+        updated += 1
+    return updated
 
-print('✓ Extraction complete!')
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('--json', default=DEFAULT_JSON, help='progress_history.json o respaldo con resultsData')
+    parser.add_argument('--results-dir', default=RESULTS_DIR, help='carpeta con los PDFs RESULTADOS *.pdf')
+    args = parser.parse_args()
+
+    with open(args.json, encoding='utf-8') as f:
+        data = json.load(f)
+    history = data.get('resultsData', []) if isinstance(data, dict) else data
+
+    updated = update_history(history, args.results_dir)
+
+    with open(args.json, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f'✓ {updated} evaluaciones actualizadas en {args.json}')
+
+
+if __name__ == '__main__':
+    main()
