@@ -101,7 +101,7 @@ jobs:
 
   deploy:
     name: Desplegar en GitHub Pages
-    needs: check
+    needs: [ check, android ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
@@ -122,6 +122,17 @@ jobs:
           node-version: 22
 
       - run: npm run build
+
+      # El APK del job android se publica junto al sitio para descargarlo desde el teléfono
+      - uses: actions/download-artifact@v5
+        with:
+          name: FitTrackPro-apk
+          path: apk
+      - name: Agregar el APK al sitio
+        run: |
+          apk=$(find apk -name '*.apk' | head -n 1)
+          cp "$apk" dist/FitTrackPro.apk
+          ls -la dist/FitTrackPro.apk
 
       - uses: actions/configure-pages@v5
 
