@@ -38,6 +38,8 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  // El APK se descarga directo de la red; no se guarda en la caché offline.
+  if (new URL(req.url).pathname.endsWith('.apk')) return;
 
   // cache: 'no-cache' revalida con el servidor (ETag) para no servir archivos viejos de la caché HTTP
   e.respondWith(

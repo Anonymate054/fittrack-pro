@@ -56,10 +56,20 @@ async function initApp() {
 // porque Capacitor sirve los archivos desde el propio paquete.
 function registerServiceWorker() {
   const isNativeApp = window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform();
+  if (!isNativeApp) showApkDownload();
   if (!('serviceWorker' in navigator) || isNativeApp) return;
   navigator.serviceWorker.register('./sw.js').catch((err) => {
     console.error('No se pudo registrar el service worker:', err);
   });
+}
+
+// En la web, muestra el enlace de descarga del APK si se publicó junto al sitio.
+function showApkDownload() {
+  const card = document.getElementById('androidApkCard');
+  if (!card) return;
+  fetch('./FitTrackPro.apk', { method: 'HEAD', cache: 'no-store' })
+    .then((res) => { card.hidden = !res.ok; })
+    .catch(() => { card.hidden = true; });
 }
 
 if (document.readyState === 'loading') {
