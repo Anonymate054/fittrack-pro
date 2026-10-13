@@ -566,7 +566,9 @@ def main():
         for f in sorted(os.listdir(ref_dir)):
             if f.endswith(".pdf"):
                 eq_dict = extract_equivalents(os.path.join(ref_dir, f))
-                with open(os.path.join(output_dir, "equivalents.json"), "w", encoding="utf-8") as f:
+                # El parser de equivalentes mezcla columnas del PDF; src/data/equivalents.json es la
+                # versión curada y no se sobrescribe. La extracción queda aparte para revisión manual.
+                with open(os.path.join(private_dir, "equivalents.extracted.json"), "w", encoding="utf-8") as f:
                     json.dump(eq_dict, f, ensure_ascii=False, indent=2)
 
     print("✓ Dataset JSON v20 actualizado con parser directo de celdas.")

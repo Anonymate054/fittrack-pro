@@ -1,6 +1,7 @@
 // LOGICA PRINCIPAL DE LA APLICACIÓN FITNESS & NUTRICIÓN (FITTRACK PRO v10)
 
 import { renderMuscleSVG } from './components/svg_muscles.js';
+import { esc, isPlainObject, isArrayOfObjects, getYouTubeVideoId, extractBackupSections } from './utils.js';
 
 // ESTADO GLOBAL DE LA APP
 const state = {
@@ -18,54 +19,27 @@ const state = {
   customFoods: (() => {
     try {
       return JSON.parse(localStorage.getItem('fitapp_custom_foods') || '[]');
-    } catch(e) {
+    } catch {
       return [];
     }
   })(),
   customExercises: (() => {
     try {
       return JSON.parse(localStorage.getItem('fitapp_custom_exercises') || '[]');
-    } catch(e) {
+    } catch {
       return [];
     }
   })(),
   userLogs: (() => {
     try {
       return JSON.parse(localStorage.getItem('fitapp_user_logs') || '{}');
-    } catch(e) {
+    } catch {
       return {};
     }
   })()
 };
 
 window.state = state;
-
-// ESCAPAR TEXTO ANTES DE INTERPOLARLO EN innerHTML (evita XSS desde datos importados o capturados)
-function esc(value) {
-  if (value === null || value === undefined) return '';
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-// VALIDACIÓN ESTRUCTURAL DE DATOS IMPORTADOS
-function isPlainObject(value) {
-  return value !== null && typeof value === 'object' && !Array.isArray(value);
-}
-
-function isArrayOfObjects(value) {
-  return Array.isArray(value) && value.every(isPlainObject);
-}
-
-// EXTRAER ID DE YOUTUBE PARA MINIATURAS HD
-function getYouTubeVideoId(url) {
-  if (!url) return null;
-  const match = url.match(/(?:watch\?v=|shorts\/|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-  return match ? match[1] : null;
-}
 
 // INICIALIZACIÓN ROBUSTA
 async function initApp() {
@@ -131,7 +105,7 @@ function detectTodayWorkout() {
   } else if (dayName === 'Martes' || dayName === 'Viernes') {
     bannerText.innerHTML = `${dayName} &bull; Sugerencia: <strong>FUERZA DÍA 2 (PIERNA Y GLÚTEO) + CARDIO + ABDOMEN</strong>`;
   } else if (dayName === 'Miércoles') {
-    bannerText.innerHTML = `${dayName} &bull; Sugerencia: <strong>FUERZA DÍA 3 (PECHO Y BÍCEPS) + ABDOMEN</strong>`;
+    bannerText.innerHTML = `${dayName} &bull; Sugerencia: <strong>FUERZA DÍA 3 (PECHO, BÍCEPS Y TRÍCEPS) + ABDOMEN</strong>`;
   } else {
     bannerText.innerHTML = `${dayName} &bull; Día de Descanso Activo / Estiramientos`;
   }
@@ -288,17 +262,22 @@ async function loadAppData() {
     }
   });
 
-  // Combinar ejercicios personalizados en la primera rutina activa
-  (state.customExercises || []).forEach(ce => {
-    if (state.workoutData && state.workoutData[0] && state.workoutData[0].days && state.workoutData[0].days[0]) {
-      const biseries = state.workoutData[0].days[0].biseries || [];
-      if (biseries[0] && biseries[0].exercises) {
-        const exists = biseries[0].exercises.some(e => e.name === ce.name);
-        if (!exists) {
-          biseries[0].exercises.push(ce);
-        }
-      }
+}
+
+// Los ejercicios personalizados se muestran como un día propio al final de cada rutina,
+// sin mezclarse con los ejercicios del plan. Se puede llamar varias veces sin duplicar.
+function applyCustomExercises() {
+  const custom = state.customExercises || [];
+  (state.workoutData || []).forEach(plan => {
+    const days = Array.isArray(plan.days) ? plan.days.filter(d => !d.is_custom) : [];
+    if (custom.length > 0) {
+      days.push({
+        day_name: '⭐ Ejercicios personalizados',
+        is_custom: true,
+        biseries: [{ biserie_id: 1, exercises: custom }]
+      });
     }
+    plan.days = days;
   });
 }
 
@@ -326,6 +305,7 @@ function renderHomeView() {
 }
 
 function renderAllViews() {
+  applyCustomExercises();
   renderHomeView();
   renderNutritionView();
   renderWorkoutView();
@@ -351,7 +331,7 @@ function renderNutritionView() {
     const dateStr = p.date ? ` (${p.date.trim()})` : '';
     let fileName = (p.file || '').replace(/\.pdf$/i, '').trim();
     if (fileName.toLowerCase().includes('plan de alimentación')) {
-      fileName = fileName.replace(/plan de alimentación/i, '').replace(/[\(\)]/g, '').trim();
+      fileName = fileName.replace(/plan de alimentación/i, '').replace(/[()]/g, '').trim();
     }
     const labelText = fileName ? `${kcalStr} • ${fileName}` : `${kcalStr}`;
     return `<option value="${idx}">${isRecent}${esc(labelText + dateStr)}</option>`;
@@ -521,7 +501,7 @@ function renderNutritionView() {
 
     const ensureBullet = (text) => {
       if (!text) return '';
-      const clean = text.replace(/^[•\-]\s*/, '').trim();
+      const clean = text.replace(/^[•-]\s*/, '').trim();
       return `• ${esc(clean)}`;
     };
 
@@ -1642,7 +1622,7 @@ function initAddDataView() {
       const sets = parseInt(document.getElementById('addExSets')?.value) || 4;
       const reps = document.getElementById('addExReps')?.value.trim() || '10-12';
       const tempo = document.getElementById('addExTempo')?.value.trim() || '2,1,2';
-      const video = document.getElementById('addExVideo')?.value.trim() || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+      const video = document.getElementById('addExVideo')?.value.trim() || '';
 
       if (!name) {
         alert('Por favor escribe el nombre del ejercicio.');
@@ -1664,20 +1644,6 @@ function initAddDataView() {
 
       state.customExercises.push(newEx);
       localStorage.setItem('fitapp_custom_exercises', JSON.stringify(state.customExercises));
-
-      // Agregar al plan de gimnasio activo de forma segura
-      if (state.workoutData && state.workoutData[0]) {
-        const plan = state.workoutData[0];
-        if (!plan.days) plan.days = [{ day_name: 'Día 1: Personalizados', biseries: [{ biserie_id: 1, exercises: [] }] }];
-        const day = plan.days[0];
-        if (!day.biseries) day.biseries = [{ biserie_id: 1, exercises: [] }];
-        if (!day.biseries[0].exercises) day.biseries[0].exercises = [];
-
-        const exists = day.biseries[0].exercises.some(e => e.name === name);
-        if (!exists) {
-          day.biseries[0].exercises.push(newEx);
-        }
-      }
 
       alert(`✅ Ejercicio "${name}" registrado correctamente en el gimnasio.`);
       document.getElementById('addExName').value = '';
@@ -1776,7 +1742,7 @@ function initAddDataView() {
             }
             alert(`✅ Documento PDF "${file.name}" vinculado de forma privada en tu dispositivo.`);
             renderAllViews();
-          } catch(err) {
+          } catch {
             alert('Error al guardar el archivo PDF localmente.');
           }
         };
@@ -1807,7 +1773,7 @@ function initSettings() {
     const evalCount = (state.resultsData || []).length;
     statusInfo.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-        <span>🏷️ Versión Instalada: <strong>v2.1.3</strong></span>
+        <span>🏷️ Versión Instalada: <strong>__APP_VERSION__</strong></span>
         <span>🏋️ Cargas Registradas: <strong>${logsCount} ejercicios</strong></span>
         <span>📊 Evaluaciones: <strong>${evalCount} reportes</strong></span>
       </div>
@@ -1838,7 +1804,7 @@ function initSettings() {
     exportBtn.onclick = () => {
       const backupData = {
         app: 'FitTrack Pro',
-        version: '2.1.0',
+        version: '__APP_VERSION__',
         timestamp: new Date().toISOString(),
         nutritionData: state.nutritionData,
         workoutData: state.workoutData,
@@ -1864,48 +1830,24 @@ function initSettings() {
       const reader = new FileReader();
       reader.onload = (event) => {
         try {
-          const imported = JSON.parse(event.target.result);
+          const sections = extractBackupSections(JSON.parse(event.target.result));
+          const storageKeys = {
+            userLogs: 'fitapp_user_logs',
+            nutritionData: 'fitapp_custom_nutrition',
+            workoutData: 'fitapp_custom_workout',
+            resultsData: 'fitapp_custom_progress',
+            customFoods: 'fitapp_custom_foods',
+            customExercises: 'fitapp_custom_exercises'
+          };
+          // Los insumos y ejercicios personalizados se restauran, pero no cuentan como respaldo reconocido
+          const countedSections = ['userLogs', 'nutritionData', 'workoutData', 'resultsData'];
           let restoredCount = 0;
 
-          // 1. Logs de ejercicios
-          if (isPlainObject(imported.userLogs) && Object.keys(imported.userLogs).length > 0) {
-            state.userLogs = imported.userLogs;
-            localStorage.setItem('fitapp_user_logs', JSON.stringify(state.userLogs));
-            restoredCount++;
-          }
-
-          // 2. Planes Nutricionales (ej. user_private_backup.json)
-          const nutData = imported.nutritionData || imported.mealPlans || (Array.isArray(imported) && imported[0]?.ration_matrix ? imported : null);
-          if (isArrayOfObjects(nutData)) {
-            state.nutritionData = nutData;
-            localStorage.setItem('fitapp_custom_nutrition', JSON.stringify(nutData));
-            restoredCount++;
-          }
-
-          // 3. Rutinas de Gimnasio (ej. user_private_backup.json)
-          const workData = imported.workoutData || imported.workoutPlans || (Array.isArray(imported) && imported[0]?.days ? imported : null);
-          if (isArrayOfObjects(workData)) {
-            state.workoutData = workData;
-            localStorage.setItem('fitapp_custom_workout', JSON.stringify(workData));
-            restoredCount++;
-          }
-
-          // 4. Reportes de Progresión (ej. user_private_backup.json)
-          const progData = imported.resultsData || imported.progressData || imported.results || (Array.isArray(imported) && imported[0]?.skinholds ? imported : null);
-          if (isArrayOfObjects(progData)) {
-            state.resultsData = progData;
-            localStorage.setItem('fitapp_custom_progress', JSON.stringify(progData));
-            restoredCount++;
-          }
-
-          // 5. Insumos y Ejercicios Personalizados
-          if (isArrayOfObjects(imported.customFoods)) {
-            state.customFoods = imported.customFoods;
-            localStorage.setItem('fitapp_custom_foods', JSON.stringify(state.customFoods));
-          }
-          if (isArrayOfObjects(imported.customExercises)) {
-            state.customExercises = imported.customExercises;
-            localStorage.setItem('fitapp_custom_exercises', JSON.stringify(state.customExercises));
+          for (const [key, value] of Object.entries(sections)) {
+            if (!value) continue;
+            state[key] = value;
+            localStorage.setItem(storageKeys[key], JSON.stringify(value));
+            if (countedSections.includes(key)) restoredCount++;
           }
 
           if (restoredCount > 0) {

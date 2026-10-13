@@ -36,3 +36,5 @@ src/data/results.json
 
 # Salida privada de scripts/extract_pdf.py
 private_data/
+test-results/
+playwright-report/
