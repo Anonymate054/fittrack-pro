@@ -1,7 +1,7 @@
 // LOGICA PRINCIPAL DE LA APLICACIÓN FITNESS & NUTRICIÓN (FITTRACK PRO v10)
 
 import { renderMuscleSVG } from './components/svg_muscles.js';
-import { esc, isPlainObject, isArrayOfObjects, getYouTubeVideoId, extractBackupSections } from './utils.js';
+import { esc, isPlainObject, isArrayOfObjects, getYouTubeVideoId, extractBackupSections, normalizePhantomSeries } from './utils.js';
 
 // ESTADO GLOBAL DE LA APP
 const state = {
@@ -1468,7 +1468,7 @@ function renderPhantomGirthsSVG(selectedItems) {
     return;
   }
 
-  const girthLabels = ['Cabeza', 'Brazo Rel.', 'Brazo Flex.', 'Antebrazo', 'Tórax', 'Cintura', 'Cadera'];
+  const girthLabels = ['Brazo Rel.', 'Brazo Contr.', 'Cintura', 'Abdomen', 'Cadera', 'Muslo', 'Pierna'];
   const w = 560, h = 320;
   const paddingL = 90, paddingR = 30, paddingT = 40, paddingB = 50;
 
@@ -1504,7 +1504,7 @@ function renderPhantomGirthsSVG(selectedItems) {
         <!-- Trazado de Sesiones Seleccionadas -->
         ${selectedItems.map((item, selIdx) => {
           const color = EVAL_COLORS[(item.eval_index - 1) % EVAL_COLORS.length];
-          const zScores = item.phantom_circunferencias || [];
+          const zScores = normalizePhantomSeries(item.phantom_circunferencias, girthLabels.length);
           const dashPattern = STROKE_PATTERNS[selIdx % STROKE_PATTERNS.length];
           const dashAttr = dashPattern !== 'none' ? `stroke-dasharray="${dashPattern}"` : '';
           
@@ -1544,7 +1544,7 @@ function renderPhantomSkinfoldsSVG(selectedItems) {
     return;
   }
 
-  const foldLabels = ['Tríceps', 'Subescapular', 'Bíceps', 'Cresta Ilíaca', 'Supraespinal', 'Abdominal', 'Muslo', 'Pantorrilla'];
+  const foldLabels = ['Subescapular', 'Tríceps', 'Pectoral', 'Suprailiaco', 'Supraespinal', 'Abdominal', 'Muslo', 'Pierna'];
   const w = 560, h = 320;
   const paddingL = 90, paddingR = 30, paddingT = 40, paddingB = 50;
 
@@ -1579,13 +1579,13 @@ function renderPhantomSkinfoldsSVG(selectedItems) {
         <!-- Trazado de Sesiones Seleccionadas -->
         ${selectedItems.map((item, selIdx) => {
           const color = EVAL_COLORS[(item.eval_index - 1) % EVAL_COLORS.length];
-          const zScores = item.phantom_pliegues || [];
+          const zScores = normalizePhantomSeries(item.phantom_pliegues, foldLabels.length);
           const dashPattern = STROKE_PATTERNS[selIdx % STROKE_PATTERNS.length];
           const dashAttr = dashPattern !== 'none' ? `stroke-dasharray="${dashPattern}"` : '';
           
           const pts = foldLabels.map((_, i) => {
             const x = paddingL + (i * (chartW / (foldLabels.length - 1)));
-            const z = zScores[i * 2] !== undefined ? zScores[i * 2] : (zScores[i] !== undefined ? zScores[i] : 0);
+            const z = zScores[i] !== undefined ? zScores[i] : 0;
             return { x, y: zToY(z), z };
           });
 

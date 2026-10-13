@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { esc, extractBackupSections, getYouTubeVideoId, isArrayOfObjects, isPlainObject } from '../../src/utils.js';
+import { esc, extractBackupSections, getYouTubeVideoId, isArrayOfObjects, isPlainObject, normalizePhantomSeries } from '../../src/utils.js';
 
 describe('esc', () => {
   it('escapa los caracteres especiales de HTML', () => {
@@ -93,5 +93,22 @@ describe('extractBackupSections', () => {
     for (const input of [null, 42, 'texto', true]) {
       expect(Object.values(extractBackupSections(input)).every((v) => v === null)).toBe(true);
     }
+  });
+});
+
+describe('normalizePhantomSeries', () => {
+  it('conserva una serie con el número esperado de valores', () => {
+    const folds = [-0.5, -1.04, -0.15, -0.4, -0.59, -0.91, -1.42, -1.74];
+    expect(normalizePhantomSeries(folds, 8)).toEqual(folds);
+  });
+
+  it('descarta los valores de relleno intercalados de respaldos antiguos', () => {
+    const legacy = [-0.28, 0.06, -0.79, 0.06, 0.33, 0.06, -0.25, 0.06, -0.12, 0.06, -0.47, 0.06, -1.32, 0.06, -1.48];
+    expect(normalizePhantomSeries(legacy, 8)).toEqual([-0.28, -0.79, 0.33, -0.25, -0.12, -0.47, -1.32, -1.48]);
+  });
+
+  it('recorta series largas e ignora valores no numéricos', () => {
+    expect(normalizePhantomSeries([1, 2, 'x', 3, 4], 3)).toEqual([1, 2, 3]);
+    expect(normalizePhantomSeries(undefined, 7)).toEqual([]);
   });
 });

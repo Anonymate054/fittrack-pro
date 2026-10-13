@@ -47,6 +47,9 @@ npm run check           # lint + datos + tests unitarios
 ```bash
 pip install -r scripts/requirements.txt
 python3 scripts/extract_pdf.py   # lee files/ y escribe en src/data/ y private_data/
+# Somatotipo y valores Z Phantom (8 pliegues, 7 circunferencias) leídos de las gráficas del PDF:
+python3 scripts/extract_all_phantom_data.py                                  # src/data/progress_history.json
+python3 scripts/extract_all_phantom_data.py --json user_private_backup.json  # resultsData de un respaldo
 ```
 
 ---
@@ -58,6 +61,7 @@ python3 scripts/extract_pdf.py   # lee files/ y escribe en src/data/ y private_d
 * **APK:** el mismo workflow compila el APK y lo publica como artefacto `FitTrackPro-apk` de cada ejecución (pestaña *Actions*). Antes de subirlo verifica que no contenga datos privados.
   * Sin secretos configurados se genera un APK de debug.
   * Para un APK de release firmado, crea un keystore y agrega en *Settings → Secrets and variables → Actions*: `ANDROID_KEYSTORE_BASE64` (el keystore en base64), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` y `ANDROID_KEY_PASSWORD`.
+* **Release:** al publicar un release en GitHub, el workflow `release.yml` compila el APK y lo adjunta al release como `FitTrackPro-<tag>.apk`, listo para descargar en el teléfono.
 * APK local: `npm run android:debug` (resultado en `android/app/build/outputs/apk/debug/`).
 
 ---
