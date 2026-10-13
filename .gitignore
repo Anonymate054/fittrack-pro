@@ -33,3 +33,6 @@ __pycache__/
 
 # Resultados extraídos de PDFs (contienen datos personales)
 src/data/results.json
+
+# Salida privada de scripts/extract_pdf.py
+private_data/

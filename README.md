@@ -64,6 +64,7 @@ cp src/data/progress_history.template.json src/data/progress_history.json
 * **El build nunca incluye datos privados:** `scripts/build_dist.js` omite `user_private_backup.json`, `progress_history.json`, `results.json`, `user_logs.json`, `private_*`, `*.private.json` y cualquier PDF, así que no llegan ni a GitHub Pages ni al APK.
 * **En el teléfono:** tus datos entran solo con *Importar respaldo* y se guardan en el almacenamiento local de la app. El APK tiene desactivado el respaldo automático de Android para que esas mediciones no salgan del dispositivo.
 * `user_private_backup.json` en la raíz solo se carga automáticamente al trabajar en `localhost`.
+* `scripts/extract_pdf.py` guarda tus resultados y planes de alimentación en `private_data/` (ignorada en git). Los planes de `src/data/meal_plans.json` son datos demo; para ver los tuyos, impórtalos desde *Agregar Datos → Cargar PDF / Plan Nutricional* (archivo `private_data/meal_plans.json`).
 
 ---
 
