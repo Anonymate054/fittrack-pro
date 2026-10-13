@@ -134,7 +134,7 @@ jobs:
           cp "$apk" dist/FitTrackPro.apk
           ls -la dist/FitTrackPro.apk
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v3
         with:
