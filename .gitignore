@@ -26,3 +26,10 @@ android/app/src/main/assets/public/
 Thumbs.db
 .idea/
 .vscode/
+
+# Python
+__pycache__/
+*.pyc
+
+# Resultados extraídos de PDFs (contienen datos personales)
+src/data/results.json

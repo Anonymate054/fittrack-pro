@@ -56,13 +56,14 @@ cd android
 
 ## 🛡️ Privacidad de Datos y Plantillas
 
-Este repositorio es **100% agnóstico y libre de datos personales confidenciales**. 
-
-* Si deseas cargar tu propio historial antropométrico en la app, puedes copiar la plantilla genérica:
+* **Datos de progreso:** la app muestra `src/data/progress_history.demo.json` (datos ficticios). Para usar tu historial real en local, copia la plantilla:
 ```bash
 cp src/data/progress_history.template.json src/data/progress_history.json
 ```
-El archivo `src/data/progress_history.json` está protegido en `.gitignore` para garantizar que tus datos reales nunca se suban a repositorios públicos.
+  `src/data/progress_history.json` está en `.gitignore`.
+* **El build nunca incluye datos privados:** `scripts/build_dist.js` omite `user_private_backup.json`, `progress_history.json`, `results.json`, `user_logs.json`, `private_*`, `*.private.json` y cualquier PDF, así que no llegan ni a GitHub Pages ni al APK.
+* **En el teléfono:** tus datos entran solo con *Importar respaldo* y se guardan en el almacenamiento local de la app. El APK tiene desactivado el respaldo automático de Android para que esas mediciones no salgan del dispositivo.
+* `user_private_backup.json` en la raíz solo se carga automáticamente al trabajar en `localhost`.
 
 ---
 

@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSP: solo recursos propios + miniaturas/reproductor de YouTube. 'unsafe-inline' en script-src
+       es necesario para el script que inyecta Capacitor en el WebView de Android. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://img.youtube.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <title>Fitness & Nutrición Tracker</title>
 
   <!-- PWA Manifest -->
@@ -666,20 +669,5 @@
   <!-- Scripts -->
   <script type="module" src="./src/app.js?v=1790049252466"></script>
 
-  <!-- Service Worker Registration & Cache Invalidation -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        for (let registration of registrations) {
-          registration.unregister();
-        }
-      });
-    }
-    if ('caches' in window) {
-      caches.keys().then(names => {
-        for (let name of names) caches.delete(name);
-      });
-    }
-  </script>
 </body>
 </html>

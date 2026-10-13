@@ -15,7 +15,6 @@ eval_map = [
 ]
 
 json_path = 'src/data/progress_history.json'
-js_path = 'src/data/progress_history.js'
 
 with open(json_path, 'r', encoding='utf-8') as f:
     history = json.load(f)
@@ -108,8 +107,5 @@ for item in history:
 
 with open(json_path, 'w', encoding='utf-8') as f:
     json.dump(history, f, ensure_ascii=False, indent=2)
-
-with open(js_path, 'w', encoding='utf-8') as f:
-    f.write('export const progressHistoryData = ' + json.dumps(history, ensure_ascii=False, indent=2) + ';\nexport default progressHistoryData;\n')
 
 print('✓ Extraction complete!')

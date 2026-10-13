@@ -10,12 +10,30 @@ if (fs.existsSync(distDir)) {
 }
 fs.mkdirSync(distDir, { recursive: true });
 
+// Archivos con datos personales: nunca deben llegar a dist/ (GitHub Pages) ni al APK.
+// Los datos privados del usuario entran solo con "Importar respaldo" dentro de la app.
+const PRIVATE_FILE_PATTERNS = [
+  /^user_private_backup\.json$/,
+  /^progress_history\.json$/,
+  /^user_logs\.json$/,
+  /^results\.json$/,
+  /^private_/,
+  /\.private\.json$/,
+  /\.pdf$/i
+];
+
+const isPrivateFile = (name) => PRIVATE_FILE_PATTERNS.some((re) => re.test(name));
+
 function copyRecursiveSync(src, dest) {
   const stats = fs.statSync(src);
   if (stats.isDirectory()) {
     if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
     fs.readdirSync(src).forEach((childItemName) => {
       if (childItemName === 'node_modules' || childItemName === 'dist' || childItemName === '.venv' || childItemName === '.git' || childItemName === 'android') {
+        return;
+      }
+      if (isPrivateFile(childItemName)) {
+        console.log(`⚠ Omitido del build por contener datos privados: ${childItemName}`);
         return;
       }
       copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
@@ -26,7 +44,7 @@ function copyRecursiveSync(src, dest) {
 }
 
 // Copiar archivos raíz clave y src
-const filesToCopy = ['index.html', 'manifest.json', 'sw.js', 'user_private_backup.json', 'src'];
+const filesToCopy = ['index.html', 'manifest.json', 'sw.js', 'src'];
 filesToCopy.forEach(item => {
   const itemPath = path.join(srcDir, item);
   if (fs.existsSync(itemPath)) {
@@ -45,6 +63,13 @@ if (fs.existsSync(distHtmlPath)) {
   htmlContent = htmlContent.replace(/app\.js\?v=\d+/g, `app.js?v=${Date.now()}`);
   htmlContent = htmlContent.replace(/v\d+\.\d+\.\d+/g, pkgVersion);
   fs.writeFileSync(distHtmlPath, htmlContent, 'utf8');
+}
+
+// Versionar la caché del service worker para que cada release reemplace la anterior
+const distSwPath = path.join(distDir, 'sw.js');
+if (fs.existsSync(distSwPath)) {
+  const swContent = fs.readFileSync(distSwPath, 'utf8').replace(/__APP_VERSION__/g, pkgVersion);
+  fs.writeFileSync(distSwPath, swContent, 'utf8');
 }
 
 // Inyectar versión en root y dist
