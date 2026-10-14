@@ -3,7 +3,6 @@ import json
 import re
 import pypdf
 import pdfplumber
-import fitz as pymupdf
 
 def parse_date_sort_key(date_str):
     try:
@@ -402,6 +401,7 @@ def extract_training_plan(pdf_path):
         "abdomen_table": []
     }
     
+    import fitz as pymupdf  # PyMuPDF solo se necesita para las rutinas
     doc = pymupdf.open(pdf_path)
     p1_ex = []
     p2_ex = []

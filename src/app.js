@@ -1184,7 +1184,7 @@ function renderProgressView() {
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 0.88rem;">
             <div>🔹 Masa Ósea: <strong>${esc(item.masa_osea_kg)} kg</strong></div>
             <div>🔹 Masa Residual: <strong>${esc(item.masa_residual_kg)} kg</strong></div>
-            <div>🔹 Masa Piel: <strong>${esc(item.masa_piel_kg)} kg</strong></div>
+            ${item.masa_piel_kg != null ? `<div>🔹 Masa Piel: <strong>${esc(item.masa_piel_kg)} kg</strong></div>` : ''}
             <div>🔹 Disminuir Grasa (Obj): <strong>${esc(item.disminuir_grasa_kg)} kg</strong></div>
             <div>🔹 Aumentar Músculo (Obj): <strong>${esc(item.aumentar_musculo_kg)} kg</strong></div>
             <div>🔹 Peso Ideal Estimado: <strong>${esc(item.peso_ideal_kg)} kg</strong></div>
