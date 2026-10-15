@@ -11,6 +11,13 @@ updates:
     directory: /android
     schedule:
       interval: monthly
+    # Capacitor 8 usa AGP 8.x, que no funciona con Gradle 9.6+ (API interna eliminada).
+    # Gradle y AGP se suben juntos a mano cuando Capacitor lo soporte.
+    ignore:
+      - dependency-name: gradle-wrapper
+        update-types: ["version-update:semver-major"]
+      - dependency-name: com.android.tools.build:gradle
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
