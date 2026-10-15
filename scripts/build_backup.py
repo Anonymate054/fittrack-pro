@@ -225,13 +225,6 @@ def detect_kind(pdf_path):
     return None
 
 
-def pdf_created(pdf_path):
-    """Fecha de creación del PDF como AAAAMMDD (metadato CreationDate), o '' si no existe."""
-    with pdfplumber.open(pdf_path) as pdf:
-        m = re.match(r'(?:D:)?(\d{8})', str(pdf.metadata.get('CreationDate') or ''))
-    return m.group(1) if m else ''
-
-
 def find_pdfs(folder):
     for dirpath, _, filenames in os.walk(folder):
         for f in sorted(filenames):
@@ -268,8 +261,6 @@ def build_backup(folder, base=None, log=print):
                 item = extract_pdf.extract_meal_plan(path)
             else:
                 item = extract_pdf.extract_training_plan(path)
-                # Las rutinas no traen fecha impresa: se usa la fecha de creación del PDF para ordenarlas
-                item['created'] = pdf_created(path)
             found[kind].append(item)
             log(f'  ✓ {name}')
         except Exception as err:  # un PDF dañado no debe detener los demás
@@ -279,10 +270,14 @@ def build_backup(folder, base=None, log=print):
     backup = {k: v for k, v in base.items()}
     backup['resultsData'] = number_results(merge(base.get('resultsData', []), found['results'], 'filename'))
     meals = merge(base.get('nutritionData', []), found['meal'], 'file')
+    for meal in meals:  # respaldos anteriores guardaban la fecha con un salto de línea
+        if isinstance(meal.get('date'), str):
+            meal['date'] = meal['date'].strip()
+            meal['sort_key'] = extract_pdf.parse_date_sort_key(meal['date'])
     backup['nutritionData'] = sorted(meals, key=lambda x: x.get('sort_key', '00000000'), reverse=True)
     workouts = merge(base.get('workoutData', []), found['training'], 'file')
-    # La más reciente primero (la app muestra la primera como [RECIENTE]); sin fecha, al final
-    backup['workoutData'] = sorted(workouts, key=lambda x: x.get('created') or '', reverse=True)
+    # La más reciente primero (fecha de creación del PDF); sin fecha quedan al final
+    backup['workoutData'] = sorted(workouts, key=lambda x: x.get('sort_key', '00000000'), reverse=True)
     counts = {k: len(v) for k, v in found.items()}
     return backup, counts, errors
 
