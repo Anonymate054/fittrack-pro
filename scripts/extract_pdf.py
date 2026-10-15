@@ -396,7 +396,8 @@ DAY_GROUPS = {
     "2": "(PIERNA Y GLÚTEO)",
     "3": "(PECHO, BÍCEPS Y TRÍCEPS)",
 }
-NOTE_RE = re.compile(r"^\*?(DP \(|RP \(|Deber[aá]s|Realizar|Se realizar|Al terminar|Re\w*tencia)", re.IGNORECASE)
+# Renglones de nota que cierran un bloque: "DP (DROP SET) = ...", "CT (CLUSTER) = ...", "Al terminar un SET...", etc.
+NOTE_RE = re.compile(r"^\*?((?-i:[A-Z]{2,3}) \(|Deber[aá]s|Realizar|Se realizar|Al terminar|Re\w*tencia)", re.IGNORECASE)
 COLUMN_RE = re.compile(r"^(Tempo|As/Re|SET|REPS|Carga)$")
 
 
@@ -557,9 +558,8 @@ def extract_training_plan(pdf_path):
             continue
         day_m = re.search(r"D[ÍI]A\s*(\d)", label)
         num = day_m.group(1) if day_m else str(len(data["days"]) + 1)
-        group_m = re.search(r"\(.*\)", table["label"])
-        group = group_m.group(0).upper() if group_m else DAY_GROUPS.get(num, "")
-        group = re.sub(r"\b([B-DF-NP-XZ]) (?=[A-ZÁÉÍÓÚ]{2})", r"\1", group)  # "G LUTEO" -> "GLUTEO"
+        # Nombre canónico del día (los PDFs lo escriben distinto: "GLUTEO", "BICEPS, TRICEPS"...)
+        group = DAY_GROUPS.get(num, "")
         data["days"].append({
             "day_name": f"FUERZA DÍA {num} {group}".strip(),
             "biseries": [
