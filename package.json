@@ -1,6 +1,6 @@
 {
   "name": "fittrack-pro",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "private": true,
   "description": "Seguimiento offline de entrenamiento, nutrición y progresión antropométrica (PWA + APK Android con Capacitor).",
   "author": "Anonymate054",

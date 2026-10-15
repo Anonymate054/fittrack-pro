@@ -59,6 +59,9 @@ export function extractBackupSections(imported) {
   for (const [key, value] of Object.entries(candidates)) {
     if (isArrayOfObjects(value) && value.length > 0) sections[key] = value;
   }
+  for (const key of ['nutritionData', 'workoutData']) {
+    if (sections[key]) sections[key] = sortByDocumentDate(sections[key]);
+  }
   return sections;
 }
 
@@ -72,4 +75,30 @@ export function normalizePhantomSeries(values, expected) {
   const nums = values.filter(v => typeof v === 'number' && Number.isFinite(v));
   if (nums.length === expected * 2 - 1) return nums.filter((_, i) => i % 2 === 0);
   return nums.slice(0, expected);
+}
+
+// Clave AAAAMMDD de un plan: usa sort_key o, si falta, su fecha DD/MM/AAAA.
+function planDateKey(plan) {
+  if (/^\d{8}$/.test(String(plan?.sort_key ?? ''))) return String(plan.sort_key);
+  const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(String(plan?.date ?? '').trim());
+  return m ? `${m[3]}${m[2].padStart(2, '0')}${m[1].padStart(2, '0')}` : '';
+}
+
+/**
+ * Ordena planes (rutinas o planes de alimentación) del más reciente al más antiguo
+ * según la fecha del documento. Los que no tienen fecha quedan al final, en su orden original.
+ */
+export function sortByDocumentDate(plans) {
+  if (!Array.isArray(plans)) return plans;
+  return plans
+    .map((plan, i) => ({ plan, i, key: planDateKey(plan) }))
+    .sort((a, b) => (b.key > a.key ? 1 : b.key < a.key ? -1 : a.i - b.i))
+    .map(({ plan }) => plan);
+}
+
+// Texto de repeticiones: "12" -> "12 reps"; "40 seg" o "15,12,20 reps" se dejan como vienen.
+export function formatReps(reps) {
+  const text = String(reps ?? '').trim();
+  if (!text) return '--';
+  return /[a-z]/i.test(text) && !/^\d[\d,\s-]*(DP|RP|CT)$/i.test(text) ? text : `${text} reps`;
 }

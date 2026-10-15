@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { esc, extractBackupSections, getYouTubeVideoId, isArrayOfObjects, isPlainObject, normalizePhantomSeries } from '../../src/utils.js';
+import { esc, extractBackupSections, formatReps, getYouTubeVideoId, isArrayOfObjects, isPlainObject, normalizePhantomSeries, sortByDocumentDate } from '../../src/utils.js';
 
 describe('esc', () => {
   it('escapa los caracteres especiales de HTML', () => {
@@ -110,5 +110,34 @@ describe('normalizePhantomSeries', () => {
   it('recorta series largas e ignora valores no numéricos', () => {
     expect(normalizePhantomSeries([1, 2, 'x', 3, 4], 3)).toEqual([1, 2, 3]);
     expect(normalizePhantomSeries(undefined, 7)).toEqual([]);
+  });
+});
+
+describe('sortByDocumentDate', () => {
+  it('pone primero el documento con la fecha más reciente', () => {
+    const plans = [
+      { file: 'a', sort_key: '20251007' },
+      { file: 'b', date: '20/06/2026' },
+      { file: 'c' },
+      { file: 'd', sort_key: '20260412' }
+    ];
+    expect(sortByDocumentDate(plans).map(p => p.file)).toEqual(['b', 'd', 'a', 'c']);
+  });
+
+  it('ordena las rutinas al importar un respaldo', () => {
+    const sections = extractBackupSections({
+      workoutData: [{ days: [], sort_key: '20251007' }, { days: [], sort_key: '20260620' }]
+    });
+    expect(sections.workoutData.map(p => p.sort_key)).toEqual(['20260620', '20251007']);
+  });
+});
+
+describe('formatReps', () => {
+  it('agrega "reps" solo cuando el PDF no trae la unidad', () => {
+    expect(formatReps(12)).toBe('12 reps');
+    expect(formatReps('15,12,12DP')).toBe('15,12,12DP reps');
+    expect(formatReps('40 seg')).toBe('40 seg');
+    expect(formatReps('15,12,20 reps')).toBe('15,12,20 reps');
+    expect(formatReps('')).toBe('--');
   });
 });

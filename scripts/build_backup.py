@@ -4,7 +4,7 @@ Busca PDFs en la carpeta indicada (y sus subcarpetas), detecta el tipo de cada u
 o contenido y los procesa:
   RESULTADOS *.pdf              -> resultsData   (composición corporal, somatotipo y Phantom)
   Plan de Alimentación *.pdf    -> nutritionData (scripts/extract_pdf.py)
-  PLAN DE ENTRENAMIENTO *.pdf   -> workoutData   (scripts/extract_pdf.py, requiere PyMuPDF)
+  PLAN DE ENTRENAMIENTO *.pdf   -> workoutData   (scripts/extract_pdf.py, con pdfplumber)
 
 Si ya existe un respaldo (--base, por defecto el mismo archivo de salida), se conserva y solo se
 agregan o reemplazan los registros de los PDFs encontrados (se identifican por nombre de archivo).
