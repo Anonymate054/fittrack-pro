@@ -1,6 +1,6 @@
 {
   "name": "fittrack-pro",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "private": true,
   "description": "Seguimiento offline de entrenamiento, nutrición y progresión antropométrica (PWA + APK Android con Capacitor).",
   "author": "Anonymate054",
@@ -13,6 +13,7 @@
     "build": "node scripts/build_dist.js",
     "lint": "eslint .",
     "validate:data": "node scripts/validate_data.js",
+    "backup": "python3 scripts/build_backup.py",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check": "npm run lint && npm run validate:data && npm test",

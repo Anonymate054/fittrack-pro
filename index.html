@@ -576,19 +576,19 @@
           <!-- Botón 1: Nutrición -->
           <label class="btn btn-secondary" style="cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;">
             <span>🥗 Cargar PDF / Plan Nutricional</span>
-            <input type="file" id="importNutritionPdfInput" accept=".pdf,.json" style="display: none;">
+            <input type="file" id="importNutritionPdfInput" accept=".pdf,.json,application/pdf,application/json,application/octet-stream,text/plain" style="display: none;">
           </label>
 
           <!-- Botón 2: Entrenamientos -->
           <label class="btn btn-secondary" style="cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;">
             <span>🏋️ Cargar PDF / Rutina Gimnasio</span>
-            <input type="file" id="importWorkoutPdfInput" accept=".pdf,.json" style="display: none;">
+            <input type="file" id="importWorkoutPdfInput" accept=".pdf,.json,application/pdf,application/json,application/octet-stream,text/plain" style="display: none;">
           </label>
 
           <!-- Botón 3: Evaluaciones -->
           <label class="btn btn-secondary" style="cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;">
             <span>📊 Cargar PDF / Evaluación Antropométrica</span>
-            <input type="file" id="importProgressPdfInput" accept=".pdf,.json" style="display: none;">
+            <input type="file" id="importProgressPdfInput" accept=".pdf,.json,application/pdf,application/json,application/octet-stream,text/plain" style="display: none;">
           </label>
         </div>
 
@@ -624,7 +624,9 @@
           <button id="exportBackupBtn" class="btn btn-secondary">📤 Exportar Respaldo Completo (JSON)</button>
           <label class="btn btn-secondary" style="cursor: pointer; margin-bottom: 0;">
             📥 Importar Respaldo (JSON)
-            <input type="file" id="importBackupInput" accept=".json" style="display: none;">
+            <!-- Sin "accept": en Android un .json pasado por WhatsApp/Drive/USB suele quedar registrado como
+                 application/octet-stream o text/plain y el selector lo deshabilita. El contenido se valida al leerlo. -->
+            <input type="file" id="importBackupInput" style="display: none;">
           </label>
           <button id="resetUserLogsBtn" class="btn btn-secondary" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
             🗑️ Limpiar Cargas de Gimnasio

@@ -43,9 +43,19 @@ npm run test:e2e        # tests de la app en Chromium (Playwright)
 npm run check           # lint + datos + tests unitarios
 ```
 
-### 5. Scripts de extracción de PDFs (opcional)
+### 5. Respaldo con tus datos desde PDFs
+Un solo comando procesa una carpeta de PDFs (y sus subcarpetas) y genera `user_private_backup.json`, listo para *Ajustes → Importar Respaldo (JSON)* en el teléfono:
 ```bash
 pip install -r scripts/requirements.txt
+npm run backup                                    # carpeta files/
+python3 scripts/build_backup.py ~/Descargas/pdfs  # cualquier otra carpeta
+```
+* Detecta cada PDF por su nombre o contenido: `RESULTADOS*` (evaluaciones), `Plan de Alimentación*` y `PLAN DE ENTRENAMIENTO*`.
+* Si `user_private_backup.json` ya existe, lo actualiza: agrega los PDFs nuevos y reemplaza los que tengan el mismo nombre. Basta con una carpeta que tenga solo los PDFs nuevos.
+* Las evaluaciones se ordenan por fecha y se numeran de nuevo (Evaluación I, II, ...).
+
+### 6. Scripts de extracción de PDFs (avanzado)
+```bash
 python3 scripts/extract_pdf.py   # lee files/ y escribe en src/data/ y private_data/
 # Somatotipo y valores Z Phantom (8 pliegues, 7 circunferencias) leídos de las gráficas del PDF:
 python3 scripts/extract_all_phantom_data.py                                  # src/data/progress_history.json

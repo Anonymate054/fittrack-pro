@@ -1184,7 +1184,7 @@ function renderProgressView() {
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 0.88rem;">
             <div>🔹 Masa Ósea: <strong>${esc(item.masa_osea_kg)} kg</strong></div>
             <div>🔹 Masa Residual: <strong>${esc(item.masa_residual_kg)} kg</strong></div>
-            <div>🔹 Masa Piel: <strong>${esc(item.masa_piel_kg)} kg</strong></div>
+            ${item.masa_piel_kg != null ? `<div>🔹 Masa Piel: <strong>${esc(item.masa_piel_kg)} kg</strong></div>` : ''}
             <div>🔹 Disminuir Grasa (Obj): <strong>${esc(item.disminuir_grasa_kg)} kg</strong></div>
             <div>🔹 Aumentar Músculo (Obj): <strong>${esc(item.aumentar_musculo_kg)} kg</strong></div>
             <div>🔹 Peso Ideal Estimado: <strong>${esc(item.peso_ideal_kg)} kg</strong></div>
@@ -1712,7 +1712,7 @@ function initAddDataView() {
 
       const reader = new FileReader();
 
-      if (file.name.endsWith('.json')) {
+      if (file.name.toLowerCase().endsWith('.json')) {
         reader.onload = (event) => {
           try {
             const parsed = JSON.parse(event.target.result);
@@ -1836,6 +1836,7 @@ function initSettings() {
   if (importInput) {
     importInput.onchange = (e) => {
       const file = e.target.files[0];
+      e.target.value = ''; // permite volver a elegir el mismo archivo
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (event) => {
