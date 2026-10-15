@@ -152,7 +152,7 @@ def extract_meal_plan(pdf_path):
         p1_text = pdf.pages[0].extract_text() or ""
         date_m = re.search(r"FECHA:\s*([\d\s/]+)", p1_text)
         if date_m:
-            data["date"] = date_m.group(1).replace(" ", "")
+            data["date"] = re.sub(r"\s", "", date_m.group(1))
             data["sort_key"] = parse_date_sort_key(data["date"])
 
         full_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
@@ -321,6 +321,8 @@ def get_technique_description(filename):
         return "DROP SET: Realizar la serie hasta la repetición objetivo con la carga pesada, reducir de inmediato un 20-30% de peso sin descanso y continuar hasta completar las reps de remate."
     elif "CONTRASTE" in fn:
         return "CONTRASTE: Combinar un ejercicio de carga pesada/fuerza con un ejercicio explosivo de la misma zona muscular sin descanso intermedio."
+    elif "CLUSTER" in fn:
+        return "CLUSTER (CT): Completar el total de repeticiones indicado (ej. 12 CT) con un poco más de peso, descansando 15s cada vez que falles hasta llegar a las reps. Al terminar el set, descansar 90s antes del siguiente."
     elif "PROG LINEAL" in fn:
         return "PROGRESIÓN LINEAL: Incrementar la carga de forma progresiva serie a serie manteniendo la técnica impecable."
     else:
@@ -403,6 +405,12 @@ def extract_training_plan(pdf_path):
     
     import fitz as pymupdf  # PyMuPDF solo se necesita para las rutinas
     doc = pymupdf.open(pdf_path)
+    # Las rutinas no traen fecha impresa: se usa la fecha de creación del PDF (D:AAAAMMDD...)
+    created = re.match(r"D:(\d{4})(\d{2})(\d{2})", doc.metadata.get("creationDate") or "")
+    if created:
+        y, m, d = created.groups()
+        data["date"] = f"{d}/{m}/{y}"
+        data["sort_key"] = f"{y}{m}{d}"
     p1_ex = []
     p2_ex = []
     abd_ex = []

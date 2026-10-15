@@ -270,9 +270,14 @@ def build_backup(folder, base=None, log=print):
     backup = {k: v for k, v in base.items()}
     backup['resultsData'] = number_results(merge(base.get('resultsData', []), found['results'], 'filename'))
     meals = merge(base.get('nutritionData', []), found['meal'], 'file')
+    for meal in meals:  # respaldos anteriores guardaban la fecha con un salto de línea
+        if isinstance(meal.get('date'), str):
+            meal['date'] = meal['date'].strip()
+            meal['sort_key'] = extract_pdf.parse_date_sort_key(meal['date'])
     backup['nutritionData'] = sorted(meals, key=lambda x: x.get('sort_key', '00000000'), reverse=True)
     workouts = merge(base.get('workoutData', []), found['training'], 'file')
-    backup['workoutData'] = sorted(workouts, key=lambda x: 0 if 'REST PAUSE' in x.get('file', '').upper() else 1)
+    # La más reciente primero (fecha de creación del PDF); sin fecha quedan al final
+    backup['workoutData'] = sorted(workouts, key=lambda x: x.get('sort_key', '00000000'), reverse=True)
     counts = {k: len(v) for k, v in found.items()}
     return backup, counts, errors
 

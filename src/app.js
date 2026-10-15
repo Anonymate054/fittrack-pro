@@ -9,7 +9,7 @@ const state = {
   currentTab: 'tab-nutrition',
   isWorkoutDay: true,
   currentWeek: 1,
-  selectedPlanIndex: 0, // 0 es siempre el plan MÁS RECIENTE (REST PAUSE)
+  selectedPlanIndex: 0, // 0 es siempre la rutina MÁS RECIENTE
   selectedRoutineIndex: 0,
   selectedMealPlanIndex: 0, // 0 es siempre el plan MÁS RECIENTE
   nutritionData: [],
@@ -298,13 +298,13 @@ function renderHomeView() {
   const progSummary = document.getElementById('homeProgSummary');
 
   if (nutSummary && state.nutritionData && state.nutritionData.length > 0) {
-    const activePlan = state.nutritionData[state.selectedPlanIndex || 0];
-    const planName = activePlan?.plan_name || activePlan?.technique_title || 'Plan Nutricional';
+    const activePlan = state.nutritionData[state.selectedMealPlanIndex || 0];
+    const planName = activePlan?.plan_name || (activePlan?.kcal ? `${activePlan.kcal} Kcal` : 'Plan Nutricional');
     nutSummary.textContent = `⭐ ${state.nutritionData.length} Planes disponibles (Activo: ${planName})`;
   }
 
   if (workSummary && state.workoutData && state.workoutData.length > 0) {
-    const activeWork = state.workoutData[state.selectedRoutineIndex || 0];
+    const activeWork = state.workoutData[state.selectedPlanIndex || 0];
     const workName = activeWork?.technique_title || activeWork?.plan_name || 'Rutina de Gimnasio';
     workSummary.textContent = `🏋️ ${state.workoutData.length} Rutinas disponibles (Activa: ${workName})`;
   }
@@ -570,18 +570,18 @@ function renderWorkoutView() {
 
   if (!state.workoutData || state.workoutData.length === 0) return;
 
-  if (planSelector.children.length === 0) {
-    planSelector.innerHTML = state.workoutData.map((plan, idx) => `
-      <option value="${idx}">${idx === 0 ? '⭐ [RECIENTE] ' : ''}${esc(plan.technique_title || plan.plan_name || plan.technique_name || 'Rutina ' + (idx + 1))}</option>
-    `).join('');
+  // Se reconstruye en cada render para reflejar rutinas recién importadas
+  if (state.selectedPlanIndex >= state.workoutData.length) state.selectedPlanIndex = 0;
+  planSelector.innerHTML = state.workoutData.map((plan, idx) => `
+    <option value="${idx}">${idx === 0 ? '⭐ [RECIENTE] ' : ''}${esc((plan.technique_title || plan.plan_name || plan.technique_name || 'Rutina ' + (idx + 1)) + (plan.date ? ` (${plan.date})` : ''))}</option>
+  `).join('');
 
-    planSelector.value = state.selectedPlanIndex;
-    planSelector.onchange = (e) => {
-      state.selectedPlanIndex = parseInt(e.target.value);
-      state.selectedRoutineIndex = 0;
-      renderWorkoutView();
-    };
-  }
+  planSelector.value = state.selectedPlanIndex;
+  planSelector.onchange = (e) => {
+    state.selectedPlanIndex = parseInt(e.target.value);
+    state.selectedRoutineIndex = 0;
+    renderWorkoutView();
+  };
 
   const activePlan = state.workoutData[state.selectedPlanIndex] || state.workoutData[0];
 
@@ -1862,6 +1862,10 @@ function initSettings() {
           }
 
           if (restoredCount > 0) {
+            // Mostrar lo más reciente del respaldo recién importado
+            state.selectedPlanIndex = 0;
+            state.selectedRoutineIndex = 0;
+            state.selectedMealPlanIndex = 0;
             alert('✅ Respaldo privado importado y guardado correctamente en tu dispositivo.');
             renderAllViews();
             updateStatusInfo();
