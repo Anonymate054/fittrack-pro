@@ -9,7 +9,7 @@ const state = {
   currentTab: 'tab-nutrition',
   isWorkoutDay: true,
   currentWeek: 1,
-  selectedPlanIndex: 0, // 0 es siempre el plan MÁS RECIENTE (REST PAUSE)
+  selectedPlanIndex: 0, // 0 es siempre el plan MÁS RECIENTE
   selectedRoutineIndex: 0,
   selectedMealPlanIndex: 0, // 0 es siempre el plan MÁS RECIENTE
   nutritionData: [],
@@ -570,18 +570,18 @@ function renderWorkoutView() {
 
   if (!state.workoutData || state.workoutData.length === 0) return;
 
-  if (planSelector.children.length === 0) {
-    planSelector.innerHTML = state.workoutData.map((plan, idx) => `
-      <option value="${idx}">${idx === 0 ? '⭐ [RECIENTE] ' : ''}${esc(plan.technique_title || plan.plan_name || plan.technique_name || 'Rutina ' + (idx + 1))}</option>
-    `).join('');
+  // Se reconstruye en cada render: tras importar un respaldo la lista de rutinas cambia
+  if (state.selectedPlanIndex >= state.workoutData.length) state.selectedPlanIndex = 0;
+  planSelector.innerHTML = state.workoutData.map((plan, idx) => `
+    <option value="${idx}">${idx === 0 ? '⭐ [RECIENTE] ' : ''}${esc(plan.technique_title || plan.plan_name || plan.technique_name || 'Rutina ' + (idx + 1))}</option>
+  `).join('');
 
-    planSelector.value = state.selectedPlanIndex;
-    planSelector.onchange = (e) => {
-      state.selectedPlanIndex = parseInt(e.target.value);
-      state.selectedRoutineIndex = 0;
-      renderWorkoutView();
-    };
-  }
+  planSelector.value = state.selectedPlanIndex;
+  planSelector.onchange = (e) => {
+    state.selectedPlanIndex = parseInt(e.target.value);
+    state.selectedRoutineIndex = 0;
+    renderWorkoutView();
+  };
 
   const activePlan = state.workoutData[state.selectedPlanIndex] || state.workoutData[0];
 
