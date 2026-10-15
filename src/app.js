@@ -1712,7 +1712,7 @@ function initAddDataView() {
 
       const reader = new FileReader();
 
-      if (file.name.endsWith('.json')) {
+      if (file.name.toLowerCase().endsWith('.json')) {
         reader.onload = (event) => {
           try {
             const parsed = JSON.parse(event.target.result);
@@ -1836,6 +1836,7 @@ function initSettings() {
   if (importInput) {
     importInput.onchange = (e) => {
       const file = e.target.files[0];
+      e.target.value = ''; // permite volver a elegir el mismo archivo
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (event) => {
