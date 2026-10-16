@@ -4,6 +4,11 @@ apply plugin: 'com.android.application'
 def appPackage = new groovy.json.JsonSlurper().parse(rootProject.file('../package.json'))
 def appVersionParts = appPackage.version.tokenize('.').collect { it.toInteger() }
 def appVersionCode = appVersionParts[0] * 10000 + appVersionParts[1] * 100 + appVersionParts[2]
+// En CI, ANDROID_VERSION_CODE sube en cada commit para que cada APK se instale encima del anterior
+def envVersionCode = System.getenv('ANDROID_VERSION_CODE')
+if (envVersionCode) {
+    appVersionCode = envVersionCode.toInteger()
+}
 
 android {
     namespace = "com.fittrack.pro"
@@ -23,6 +28,8 @@ android {
     }
     // Firma de release: se activa solo si existen las variables de entorno (secretos de CI).
     // Sin ellas, assembleRelease genera un APK sin firmar y el flujo normal es assembleDebug.
+    // Android solo instala una actualización encima si la firma es la misma: por eso la keystore
+    // de release debe ser siempre la misma (la de debug de CI cambia en cada ejecución).
     def releaseKeystore = System.getenv('ANDROID_KEYSTORE_PATH')
     signingConfigs {
         if (releaseKeystore) {

@@ -69,8 +69,17 @@ python3 scripts/extract_all_phantom_data.py --json user_private_backup.json  # r
 * `npm run build` genera `dist/` e inyecta la versión de `package.json` (la única fuente de versión; Gradle también la lee de ahí). No modifica archivos fuente.
 * **GitHub Actions** (`.github/workflows/ci.yml`) corre lint, validación de datos y tests en cada PR y push. En `main` además despliega `dist/` a GitHub Pages.
 * **APK:** el mismo workflow compila el APK, lo publica como artefacto `FitTrackPro-apk` (pestaña *Actions*) y, en `main`, lo sube junto al sitio: se descarga desde *Ajustes → App para Android* o en `/FitTrackPro.apk` de GitHub Pages. Antes de subirlo verifica que no contenga datos privados.
-  * Sin secretos configurados se genera un APK de debug.
-  * Para un APK de release firmado, crea un keystore y agrega en *Settings → Secrets and variables → Actions*: `ANDROID_KEYSTORE_BASE64` (el keystore en base64), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` y `ANDROID_KEY_PASSWORD`.
+  * **Actualizar sin desinstalar:** Android solo instala un APK encima del anterior si está firmado con la misma clave y su `versionCode` es mayor. El `versionCode` lo calcula CI (100000 + número de commits), así que sube solo en cada build. La firma necesita una keystore fija guardada como secreto.
+  * Sin secretos configurados se genera un APK de debug firmado con una clave distinta en cada ejecución: para instalar uno nuevo hay que desinstalar el anterior (y se borran los datos de la app). CI lo avisa con un *warning*.
+  * Para un APK de release firmado siempre con la misma clave, crea la keystore una sola vez y guárdala en un lugar seguro (si se pierde, habrá que desinstalar otra vez):
+
+    ```bash
+    keytool -genkeypair -v -keystore fittrack-release.keystore -alias fittrack \
+      -keyalg RSA -keysize 2048 -validity 10000
+    base64 -w0 fittrack-release.keystore > keystore.b64
+    ```
+
+    Luego agrega en *Settings → Secrets and variables → Actions*: `ANDROID_KEYSTORE_BASE64` (contenido de `keystore.b64`), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` (`fittrack`) y `ANDROID_KEY_PASSWORD` (con keystores PKCS12, la misma contraseña que la keystore). Nunca subas la keystore al repositorio.
 * **Release:** al publicar un release en GitHub, el workflow `release.yml` compila el APK y lo adjunta al release como `FitTrackPro-<tag>.apk`, listo para descargar en el teléfono.
 * APK local: `npm run android:debug` (resultado en `android/app/build/outputs/apk/debug/`).
 
