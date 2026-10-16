@@ -391,6 +391,145 @@ def parse_exercise_line(line_str, video_url):
         "weeks": weeks_data
     }
 
+DAY_GROUPS = {
+    "1": "(ESPALDA Y HOMBRO)",
+    "2": "(PIERNA Y GLÚTEO)",
+    "3": "(PECHO, BÍCEPS Y TRÍCEPS)",
+}
+# Renglones de nota que cierran un bloque: "DP (DROP SET) = ...", "CT (CLUSTER) = ...", "Al terminar un SET...", etc.
+NOTE_RE = re.compile(r"^\*?((?-i:[A-Z]{2,3}) \(|Deber[aá]s|Realizar|Se realizar|Al terminar|Re\w*tencia)", re.IGNORECASE)
+COLUMN_RE = re.compile(r"^(Tempo|As/Re|SET|REPS|Carga)$")
+
+
+def _page_lines(page, tol=2.5):
+    """Agrupa los caracteres de la página en renglones de tokens (texto, x0, x1, top).
+
+    Se trabaja con caracteres y no con extract_words porque la página 2 de las
+    rutinas viene escalada y pdfplumber parte las palabras ("C url de biceps").
+    """
+    chars = sorted(page.chars, key=lambda c: (c["top"], c["x0"]))
+    rows = []
+    for c in chars:
+        if rows and abs(c["top"] - rows[-1][0]) <= tol:
+            rows[-1][1].append(c)
+        else:
+            rows.append([c["top"], [c]])
+    lines = []
+    for top, cs in rows:
+        cs.sort(key=lambda c: c["x0"])
+        tokens, cur, last = [], [], None
+        for c in cs:
+            gap = last is not None and c["x0"] - last > 2.5
+            if c["text"].isspace() or gap:
+                if cur:
+                    tokens.append(cur)
+                cur = []
+                if c["text"].isspace():
+                    last = c["x1"]
+                    continue
+            cur.append(c)
+            last = c["x1"]
+        if cur:
+            tokens.append(cur)
+        toks = [("".join(ch["text"] for ch in t), t[0]["x0"], t[-1]["x1"]) for t in tokens]
+        if toks:
+            lines.append((top, toks))
+    return lines
+
+
+def _number(value):
+    return int(value) if value.isdigit() else value
+
+
+def _parse_training_page(page):
+    """Devuelve las tablas de la página: [{label, blocks: [{exercises, note}]}]."""
+    lines = _page_lines(page)
+    headers = [i for i, (_, toks) in enumerate(lines)
+               if {"EJERCICIO", "HIPERVINCULO"} <= {t[0] for t in toks}]
+    tables = []
+    for n, hi in enumerate(headers):
+        h_top, h_toks = lines[hi]
+        cols = [((x0 + x1) / 2, txt) for txt, x0, x1 in h_toks if COLUMN_RE.match(txt)]
+        if len(cols) < 12:
+            continue
+        name_end = min(x for x, txt in cols) - 12
+        stop = headers[n + 1] if n + 1 < len(headers) else len(lines)
+        # Las etiquetas de la izquierda (FUERZA DÍA 1, ABDOMEN...) están centradas en la tabla,
+        # así que se buscan entre esta cabecera y la siguiente.
+        label_lines, entries = [], []
+        for top, toks in lines[hi + 1:stop]:
+            label = [t for t in toks if t[1] < 105]
+            rest = [t for t in toks if t[1] >= 105]
+            if label:
+                label_lines.append(" ".join(t[0] for t in label))
+            if not rest:
+                continue
+            text = " ".join(t[0] for t in rest)
+            if NOTE_RE.match(text):
+                entries.append({"top": top, "note": text})
+                continue
+            if "INTESIDAD" in text or "INTENSIDAD" in text:
+                break  # empieza la tabla de cardio
+            name = " ".join(t[0] for t in rest if t[1] < name_end)
+            url = next((t[0] for t in rest if t[0].startswith("http")), "")
+            cells = {}
+            for txt, x0, x1 in rest:
+                if x0 < name_end or txt.startswith("http"):
+                    continue
+                idx = min(range(len(cols)), key=lambda i: abs(cols[i][0] - (x0 + x1) / 2))
+                cells.setdefault(idx, []).append(txt)
+            entries.append({"top": top, "name": name, "url": url, "cells": cells})
+
+        # Cuando el nombre ocupa dos renglones de la celda, los números o la liga quedan
+        # en un renglón sin nombre: se pegan al ejercicio más cercano.
+        exercises = [e for e in entries if e.get("name")]
+        for e in entries:
+            if "note" in e or e.get("name") or not exercises:
+                continue
+            target = min(exercises, key=lambda x: abs(x["top"] - e["top"]))
+            if abs(target["top"] - e["top"]) > 8:
+                continue
+            target["url"] = target["url"] or e["url"]
+            for idx, vals in e["cells"].items():
+                target["cells"].setdefault(idx, vals)
+
+        blocks, current = [], []
+        for e in entries:
+            if "note" in e:
+                if current:
+                    blocks.append({"exercises": current, "note": e["note"]})
+                    current = []
+                elif blocks:  # nota de cierre debajo de la última serie
+                    blocks[-1]["note"] = f'{blocks[-1]["note"]} {e["note"]}'.strip()
+                continue
+            if not e.get("name"):
+                continue
+            weeks, field = [], {}
+            for idx, (_, col) in enumerate(cols):
+                value = re.sub(r",\s+", ",", " ".join(e["cells"].get(idx, [])))
+                key = {"Tempo": "tempo", "As/Re": "tempo", "SET": "sets", "REPS": "reps"}.get(col)
+                if key:
+                    field[key] = value
+                if col == "Carga":
+                    weeks.append({"week": len(weeks) + 1, "tempo": field.get("tempo", ""),
+                                  "sets": _number(field.get("sets", "")), "reps": _number(field.get("reps", ""))})
+                    field = {}
+            weeks = weeks[:4]
+            first = weeks[0] if weeks else {"tempo": "", "sets": "", "reps": ""}
+            current.append({
+                "name": e["name"],
+                "video_url": e["url"],
+                "tempo": first["tempo"],
+                "sets": first["sets"],
+                "reps": first["reps"],
+                "weeks": weeks,
+            })
+        if current:
+            blocks.append({"exercises": current, "note": ""})
+        tables.append({"label": " ".join(label_lines), "blocks": blocks})
+    return tables
+
+
 def extract_training_plan(pdf_path):
     filename = os.path.basename(pdf_path)
     desc = get_technique_description(filename)
@@ -402,86 +541,32 @@ def extract_training_plan(pdf_path):
         "cardio_schedule": "CARDIOVASCULAR (Intervalos de 2 min): 10 min en Corredora o Elíptica alternando 2 min al 60-70% FC y 2 min al 70-80% FC.",
         "abdomen_table": []
     }
-    
-    import fitz as pymupdf  # PyMuPDF solo se necesita para las rutinas
-    doc = pymupdf.open(pdf_path)
-    # Las rutinas no traen fecha impresa: se usa la fecha de creación del PDF (D:AAAAMMDD...)
-    created = re.match(r"D:(\d{4})(\d{2})(\d{2})", doc.metadata.get("creationDate") or "")
-    if created:
-        y, m, d = created.groups()
-        data["date"] = f"{d}/{m}/{y}"
-        data["sort_key"] = f"{y}{m}{d}"
-    p1_ex = []
-    p2_ex = []
-    abd_ex = []
 
-    for page_num, target_list in [(0, p1_ex), (1, p2_ex)]:
-        if page_num >= len(doc):
+    with pdfplumber.open(pdf_path) as pdf:
+        # Las rutinas no traen fecha impresa: se usa la fecha de creación del PDF (D:AAAAMMDD...)
+        created = re.match(r"D:(\d{4})(\d{2})(\d{2})", str(pdf.metadata.get("CreationDate") or ""))
+        if created:
+            y, m, d = created.groups()
+            data["date"] = f"{d}/{m}/{y}"
+            data["sort_key"] = f"{y}{m}{d}"
+        tables = [t for page in pdf.pages for t in _parse_training_page(page)]
+
+    for table in tables:
+        label = table["label"].upper()
+        if "ABDOMEN" in label:
+            data["abdomen_table"] = [ex for b in table["blocks"] for ex in b["exercises"]]
             continue
-        page = doc[page_num]
-        blocks = page.get_text("blocks")
-        for b in blocks:
-            text = b[4].strip()
-            lines = [l.strip() for l in text.split("\n") if l.strip()]
-            if not lines:
-                continue
-            first_line = lines[0]
-            if any(first_line.startswith(prefix) for prefix in ['(P)', '(E)', '(H)', '(B)', '(T)', '(I)', '(G)', '(A)', 'Press', 'Curl', 'Remo', 'Sentadilla', 'Peck', 'Fondos', 'Jalón', 'Elevación', 'Leg', 'Abductor', 'Patada', 'Step', 'Desplantes', 'Pantorrilla', 'Pájaro', 'Plancha', 'Crunch', 'Flutter', 'Cruces', 'Adductor', 'Aperturas', 'CrossOver', 'Copa', 'Fondos']):
-                if any(k in first_line for k in ['EJERCICIO', 'FUERZA', 'CALENTAMIENTO', 'CARDIOVASCULAR', 'ABDOMEN', 'SEMANA', 'VOLUMEN']):
-                    continue
-                url = ""
-                for l in lines:
-                    if 'youtube.com' in l or 'youtu.be' in l:
-                        url = l
-                        break
-                
-                clean_name = re.sub(r'https?://[^\s]+', '', first_line).strip()
-                ex_obj = {
-                    "name": clean_name,
-                    "video_url": url,
-                    "tempo": "2,1,2",
-                    "sets": 4,
-                    "reps": "10-12"
-                }
-                
-                if page_num == 1 and any(a in clean_name.lower() for a in ['silla romana', 'elevación de piernas', 'plancha', 'crunch', 'flutter', 'cruces', 'superman']):
-                    abd_ex.append(ex_obj)
-                else:
-                    target_list.append(ex_obj)
-
-    def build_biseries(ex_list):
-        blocks = []
-        for i in range(0, len(ex_list), 2):
-            pair = ex_list[i:i+2]
-            blocks.append({
-                "biserie_id": (i // 2) + 1,
-                "exercises": pair,
-                "note": desc
-            })
-        return blocks
-
-    def build_day3_blocks(ex_list):
-        if len(ex_list) >= 9:
-            return [
-                {"biserie_id": 1, "exercises": ex_list[0:2], "note": desc},
-                {"biserie_id": 2, "exercises": ex_list[2:4], "note": desc},
-                {"biserie_id": 3, "exercises": ex_list[4:6], "note": desc},
-                {"biserie_id": 4, "exercises": ex_list[6:9], "note": desc}
-            ]
-        else:
-            return build_biseries(ex_list)
-
-    day1_exercises = p1_ex[:8]
-    day2_exercises = p1_ex[8:16]
-    day3_exercises = p2_ex
-
-    data["days"] = [
-        {"day_name": "FUERZA DÍA 1 (ESPALDA Y HOMBRO)", "biseries": build_biseries(day1_exercises)},
-        {"day_name": "FUERZA DÍA 2 (PIERNA Y GLÚTEO)", "biseries": build_biseries(day2_exercises)},
-        {"day_name": "FUERZA DÍA 3 (PECHO, BÍCEPS Y TRÍCEPS)", "biseries": build_day3_blocks(day3_exercises)}
-    ]
-
-    data["abdomen_table"] = abd_ex
+        day_m = re.search(r"D[ÍI]A\s*(\d)", label)
+        num = day_m.group(1) if day_m else str(len(data["days"]) + 1)
+        # Nombre canónico del día (los PDFs lo escriben distinto: "GLUTEO", "BICEPS, TRICEPS"...)
+        group = DAY_GROUPS.get(num, "")
+        data["days"].append({
+            "day_name": f"FUERZA DÍA {num} {group}".strip(),
+            "biseries": [
+                {"biserie_id": i + 1, "exercises": b["exercises"], "note": b["note"] or desc}
+                for i, b in enumerate(table["blocks"])
+            ],
+        })
 
     return data
 

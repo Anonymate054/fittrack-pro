@@ -1,7 +1,7 @@
 // LOGICA PRINCIPAL DE LA APLICACIÓN FITNESS & NUTRICIÓN (FITTRACK PRO v10)
 
 import { renderMuscleSVG } from './components/svg_muscles.js';
-import { esc, isPlainObject, isArrayOfObjects, getYouTubeVideoId, extractBackupSections, normalizePhantomSeries } from './utils.js';
+import { esc, isPlainObject, isArrayOfObjects, getYouTubeVideoId, extractBackupSections, normalizePhantomSeries, sortByDocumentDate, formatReps } from './utils.js';
 
 // ESTADO GLOBAL DE LA APP
 const state = {
@@ -261,6 +261,10 @@ async function loadAppData() {
   if (isArrayOfObjects(savedNut) && savedNut.length > 0) state.nutritionData = savedNut;
   if (isArrayOfObjects(savedWork) && savedWork.length > 0) state.workoutData = savedWork;
   if (isArrayOfObjects(savedProg) && savedProg.length > 0) state.resultsData = savedProg;
+
+  // La opción 0 de cada selector es siempre el documento con la fecha más reciente
+  state.nutritionData = sortByDocumentDate(state.nutritionData);
+  state.workoutData = sortByDocumentDate(state.workoutData);
 
   // Combinar insumos personalizados
   (state.customFoods || []).forEach(cf => {
@@ -649,9 +653,9 @@ function renderAbdomenTable(abdList) {
     return `
       <tr>
         <td><strong>${esc(ex.name)}</strong></td>
-        <td>${esc(wData.tempo || '2,1,2')}</td>
+        <td>${esc(wData.tempo || '--')}</td>
         <td>${esc(wData.sets || 3)}</td>
-        <td>${esc(wData.reps)} reps</td>
+        <td>${esc(formatReps(wData.reps))}</td>
         <td>
           ${ytId ? `
             <a href="https://www.youtube.com/watch?v=${ytId}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--accent-color); font-weight: 600;" title="Ver video">
@@ -738,7 +742,7 @@ function renderSubblocks(biseriesList, techniqueTitle) {
             <div class="exercise-title">${esc(ex.name)}</div>
             <div class="exercise-meta">
               <span>⏱ Tempo: ${esc(weekData.tempo)}</span>
-              <span>🎯 Repeticiones Fijadas (Semana ${state.currentWeek}): <strong>${esc(weekData.sets)} series × ${esc(weekData.reps)} reps</strong></span>
+              <span>🎯 Repeticiones Fijadas (Semana ${state.currentWeek}): <strong>${esc(weekData.sets)} series × ${esc(formatReps(weekData.reps))}</strong></span>
             </div>
             ${sessionInputHtml}
           </div>
@@ -856,7 +860,7 @@ function openExerciseModal(ex) {
     <!-- Parámetros Principales del Ejercicio -->
     <div style="background: var(--input-bg); border: 1px solid var(--card-border); padding: 14px; border-radius: 10px; margin-bottom: 14px;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; font-size: 0.88rem;">
-        <div><strong>🔢 Carga Programada:</strong><br>${esc(weekData.sets)} series × ${esc(weekData.reps)} reps</div>
+        <div><strong>🔢 Carga Programada:</strong><br>${esc(weekData.sets)} series × ${esc(formatReps(weekData.reps))}</div>
         <div><strong>⏱ Tempo de Ejecución:</strong><br>${esc(weekData.tempo)}</div>
         <div><strong>📅 Semana Activa:</strong><br>Semana ${state.currentWeek} de 4</div>
       </div>
