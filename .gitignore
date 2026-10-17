@@ -38,3 +38,8 @@ src/data/results.json
 private_data/
 test-results/
 playwright-report/
+
+# Keystore de firma Android: nunca al repositorio
+*.keystore
+*.jks
+keystore.b64
